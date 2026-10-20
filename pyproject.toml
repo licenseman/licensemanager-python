@@ -1,6 +1,6 @@
 [project]
 name = "licenseman-sdk"
-version = "0.1.0"
+version = "0.1.1"
 description = "LicenseManager API"
 authors = [
   {name = "OpenAPI Generator Community",email = "team@openapitools.org"},
@@ -8,6 +8,16 @@ authors = [
 readme = "README.md"
 keywords = ["OpenAPI", "OpenAPI-Generator", "LicenseManager API"]
 requires-python = ">=3.10"
+classifiers = [
+  "Programming Language :: Python :: 3",
+  "Programming Language :: Python :: 3.10",
+  "Programming Language :: Python :: 3.11",
+  "Programming Language :: Python :: 3.12",
+  "Programming Language :: Python :: 3.13",
+  "Programming Language :: Python :: 3.14",
+  "Operating System :: OS Independent",
+  "Typing :: Typed",
+]
 
 dependencies = [
   "urllib3 (>=2.7.0,<3.0.0)",
