@@ -1,0 +1,32 @@
+# Written by the licensemanager SDK release script: changes made here are overwritten.
+# Publishes the package to PyPI when a version tag is pushed, with PyPI trusted publishing (OIDC): no token needed.
+name: Publish
+
+on:
+  push:
+    tags: ["v*"]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  id-token: write
+
+jobs:
+  publish:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v5
+      - uses: astral-sh/setup-uv@v7
+      - name: Check the version isn't published yet
+        id: check
+        run: |
+          read -r name version < <(uv run --no-project python -c 'import tomllib; p = tomllib.load(open("pyproject.toml", "rb"))["project"]; print(p["name"], p["version"])')
+          if curl -fsS -o /dev/null "https://pypi.org/pypi/$name/$version/json"; then
+            echo "$name $version is already published"
+            echo "published=true" >> "$GITHUB_OUTPUT"
+          fi
+      - if: steps.check.outputs.published != 'true'
+        run: uv build
+      # Also generates the provenance attestations.
+      - if: steps.check.outputs.published != 'true'
+        uses: pypa/gh-action-pypi-publish@release/v1
