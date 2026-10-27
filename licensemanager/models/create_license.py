@@ -40,9 +40,10 @@ class CreateLicense(BaseModel):
     max_offline_duration_seconds: Optional[Annotated[int, Field(le=2147483647, strict=True, ge=3600)]] = Field(default=None, description="Longest the applications can run offline with the license, in seconds. At least one hour (`3600`). Defaults to the one of the policy.", alias="maxOfflineDurationSeconds", json_schema_extra={"examples": [604800]})
     price: Optional[PriceInput] = None
     max_version: Optional[LicenseMaxVersionInput] = Field(default=None, alias="maxVersion")
+    cancellable_until: Optional[datetime] = Field(default=None, description="End of the money back guarantee: until then, the customer can cancel the license from the customer portal, or with a token. `null` to not let them. Defaults to the creation date plus the policy's `moneyBackGuaranteeDays`, or `null` when it has none.", alias="cancellableUntil", json_schema_extra={"examples": ["2026-02-14T09:30:00.000Z"]})
     send_key: Optional[StrictBool] = Field(default=None, description="`true` emails the key to the customer once the license is created, like `sendLicenseKeys`. Sent in the background: a failed email doesn't fail the creation. In test products, it's only sent when the customer's email is a member's of the organization. Defaults to `false`.", alias="sendKey", json_schema_extra={"examples": [True]})
     additional_properties: Dict[str, Any] = {}
-    __properties: ClassVar[List[str]] = ["email", "key", "policyId", "expiresAt", "meta", "maxMachines", "maxOfflineDurationSeconds", "price", "maxVersion", "sendKey"]
+    __properties: ClassVar[List[str]] = ["email", "key", "policyId", "expiresAt", "meta", "maxMachines", "maxOfflineDurationSeconds", "price", "maxVersion", "cancellableUntil", "sendKey"]
 
     model_config = ConfigDict(
         validate_by_name=True,
@@ -116,6 +117,11 @@ class CreateLicense(BaseModel):
         if self.price is None and "price" in self.model_fields_set:
             _dict['price'] = None
 
+        # set to None if cancellable_until (nullable) is None
+        # and model_fields_set contains the field
+        if self.cancellable_until is None and "cancellable_until" in self.model_fields_set:
+            _dict['cancellableUntil'] = None
+
         return _dict
 
     @classmethod
@@ -137,6 +143,7 @@ class CreateLicense(BaseModel):
             "maxOfflineDurationSeconds": obj.get("maxOfflineDurationSeconds"),
             "price": PriceInput.from_dict(obj["price"]) if obj.get("price") is not None else None,
             "maxVersion": LicenseMaxVersionInput.from_dict(obj["maxVersion"]) if obj.get("maxVersion") is not None else None,
+            "cancellableUntil": obj.get("cancellableUntil"),
             "sendKey": obj.get("sendKey")
         })
         # store additional fields in additional_properties

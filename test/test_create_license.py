@@ -49,6 +49,7 @@ class TestCreateLicense(unittest.TestCase):
                     version = '2.3', 
                     lock_major_at = '2026-02-15T09:30:00.000Z', 
                     lock_minor_at = '2027-01-15T09:30:00.000Z', ),
+                cancellable_until = '2026-02-14T09:30:00.000Z',
                 send_key = True
             )
         else:

@@ -4,6 +4,7 @@ All URIs are relative to *https://api.licensemanager.dev*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
+[**cancel_license**](LicensesApi.md#cancel_license) | **POST** /v1/licenses/{id}/cancel | Cancel a license
 [**create_license**](LicensesApi.md#create_license) | **POST** /v1/products/{productId}/licenses | Create a license
 [**delete_license**](LicensesApi.md#delete_license) | **DELETE** /v1/licenses/{id} | Delete a license
 [**get_license**](LicensesApi.md#get_license) | **GET** /v1/licenses/{id} | Get a license
@@ -15,6 +16,111 @@ Method | HTTP request | Description
 [**update_license**](LicensesApi.md#update_license) | **PATCH** /v1/licenses/{id} | Update a license
 [**validate_key**](LicensesApi.md#validate_key) | **POST** /v1/products/{productId}/validate-key | Validate a license key
 
+
+# **cancel_license**
+> License cancel_license(id, cancel_license)
+
+Cancel a license
+
+Cancels the license right away: validating its key then fails with `license_expired`, like an expired license, and its status is `canceled`. A cancellation can't be undone.
+
+Customers can cancel their licenses until their `cancellableUntil`, the end of their money back guarantee: tokens can't cancel a license past it, or without one. API keys and sessions can cancel any license.
+
+When the license was bought through the Stripe integration, its payment is refunded in the background, unless the integration disables `autoRefund`, its API key lacks the optional Refunds: Write permission (`canRefund`), or `refund` is `false`: the refund is its price paid, taxes included, and its id is set as `stripeRefundId`. The customer is emailed a confirmation, and the owners and admins of the organization are told about the cancellation and its refund. In test products, the customer is only emailed when their email is a member's of the organization.
+
+Records a `license.canceled` event, then a `license.refunded` or `license.refund_failed` one once the refund is done.
+
+**Token access**: customer, license tokens with the `license:cancel` permission (or the matching write one). A token reaches the license it's scoped to, or the licenses of its customer.
+
+**Required role permission**: `license:cancel` when called with a session, granted by the member's role. API keys aren't limited by roles.
+
+### Example
+
+* Api Key Authentication (apiKey):
+* Bearer (JWT) Authentication (token):
+
+```python
+import licensemanager
+from licensemanager.models.cancel_license import CancelLicense
+from licensemanager.models.license import License
+from licensemanager.rest import ApiException
+from pprint import pprint
+
+# Defining the host is optional and defaults to https://api.licensemanager.dev
+# See configuration.py for a list of all supported configuration parameters.
+configuration = licensemanager.Configuration(
+    host = "https://api.licensemanager.dev"
+)
+
+# The client must configure the authentication and authorization parameters
+# in accordance with the API server security policy.
+# Examples for each auth method are provided below, use the example that
+# satisfies your auth use case.
+
+# Configure API key authorization: apiKey
+configuration.api_key['apiKey'] = os.environ["API_KEY"]
+
+# Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
+# configuration.api_key_prefix['apiKey'] = 'Bearer'
+
+# Configure Bearer authorization (JWT): token
+configuration = licensemanager.Configuration(
+    access_token = os.environ["BEARER_TOKEN"]
+)
+
+# Enter a context with an instance of the API client
+with licensemanager.ApiClient(configuration) as api_client:
+    # Create an instance of the API class
+    api_instance = licensemanager.LicensesApi(api_client)
+    id = 'l3Nv8KwB' # str | 
+    cancel_license = licensemanager.CancelLicense() # CancelLicense | 
+
+    try:
+        # Cancel a license
+        api_response = api_instance.cancel_license(id, cancel_license)
+        print("The response of LicensesApi->cancel_license:\n")
+        pprint(api_response)
+    except Exception as e:
+        print("Exception when calling LicensesApi->cancel_license: %s\n" % e)
+```
+
+
+
+### Parameters
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **id** | **str**|  | 
+ **cancel_license** | [**CancelLicense**](CancelLicense.md)|  | 
+
+### Return type
+
+[**License**](License.md)
+
+### Authorization
+
+[apiKey](../README.md#apiKey), [token](../README.md#token)
+
+### HTTP request headers
+
+ - **Content-Type**: application/json
+ - **Accept**: application/json
+
+### HTTP response details
+
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+**200** | Canceled license |  -  |
+**401** | &#x60;unauthorized&#x60;: no credentials. &#x60;invalid_api_key&#x60;: the API key doesn&#39;t exist, was revoked or has expired. &#x60;invalid_token&#x60;: the token&#39;s signature is invalid, it has expired, or the resource it&#39;s scoped to was deleted |  -  |
+**402** | &#x60;plan_limit_exceeded&#x60;: the organization stayed over its plan&#39;s limits after the grace period, its API is blocked until it upgrades. &#x60;plan_limit_reached&#x60;: creating the resource would go over the plan&#39;s limit |  -  |
+**403** | &#x60;token_not_allowed&#x60;: the endpoint doesn&#39;t accept tokens, or not of this type. &#x60;insufficient_scope&#x60;: the token lacks the permission. &#x60;no_active_organization&#x60; or &#x60;forbidden&#x60;: the session has no organization, or isn&#39;t a member of the one requested |  -  |
+**404** | License not found |  -  |
+**409** | &#x60;already_canceled&#x60;: the license is already canceled. &#x60;not_cancellable&#x60;: for tokens, the license has no money back guarantee, or it has ended |  -  |
+**422** | &#x60;validation_error&#x60;: invalid path, query or body, with the &#x60;issues&#x60; |  -  |
+**429** | &#x60;rate_limited&#x60;: the API key made more than 10 requests in the last second. Wait for the &#x60;Retry-After&#x60; seconds |  -  |
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **create_license**
 > License create_license(product_id, create_license)
@@ -28,6 +134,8 @@ Without a `policyId`, the license follows the product's default policy.
 Without an `expiresAt`, the license expires after the duration of its policy, or never when the policy has none. `expiresAt: null` makes it never expire.
 
 Without a `price`, the price paid for the license is unknown: it's left out of the revenue stats.
+
+Without a `cancellableUntil`, the customer can cancel the license during the policy's `moneyBackGuaranteeDays` after its creation, or never when the policy has none.
 
 The values of `maxVersion` left out are taken from the max version of the policy: its hard-coded version, or the times after the creation of the license its versions lock.
 
@@ -821,7 +929,7 @@ Update a license
 
 The key, policy and customer of a license can't be changed: sending them does nothing.
 
-The changes apply to the next validations of the key, not to the license tokens `validateKey` already returned, which stay valid until they expire. Lowering `maxMachines` doesn't deactivate machines: the ones already active keep validating, and new ones are refused until enough are deactivated.
+The changes apply to the next validations of the key, not to the license tokens `validateKey` already returned, which stay valid until they expire. Lowering `maxMachines` doesn't deactivate machines: the ones already active keep validating, and new ones replace them one at a time when the product has `autoMachineChange`, or are refused until enough are deactivated.
 
 **Required role permission**: `license:update` when called with a session, granted by the member's role. API keys aren't limited by roles.
 
@@ -917,7 +1025,9 @@ The license must allow the `version`: up to its `maxVersion.version` when it has
 
 The machine with the `fingerprint` is created when the license has none, and activated when it's deactivated, unless the license is already active on its maximum number of machines. A machine that's already active is never refused for the maximum number of machines, even when it was lowered below the number of active machines. Its `version`, and its `name` and `platform` when given, are updated: they can't be cleared.
 
-The checks run in this order, and the first one failing answers: the license has expired, then it doesn't allow the version, then it's on its maximum number of machines. Each failure is recorded as a `license.validation_failed` event, except for keys that don't exist.
+Unless the product disables `autoMachineChange`, a new machine isn't refused when the license is on its maximum number of machines: it takes the place of the active machine validated the longest ago, which is deactivated with its `overriddenByMachineId` set to the new machine, and recorded as a `machine.deactivated` event. When a machine deactivated this way is validated again, it takes its place back: the machine that overrode it, and the ones that overrode that one in turn, are locked, with their `overriddenByMachineId` set to the machine coming back. A locked machine is always refused, so two machines can't take turns on one place.
+
+The checks run in this order, and the first one failing answers: the license has expired or was canceled, then it doesn't allow the version, then the machine is locked, then it's on its maximum number of machines. Each failure is recorded as a `license.validation_failed` event, except for keys that don't exist.
 
 Changes to the license, like deactivating the machine or shortening its expiration, don't revoke the tokens already returned: the application only sees them when it validates its key again, at the latest when its token expires.
 
@@ -983,7 +1093,7 @@ No authorization required
 |-------------|-------------|------------------|
 **200** | Signed license token |  -  |
 **402** | &#x60;plan_limit_exceeded&#x60;: the organization stayed over its plan&#39;s limits after the grace period |  -  |
-**403** | &#x60;license_expired&#x60;: the license has expired. &#x60;version_not_allowed&#x60;: the license doesn&#39;t allow the version, with the &#x60;latestAllowedVersion&#x60;. &#x60;machine_limit_reached&#x60;: the license is already active on its maximum number of machines |  -  |
+**403** | &#x60;license_expired&#x60;: the license has expired, or was canceled. &#x60;version_not_allowed&#x60;: the license doesn&#39;t allow the version, with the &#x60;latestAllowedVersion&#x60;. &#x60;machine_locked&#x60;: the machine was locked after the machine it overrode came back. &#x60;machine_limit_reached&#x60;: the license is already active on its maximum number of machines, and the product disables &#x60;autoMachineChange&#x60; or the machine isn&#39;t new |  -  |
 **404** | &#x60;not_found&#x60;: the product doesn&#39;t exist, or has no license with this key |  -  |
 **422** | &#x60;validation_error&#x60;: invalid body |  -  |
 

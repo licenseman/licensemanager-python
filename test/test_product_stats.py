@@ -59,11 +59,25 @@ class TestProductStats(unittest.TestCase):
                         by_day = [0, 2, 1], 
                         by_month = [4, 9, 12], )
                     ],
+                cancellation = licensemanager.models.cancellation_stats.CancellationStats(
+                    license_count = 80, 
+                    canceled_license_count = 4, 
+                    cancellable_license_count = 12, 
+                    rate = 0.05, 
+                    canceled_by_day = [0, 1, 0], 
+                    canceled_by_month = [1, 0, 2], 
+                    by_reason = [
+                        licensemanager.models.cancellation_stats_by_reason_inner.CancellationStats_byReason_inner(
+                            reason = 'too_expensive', 
+                            count = 2, )
+                        ], ),
                 revenue = [
                     licensemanager.models.revenue.Revenue(
                         currency = 'USD', 
                         license_count = 42, 
                         total = 2099.58, 
+                        canceled_license_count = 2, 
+                        canceled_total = 99.98, 
                         this_month = 349.93, 
                         last_month = 299.94, 
                         last30_days = 399.92, 
@@ -118,11 +132,25 @@ class TestProductStats(unittest.TestCase):
                         by_day = [0, 2, 1], 
                         by_month = [4, 9, 12], )
                     ],
+                cancellation = licensemanager.models.cancellation_stats.CancellationStats(
+                    license_count = 80, 
+                    canceled_license_count = 4, 
+                    cancellable_license_count = 12, 
+                    rate = 0.05, 
+                    canceled_by_day = [0, 1, 0], 
+                    canceled_by_month = [1, 0, 2], 
+                    by_reason = [
+                        licensemanager.models.cancellation_stats_by_reason_inner.CancellationStats_byReason_inner(
+                            reason = 'too_expensive', 
+                            count = 2, )
+                        ], ),
                 revenue = [
                     licensemanager.models.revenue.Revenue(
                         currency = 'USD', 
                         license_count = 42, 
                         total = 2099.58, 
+                        canceled_license_count = 2, 
+                        canceled_total = 99.98, 
                         this_month = 349.93, 
                         last_month = 299.94, 
                         last30_days = 399.92, 

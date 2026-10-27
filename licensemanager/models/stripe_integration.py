@@ -32,7 +32,7 @@ class StripeIntegration(BaseModel):
     """ # noqa: E501
     livemode: StrictBool = Field(description="Mode of the Stripe connection the product uses: live for live products, test for test products.")
     webhook_url_reachable: StrictBool = Field(description="Whether Stripe can reach the API's webhook URL. A local URL can't be: set `WEBHOOK_URL` on the server, like to a tunnel in development.", alias="webhookUrlReachable")
-    required_permissions: List[StripePermission] = Field(description="Permissions the restricted API key needs, and why. Every other permission can stay `None`.", alias="requiredPermissions")
+    required_permissions: List[StripePermission] = Field(description="Permissions the restricted API key needs, and why, the `optional` ones included. Every other permission can stay `None`.", alias="requiredPermissions")
     integration: Optional[Integration] = Field(description="The organization's Stripe connection in this mode, `null` when there's none.")
     mappings: List[IntegrationMapping] = Field(description="Stripe prices creating licenses of the product.")
     additional_properties: Dict[str, Any] = {}

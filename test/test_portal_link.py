@@ -35,13 +35,13 @@ class TestPortalLink(unittest.TestCase):
         model = PortalLink()
         if include_optional:
             return PortalLink(
-                url = 'https://app.example.com/portal/x7Kp2QaZ?token=eyJhbGciOi…',
+                url = 'https://app.licensemanager.dev/portal/x7Kp2QaZ?token=eyJhbGciOi…',
                 token = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9…',
                 expires_at = '2026-01-22T09:30:00.000Z'
             )
         else:
             return PortalLink(
-                url = 'https://app.example.com/portal/x7Kp2QaZ?token=eyJhbGciOi…',
+                url = 'https://app.licensemanager.dev/portal/x7Kp2QaZ?token=eyJhbGciOi…',
                 token = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9…',
                 expires_at = '2026-01-22T09:30:00.000Z',
         )

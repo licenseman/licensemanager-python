@@ -44,6 +44,7 @@ class TestPolicy(unittest.TestCase):
                 max_machines = 3,
                 max_offline_duration_seconds = 604800,
                 max_version = None,
+                money_back_guarantee_days = 30,
                 license_count = 12,
                 created_at = '2026-01-15T09:30:00.000Z',
                 updated_at = '2026-01-15T09:30:00.000Z'
@@ -59,6 +60,7 @@ class TestPolicy(unittest.TestCase):
                 max_machines = 3,
                 max_offline_duration_seconds = 604800,
                 max_version = None,
+                money_back_guarantee_days = 30,
                 license_count = 12,
                 created_at = '2026-01-15T09:30:00.000Z',
                 updated_at = '2026-01-15T09:30:00.000Z',

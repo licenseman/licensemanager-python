@@ -48,6 +48,7 @@ class TestProductList(unittest.TestCase):
                             accent_color = '#2563eb', 
                             return_url = 'https://example.com/account', 
                             return_domains = [example.com], ), 
+                        auto_machine_change = True, 
                         created_at = '2026-01-15T09:30:00.000Z', 
                         updated_at = '2026-01-15T09:30:00.000Z', )
                     ],
@@ -72,6 +73,7 @@ class TestProductList(unittest.TestCase):
                             accent_color = '#2563eb', 
                             return_url = 'https://example.com/account', 
                             return_domains = [example.com], ), 
+                        auto_machine_change = True, 
                         created_at = '2026-01-15T09:30:00.000Z', 
                         updated_at = '2026-01-15T09:30:00.000Z', )
                     ],

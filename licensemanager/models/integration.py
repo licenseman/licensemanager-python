@@ -34,14 +34,16 @@ class Integration(BaseModel):
     livemode: StrictBool = Field(description="Whether it's connected in live mode, for the live products, or in test mode, for the test products.")
     account_name: Optional[StrictStr] = Field(description="Name of the Stripe account, `null` when the API key can't read it.", alias="accountName", json_schema_extra={"examples": ["Acme Inc."]})
     api_key_hint: StrictStr = Field(description="Start and end of the API key, to recognize it.", alias="apiKeyHint", json_schema_extra={"examples": ["rk_live_…Ab3d"]})
-    webhook_url: StrictStr = Field(description="URL of the webhook endpoint created on the Stripe account.", alias="webhookUrl", json_schema_extra={"examples": ["https://api.example.com/v1/webhooks/stripe/i8Fz4QnRt"]})
+    webhook_url: StrictStr = Field(description="URL of the webhook endpoint created on the Stripe account.", alias="webhookUrl", json_schema_extra={"examples": ["https://api.licensemanager.dev/v1/webhooks/stripe/i8Fz4QnRt"]})
     status: IntegrationStatus
     status_reason: Optional[StrictStr] = Field(description="Why the integration isn't `active`, `null` when it is.", alias="statusReason", json_schema_extra={"examples": ["The API key can't manage webhook endpoints: give it the Webhook Endpoints: Write permission"]})
     last_checked_at: Optional[datetime] = Field(description="Last time its health was checked, done every day.", alias="lastCheckedAt")
     last_event_at: Optional[datetime] = Field(description="Last time it received an event from the provider.", alias="lastEventAt")
+    auto_refund: StrictBool = Field(description="Whether canceling a license bought through Stripe refunds its payment. On by default, always off when `canRefund` is false.", alias="autoRefund", json_schema_extra={"examples": [True]})
+    can_refund: StrictBool = Field(description="Whether the API key has the optional Refunds: Write permission, checked when connecting and every day. Without it, canceled licenses aren't refunded: refund their payments from Stripe.", alias="canRefund", json_schema_extra={"examples": [True]})
     created_at: datetime = Field(alias="createdAt")
     additional_properties: Dict[str, Any] = {}
-    __properties: ClassVar[List[str]] = ["id", "provider", "livemode", "accountName", "apiKeyHint", "webhookUrl", "status", "statusReason", "lastCheckedAt", "lastEventAt", "createdAt"]
+    __properties: ClassVar[List[str]] = ["id", "provider", "livemode", "accountName", "apiKeyHint", "webhookUrl", "status", "statusReason", "lastCheckedAt", "lastEventAt", "autoRefund", "canRefund", "createdAt"]
 
     @field_validator('provider')
     def provider_validate_enum(cls, value):
@@ -138,6 +140,8 @@ class Integration(BaseModel):
             "statusReason": obj.get("statusReason"),
             "lastCheckedAt": obj.get("lastCheckedAt"),
             "lastEventAt": obj.get("lastEventAt"),
+            "autoRefund": obj.get("autoRefund"),
+            "canRefund": obj.get("canRefund"),
             "createdAt": obj.get("createdAt")
         })
         # store additional fields in additional_properties

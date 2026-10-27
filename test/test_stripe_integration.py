@@ -41,7 +41,8 @@ class TestStripeIntegration(unittest.TestCase):
                     licensemanager.models.stripe_permission.StripePermission(
                         resource = 'Prices', 
                         access = 'Read', 
-                        reason = 'Lists your prices so you can choose which ones create licenses, and checks they can still be paid.', )
+                        reason = 'Lists your prices so you can choose which ones create licenses, and checks they can still be paid.', 
+                        optional = False, )
                     ],
                 integration = licensemanager.models.integration.Integration(
                     id = 'i8Fz4QnRt', 
@@ -49,11 +50,13 @@ class TestStripeIntegration(unittest.TestCase):
                     livemode = True, 
                     account_name = 'Acme Inc.', 
                     api_key_hint = 'rk_live_…Ab3d', 
-                    webhook_url = 'https://api.example.com/v1/webhooks/stripe/i8Fz4QnRt', 
+                    webhook_url = 'https://api.licensemanager.dev/v1/webhooks/stripe/i8Fz4QnRt', 
                     status = 'active', 
                     status_reason = 'The API key can't manage webhook endpoints: give it the Webhook Endpoints: Write permission', 
                     last_checked_at = datetime.datetime.strptime('2013-10-20 19:20:30.00', '%Y-%m-%d %H:%M:%S.%f'), 
                     last_event_at = datetime.datetime.strptime('2013-10-20 19:20:30.00', '%Y-%m-%d %H:%M:%S.%f'), 
+                    auto_refund = True, 
+                    can_refund = True, 
                     created_at = datetime.datetime.strptime('2013-10-20 19:20:30.00', '%Y-%m-%d %H:%M:%S.%f'), ),
                 mappings = [
                     licensemanager.models.integration_mapping.IntegrationMapping(
@@ -80,7 +83,8 @@ class TestStripeIntegration(unittest.TestCase):
                     licensemanager.models.stripe_permission.StripePermission(
                         resource = 'Prices', 
                         access = 'Read', 
-                        reason = 'Lists your prices so you can choose which ones create licenses, and checks they can still be paid.', )
+                        reason = 'Lists your prices so you can choose which ones create licenses, and checks they can still be paid.', 
+                        optional = False, )
                     ],
                 integration = licensemanager.models.integration.Integration(
                     id = 'i8Fz4QnRt', 
@@ -88,11 +92,13 @@ class TestStripeIntegration(unittest.TestCase):
                     livemode = True, 
                     account_name = 'Acme Inc.', 
                     api_key_hint = 'rk_live_…Ab3d', 
-                    webhook_url = 'https://api.example.com/v1/webhooks/stripe/i8Fz4QnRt', 
+                    webhook_url = 'https://api.licensemanager.dev/v1/webhooks/stripe/i8Fz4QnRt', 
                     status = 'active', 
                     status_reason = 'The API key can't manage webhook endpoints: give it the Webhook Endpoints: Write permission', 
                     last_checked_at = datetime.datetime.strptime('2013-10-20 19:20:30.00', '%Y-%m-%d %H:%M:%S.%f'), 
                     last_event_at = datetime.datetime.strptime('2013-10-20 19:20:30.00', '%Y-%m-%d %H:%M:%S.%f'), 
+                    auto_refund = True, 
+                    can_refund = True, 
                     created_at = datetime.datetime.strptime('2013-10-20 19:20:30.00', '%Y-%m-%d %H:%M:%S.%f'), ),
                 mappings = [
                     licensemanager.models.integration_mapping.IntegrationMapping(

@@ -20,7 +20,7 @@ from typing_extensions import Self
 
 class LicenseStatus(str, Enum):
     """
-    `expired` when the license has expired, `active` when a machine validated its key in the last 90 days, `inactive` otherwise.
+    `canceled` when the license was canceled, `expired` when it has expired, `active` when a machine validated its key in the last 90 days, `inactive` otherwise.
     """
 
     """
@@ -29,6 +29,7 @@ class LicenseStatus(str, Enum):
     ACTIVE = 'active'
     INACTIVE = 'inactive'
     EXPIRED = 'expired'
+    CANCELED = 'canceled'
     UNKNOWN_DEFAULT_OPEN_API = 'unknown_default_open_api'
 
     @classmethod

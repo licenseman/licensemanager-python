@@ -40,11 +40,13 @@ class TestIntegration(unittest.TestCase):
                 livemode = True,
                 account_name = 'Acme Inc.',
                 api_key_hint = 'rk_live_…Ab3d',
-                webhook_url = 'https://api.example.com/v1/webhooks/stripe/i8Fz4QnRt',
+                webhook_url = 'https://api.licensemanager.dev/v1/webhooks/stripe/i8Fz4QnRt',
                 status = 'active',
                 status_reason = 'The API key can't manage webhook endpoints: give it the Webhook Endpoints: Write permission',
                 last_checked_at = datetime.datetime.strptime('2013-10-20 19:20:30.00', '%Y-%m-%d %H:%M:%S.%f'),
                 last_event_at = datetime.datetime.strptime('2013-10-20 19:20:30.00', '%Y-%m-%d %H:%M:%S.%f'),
+                auto_refund = True,
+                can_refund = True,
                 created_at = datetime.datetime.strptime('2013-10-20 19:20:30.00', '%Y-%m-%d %H:%M:%S.%f')
             )
         else:
@@ -54,11 +56,13 @@ class TestIntegration(unittest.TestCase):
                 livemode = True,
                 account_name = 'Acme Inc.',
                 api_key_hint = 'rk_live_…Ab3d',
-                webhook_url = 'https://api.example.com/v1/webhooks/stripe/i8Fz4QnRt',
+                webhook_url = 'https://api.licensemanager.dev/v1/webhooks/stripe/i8Fz4QnRt',
                 status = 'active',
                 status_reason = 'The API key can't manage webhook endpoints: give it the Webhook Endpoints: Write permission',
                 last_checked_at = datetime.datetime.strptime('2013-10-20 19:20:30.00', '%Y-%m-%d %H:%M:%S.%f'),
                 last_event_at = datetime.datetime.strptime('2013-10-20 19:20:30.00', '%Y-%m-%d %H:%M:%S.%f'),
+                auto_refund = True,
+                can_refund = True,
                 created_at = datetime.datetime.strptime('2013-10-20 19:20:30.00', '%Y-%m-%d %H:%M:%S.%f'),
         )
         """

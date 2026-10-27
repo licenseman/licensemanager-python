@@ -14,7 +14,7 @@
 """  # noqa: E501
 
 
-__version__ = "0.1.1"
+__version__ = "0.2.0"
 
 # Define package exports
 __all__ = [
@@ -37,6 +37,10 @@ __all__ = [
     "ApiKeyError",
     "ApiAttributeError",
     "ApiException",
+    "CancelLicense",
+    "CancellationReason",
+    "CancellationStats",
+    "CancellationStatsByReasonInner",
     "ConnectStripe",
     "CreateCustomer",
     "CreateIntegrationMapping",
@@ -120,6 +124,7 @@ __all__ = [
     "StripePrice",
     "Token",
     "UpdateCustomer",
+    "UpdateIntegration",
     "UpdateIntegrationMapping",
     "UpdateLicense",
     "UpdatePolicy",
@@ -155,6 +160,10 @@ from licensemanager.exceptions import ApiAttributeError as ApiAttributeError
 from licensemanager.exceptions import ApiException as ApiException
 
 # import models into sdk package
+from licensemanager.models.cancel_license import CancelLicense as CancelLicense
+from licensemanager.models.cancellation_reason import CancellationReason as CancellationReason
+from licensemanager.models.cancellation_stats import CancellationStats as CancellationStats
+from licensemanager.models.cancellation_stats_by_reason_inner import CancellationStatsByReasonInner as CancellationStatsByReasonInner
 from licensemanager.models.connect_stripe import ConnectStripe as ConnectStripe
 from licensemanager.models.create_customer import CreateCustomer as CreateCustomer
 from licensemanager.models.create_integration_mapping import CreateIntegrationMapping as CreateIntegrationMapping
@@ -238,6 +247,7 @@ from licensemanager.models.stripe_permission import StripePermission as StripePe
 from licensemanager.models.stripe_price import StripePrice as StripePrice
 from licensemanager.models.token import Token as Token
 from licensemanager.models.update_customer import UpdateCustomer as UpdateCustomer
+from licensemanager.models.update_integration import UpdateIntegration as UpdateIntegration
 from licensemanager.models.update_integration_mapping import UpdateIntegrationMapping as UpdateIntegrationMapping
 from licensemanager.models.update_license import UpdateLicense as UpdateLicense
 from licensemanager.models.update_policy import UpdatePolicy as UpdatePolicy

@@ -8,6 +8,7 @@ Name | Type | Description | Notes
 **resource** | **str** |  | 
 **access** | **str** |  | 
 **reason** | **str** |  | 
+**optional** | **bool** | Whether the key can connect without it, losing what it&#39;s for, explained by &#x60;reason&#x60;. | 
 
 ## Example
 

@@ -26,6 +26,13 @@ class TestLicensesApi(unittest.TestCase):
     def tearDown(self) -> None:
         pass
 
+    def test_cancel_license(self) -> None:
+        """Test case for cancel_license
+
+        Cancel a license
+        """
+        pass
+
     def test_create_license(self) -> None:
         """Test case for create_license
 

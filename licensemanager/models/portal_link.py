@@ -28,8 +28,8 @@ class PortalLink(BaseModel):
     """
     PortalLink
     """ # noqa: E501
-    url: StrictStr = Field(description="Link to the customer portal, holding the token.", json_schema_extra={"examples": ["https://app.example.com/portal/x7Kp2QaZ?token=eyJhbGciOi…"]})
-    token: StrictStr = Field(description="Customer token in the link, with the `customer:read`, `license:read` and `machine:write` permissions.", json_schema_extra={"examples": ["eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9…"]})
+    url: StrictStr = Field(description="Link to the customer portal, holding the token.", json_schema_extra={"examples": ["https://app.licensemanager.dev/portal/x7Kp2QaZ?token=eyJhbGciOi…"]})
+    token: StrictStr = Field(description="Customer token in the link, with the `customer:read`, `license:read`, `license:cancel` and `machine:write` permissions.", json_schema_extra={"examples": ["eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9…"]})
     expires_at: datetime = Field(description="When the link stops working.", alias="expiresAt", json_schema_extra={"examples": ["2026-01-22T09:30:00.000Z"]})
     additional_properties: Dict[str, Any] = {}
     __properties: ClassVar[List[str]] = ["url", "token", "expiresAt"]

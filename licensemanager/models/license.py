@@ -47,9 +47,14 @@ class License(BaseModel):
     max_version: LicenseMaxVersion = Field(alias="maxVersion")
     price: Optional[Price]
     status: LicenseStatus
+    cancellable_until: Optional[datetime] = Field(description="End of the money back guarantee: until then, the customer can cancel the license from the customer portal, or with a token. Set from the policy's `moneyBackGuaranteeDays` when the license is created. `null` when the customer can't cancel it.", alias="cancellableUntil", json_schema_extra={"examples": ["2026-02-14T09:30:00.000Z"]})
+    canceled_at: Optional[datetime] = Field(description="When the license was canceled: validating its key fails since. `null` when it wasn't.", alias="canceledAt", json_schema_extra={"examples": ["2026-01-20T16:12:00.000Z"]})
+    cancellation_reason: Any = Field(alias="cancellationReason")
+    cancellation_comment: Optional[StrictStr] = Field(description="Comment given when the license was canceled. `null` when there's none.", alias="cancellationComment", json_schema_extra={"examples": ["I only needed it for one project."]})
+    stripe_refund_id: Optional[StrictStr] = Field(description="Id of the Stripe refund of the license's payment once it was canceled, through the Stripe integration. `null` otherwise.", alias="stripeRefundId", json_schema_extra={"examples": ["re_3MtwBwLkdIwHu7ix0Bs5rA2b"]})
     updated_at: datetime = Field(description="Last time the license's settings were edited, not when its key was validated.", alias="updatedAt", json_schema_extra={"examples": ["2026-01-15T09:30:00.000Z"]})
     additional_properties: Dict[str, Any] = {}
-    __properties: ClassVar[List[str]] = ["id", "productId", "policyId", "customerId", "key", "createdAt", "expiresAt", "meta", "stripePaymentIntentId", "maxMachines", "maxOfflineDurationSeconds", "activeMachineCount", "lastActivatedAt", "maxVersion", "price", "status", "updatedAt"]
+    __properties: ClassVar[List[str]] = ["id", "productId", "policyId", "customerId", "key", "createdAt", "expiresAt", "meta", "stripePaymentIntentId", "maxMachines", "maxOfflineDurationSeconds", "activeMachineCount", "lastActivatedAt", "maxVersion", "price", "status", "cancellableUntil", "canceledAt", "cancellationReason", "cancellationComment", "stripeRefundId", "updatedAt"]
 
     model_config = ConfigDict(
         validate_by_name=True,
@@ -98,6 +103,9 @@ class License(BaseModel):
         # override the default output from pydantic by calling `to_dict()` of price
         if self.price:
             _dict['price'] = self.price.to_dict()
+        # override the default output from pydantic by calling `to_dict()` of cancellation_reason
+        if self.cancellation_reason:
+            _dict['cancellationReason'] = self.cancellation_reason.to_dict()
         # puts key-value pairs in additional_properties in the top level
         if self.additional_properties is not None:
             for _key, _value in self.additional_properties.items():
@@ -133,6 +141,26 @@ class License(BaseModel):
         if self.price is None and "price" in self.model_fields_set:
             _dict['price'] = None
 
+        # set to None if cancellable_until (nullable) is None
+        # and model_fields_set contains the field
+        if self.cancellable_until is None and "cancellable_until" in self.model_fields_set:
+            _dict['cancellableUntil'] = None
+
+        # set to None if canceled_at (nullable) is None
+        # and model_fields_set contains the field
+        if self.canceled_at is None and "canceled_at" in self.model_fields_set:
+            _dict['canceledAt'] = None
+
+        # set to None if cancellation_comment (nullable) is None
+        # and model_fields_set contains the field
+        if self.cancellation_comment is None and "cancellation_comment" in self.model_fields_set:
+            _dict['cancellationComment'] = None
+
+        # set to None if stripe_refund_id (nullable) is None
+        # and model_fields_set contains the field
+        if self.stripe_refund_id is None and "stripe_refund_id" in self.model_fields_set:
+            _dict['stripeRefundId'] = None
+
         return _dict
 
     @classmethod
@@ -161,6 +189,11 @@ class License(BaseModel):
             "maxVersion": LicenseMaxVersion.from_dict(obj["maxVersion"]) if obj.get("maxVersion") is not None else None,
             "price": Price.from_dict(obj["price"]) if obj.get("price") is not None else None,
             "status": obj.get("status"),
+            "cancellableUntil": obj.get("cancellableUntil"),
+            "canceledAt": obj.get("canceledAt"),
+            "cancellationReason": CancellationReason.from_dict(obj["cancellationReason"]) if obj.get("cancellationReason") is not None else None,
+            "cancellationComment": obj.get("cancellationComment"),
+            "stripeRefundId": obj.get("stripeRefundId"),
             "updatedAt": obj.get("updatedAt")
         })
         # store additional fields in additional_properties

@@ -37,8 +37,9 @@ class UpdateLicense(BaseModel):
     max_offline_duration_seconds: Optional[Annotated[int, Field(le=2147483647, strict=True, ge=3600)]] = Field(default=None, description="Longest the applications can run offline with the license, in seconds. At least one hour (`3600`).", alias="maxOfflineDurationSeconds", json_schema_extra={"examples": [604800]})
     max_version: Optional[LicenseMaxVersionInput] = Field(default=None, description="Latest version of the product the license can use. The values left out are kept.", alias="maxVersion")
     price: Optional[PriceInput] = None
+    cancellable_until: Optional[datetime] = Field(default=None, description="End of the money back guarantee: until then, the customer can cancel the license from the customer portal, or with a token. `null` to not let them.", alias="cancellableUntil", json_schema_extra={"examples": ["2026-02-14T09:30:00.000Z"]})
     additional_properties: Dict[str, Any] = {}
-    __properties: ClassVar[List[str]] = ["expiresAt", "meta", "maxMachines", "maxOfflineDurationSeconds", "maxVersion", "price"]
+    __properties: ClassVar[List[str]] = ["expiresAt", "meta", "maxMachines", "maxOfflineDurationSeconds", "maxVersion", "price", "cancellableUntil"]
 
     model_config = ConfigDict(
         validate_by_name=True,
@@ -112,6 +113,11 @@ class UpdateLicense(BaseModel):
         if self.price is None and "price" in self.model_fields_set:
             _dict['price'] = None
 
+        # set to None if cancellable_until (nullable) is None
+        # and model_fields_set contains the field
+        if self.cancellable_until is None and "cancellable_until" in self.model_fields_set:
+            _dict['cancellableUntil'] = None
+
         return _dict
 
     @classmethod
@@ -129,7 +135,8 @@ class UpdateLicense(BaseModel):
             "maxMachines": obj.get("maxMachines"),
             "maxOfflineDurationSeconds": obj.get("maxOfflineDurationSeconds"),
             "maxVersion": LicenseMaxVersionInput.from_dict(obj["maxVersion"]) if obj.get("maxVersion") is not None else None,
-            "price": PriceInput.from_dict(obj["price"]) if obj.get("price") is not None else None
+            "price": PriceInput.from_dict(obj["price"]) if obj.get("price") is not None else None,
+            "cancellableUntil": obj.get("cancellableUntil")
         })
         # store additional fields in additional_properties
         for _key in obj.keys():

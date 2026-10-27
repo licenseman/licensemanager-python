@@ -4,6 +4,10 @@
 .openapi-generator-ignore
 .travis.yml
 README.md
+docs/CancelLicense.md
+docs/CancellationReason.md
+docs/CancellationStats.md
+docs/CancellationStatsByReasonInner.md
 docs/ConnectStripe.md
 docs/CreateCustomer.md
 docs/CreateIntegrationMapping.md
@@ -97,6 +101,7 @@ docs/StripePrice.md
 docs/Token.md
 docs/TokensApi.md
 docs/UpdateCustomer.md
+docs/UpdateIntegration.md
 docs/UpdateIntegrationMapping.md
 docs/UpdateLicense.md
 docs/UpdatePolicy.md
@@ -124,6 +129,10 @@ licensemanager/api_response.py
 licensemanager/configuration.py
 licensemanager/exceptions.py
 licensemanager/models/__init__.py
+licensemanager/models/cancel_license.py
+licensemanager/models/cancellation_reason.py
+licensemanager/models/cancellation_stats.py
+licensemanager/models/cancellation_stats_by_reason_inner.py
 licensemanager/models/connect_stripe.py
 licensemanager/models/create_customer.py
 licensemanager/models/create_integration_mapping.py
@@ -207,6 +216,7 @@ licensemanager/models/stripe_permission.py
 licensemanager/models/stripe_price.py
 licensemanager/models/token.py
 licensemanager/models/update_customer.py
+licensemanager/models/update_integration.py
 licensemanager/models/update_integration_mapping.py
 licensemanager/models/update_license.py
 licensemanager/models/update_policy.py
@@ -224,6 +234,10 @@ setup.cfg
 setup.py
 test-requirements.txt
 test/__init__.py
+test/test_cancel_license.py
+test/test_cancellation_reason.py
+test/test_cancellation_stats.py
+test/test_cancellation_stats_by_reason_inner.py
 test/test_connect_stripe.py
 test/test_create_customer.py
 test/test_create_integration_mapping.py
@@ -317,6 +331,7 @@ test/test_stripe_price.py
 test/test_token.py
 test/test_tokens_api.py
 test/test_update_customer.py
+test/test_update_integration.py
 test/test_update_integration_mapping.py
 test/test_update_license.py
 test/test_update_policy.py

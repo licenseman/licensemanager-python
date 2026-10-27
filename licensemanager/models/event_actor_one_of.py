@@ -30,7 +30,7 @@ class EventActorOneOf(BaseModel):
     type: StrictStr
     id: Optional[StrictStr] = Field(description="`null` when the user has been deleted.", json_schema_extra={"examples": ["u2Hk9PzLq"]})
     name: Optional[StrictStr] = Field(json_schema_extra={"examples": ["Jane Doe"]})
-    email: Optional[StrictStr] = Field(json_schema_extra={"examples": ["jane@example.com"]})
+    email: Optional[StrictStr] = Field(json_schema_extra={"examples": ["jane@licensemanager.dev"]})
     image: Optional[StrictStr] = Field(description="URL of the user's profile picture.", json_schema_extra={"examples": ["https://example.com/jane.png"]})
     additional_properties: Dict[str, Any] = {}
     __properties: ClassVar[List[str]] = ["type", "id", "name", "email", "image"]

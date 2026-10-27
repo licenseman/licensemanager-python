@@ -32,7 +32,7 @@ class CreateProductWithPolicy(BaseModel):
     name: Annotated[str, Field(min_length=1, strict=True, max_length=200)] = Field(json_schema_extra={"examples": ["Acme Pro"]})
     slug: Optional[Annotated[str, Field(min_length=1, strict=True, max_length=100)]] = Field(default=None, description="Unique within the organization. Defaults to the name, lower cased, without accents and special characters. Starts with `test_` in test products, which is added when missing, and removed in live products.", json_schema_extra={"examples": ["acme-pro"]})
     default_policy: Optional[PolicySettings] = Field(default=None, alias="defaultPolicy")
-    is_test_from_product_id: Optional[StrictStr] = Field(default=None, description="Creates a test product: a sandbox of this live product of the organization, starting with copies of its policies, releases and portal settings.", alias="isTestFromProductId", json_schema_extra={"examples": ["x7Kp2QaZ"]})
+    is_test_from_product_id: Optional[StrictStr] = Field(default=None, description="Creates a test product: a sandbox of this live product of the organization, starting with copies of its policies, releases, portal settings and `autoMachineChange`.", alias="isTestFromProductId", json_schema_extra={"examples": ["x7Kp2QaZ"]})
     additional_properties: Dict[str, Any] = {}
     __properties: ClassVar[List[str]] = ["name", "slug", "defaultPolicy", "isTestFromProductId"]
 

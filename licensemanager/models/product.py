@@ -18,7 +18,7 @@ import re  # noqa: F401
 import json
 
 from datetime import datetime
-from pydantic import BaseModel, ConfigDict, Field, StrictStr
+from pydantic import BaseModel, ConfigDict, Field, StrictBool, StrictStr
 from typing import Any, ClassVar, Dict, List, Optional
 from licensemanager.models.portal_settings import PortalSettings
 from typing import Optional, Set
@@ -35,10 +35,11 @@ class Product(BaseModel):
     is_test_from_product_id: Optional[StrictStr] = Field(description="For test products, id of the live product they're a sandbox of. `null` for live products.", alias="isTestFromProductId")
     logo_url: Optional[StrictStr] = Field(description="Public URL of the product's logo, shown in the web app and the customer portal. `null` without a logo.", alias="logoUrl", json_schema_extra={"examples": ["https://cdn.example.com/logos/x7Kp2QaZ/k3f9a2LpQ7xw.webp"]})
     portal: PortalSettings
+    auto_machine_change: StrictBool = Field(description="Whether a new machine validating a license already on its max machines takes the place of the license's machine validated the longest ago, rather than being refused with `machine_limit_reached`. When the replaced machine is validated again, it takes its place back and the machine that replaced it is locked. See `validateKey`.", alias="autoMachineChange", json_schema_extra={"examples": [True]})
     created_at: datetime = Field(alias="createdAt", json_schema_extra={"examples": ["2026-01-15T09:30:00.000Z"]})
     updated_at: datetime = Field(alias="updatedAt", json_schema_extra={"examples": ["2026-01-15T09:30:00.000Z"]})
     additional_properties: Dict[str, Any] = {}
-    __properties: ClassVar[List[str]] = ["id", "slug", "name", "isTestFromProductId", "logoUrl", "portal", "createdAt", "updatedAt"]
+    __properties: ClassVar[List[str]] = ["id", "slug", "name", "isTestFromProductId", "logoUrl", "portal", "autoMachineChange", "createdAt", "updatedAt"]
 
     model_config = ConfigDict(
         validate_by_name=True,
@@ -117,6 +118,7 @@ class Product(BaseModel):
             "isTestFromProductId": obj.get("isTestFromProductId"),
             "logoUrl": obj.get("logoUrl"),
             "portal": PortalSettings.from_dict(obj["portal"]) if obj.get("portal") is not None else None,
+            "autoMachineChange": obj.get("autoMachineChange"),
             "createdAt": obj.get("createdAt"),
             "updatedAt": obj.get("updatedAt")
         })

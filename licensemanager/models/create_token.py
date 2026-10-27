@@ -28,7 +28,7 @@ class CreateToken(BaseModel):
     """
     CreateToken
     """ # noqa: E501
-    scope: Annotated[List[StrictStr], Field(min_length=1)] = Field(description="Permissions of the token. A write permission implies the matching read one. A token creating a token can only give the permissions it has.", json_schema_extra={"examples": [["license:read", "machine:write"]]})
+    scope: Annotated[List[StrictStr], Field(min_length=1)] = Field(description="Permissions of the token. A write permission implies the other ones of its resource, like the read one: `license:write` implies `license:read` and `license:cancel`. A token creating a token can only give the permissions it has.", json_schema_extra={"examples": [["license:read", "machine:write"]]})
     expires_in_seconds: Optional[Annotated[int, Field(le=31536000, strict=True, ge=60)]] = Field(default=900, description="How long the token works, in seconds, from 60 (1 minute) to 31536000 (365 days). Defaults to 900 (15 minutes). A token creating a token can't give it a later expiration than its own: it's shortened to it.", alias="expiresInSeconds", json_schema_extra={"examples": [3600]})
     additional_properties: Dict[str, Any] = {}
     __properties: ClassVar[List[str]] = ["scope", "expiresInSeconds"]
@@ -37,8 +37,8 @@ class CreateToken(BaseModel):
     def scope_validate_enum(cls, value):
         """Validates the enum"""
         for i in value:
-            if i not in set(['customer:read', 'customer:write', 'license:read', 'license:write', 'machine:read', 'machine:write', 'unknown_default_open_api']):
-                raise ValueError("each list item must be one of ('customer:read', 'customer:write', 'license:read', 'license:write', 'machine:read', 'machine:write', 'unknown_default_open_api')")
+            if i not in set(['customer:read', 'customer:write', 'license:read', 'license:write', 'license:cancel', 'machine:read', 'machine:write', 'unknown_default_open_api']):
+                raise ValueError("each list item must be one of ('customer:read', 'customer:write', 'license:read', 'license:write', 'license:cancel', 'machine:read', 'machine:write', 'unknown_default_open_api')")
         return value
 
     model_config = ConfigDict(

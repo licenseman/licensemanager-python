@@ -45,7 +45,8 @@ class TestUpdateLicense(unittest.TestCase):
                     lock_minor_at = '2027-01-15T09:30:00.000Z', ),
                 price = licensemanager.models.price_input.PriceInput(
                     amount = 49.99, 
-                    currency = 'USD', )
+                    currency = 'USD', ),
+                cancellable_until = '2026-02-14T09:30:00.000Z'
             )
         else:
             return UpdateLicense(

@@ -33,19 +33,20 @@ class Machine(BaseModel):
     fingerprint: StrictStr = Field(description="Identifies the machine. Unique within the license.", json_schema_extra={"examples": ["4c:32:75:8f:9a:1e"]})
     platform: Optional[StrictStr] = Field(json_schema_extra={"examples": ["macOS"]})
     name: Optional[StrictStr] = Field(json_schema_extra={"examples": ["Jane's MacBook"]})
-    status: StrictStr = Field(description="Whether the machine counts as using the license.", json_schema_extra={"examples": ["active"]})
+    status: StrictStr = Field(description="Whether the machine counts as using the license. A `locked` machine doesn't, and its validations are refused with `machine_locked`: it overrode a machine that came back. See `validateKey`.", json_schema_extra={"examples": ["active"]})
     version: Optional[StrictStr] = Field(description="Version of the application last validated on the machine.", json_schema_extra={"examples": ["1.4.2"]})
+    overridden_by_machine_id: Optional[StrictStr] = Field(description="For a machine deactivated or locked by automatic machine changes, the machine that took its place. Validating the key on a deactivated machine that has one takes its place back. `null` otherwise.", alias="overriddenByMachineId")
     last_validated_at: Optional[datetime] = Field(description="When the license was last validated on the machine.", alias="lastValidatedAt", json_schema_extra={"examples": ["2026-01-15T09:30:00.000Z"]})
     created_at: datetime = Field(alias="createdAt", json_schema_extra={"examples": ["2026-01-15T09:30:00.000Z"]})
     updated_at: datetime = Field(alias="updatedAt", json_schema_extra={"examples": ["2026-01-15T09:30:00.000Z"]})
     additional_properties: Dict[str, Any] = {}
-    __properties: ClassVar[List[str]] = ["id", "licenseId", "fingerprint", "platform", "name", "status", "version", "lastValidatedAt", "createdAt", "updatedAt"]
+    __properties: ClassVar[List[str]] = ["id", "licenseId", "fingerprint", "platform", "name", "status", "version", "overriddenByMachineId", "lastValidatedAt", "createdAt", "updatedAt"]
 
     @field_validator('status')
     def status_validate_enum(cls, value):
         """Validates the enum"""
-        if value not in set(['active', 'deactivated', 'unknown_default_open_api']):
-            raise ValueError("must be one of enum values ('active', 'deactivated', 'unknown_default_open_api')")
+        if value not in set(['active', 'deactivated', 'locked', 'unknown_default_open_api']):
+            raise ValueError("must be one of enum values ('active', 'deactivated', 'locked', 'unknown_default_open_api')")
         return value
 
     model_config = ConfigDict(
@@ -109,6 +110,11 @@ class Machine(BaseModel):
         if self.version is None and "version" in self.model_fields_set:
             _dict['version'] = None
 
+        # set to None if overridden_by_machine_id (nullable) is None
+        # and model_fields_set contains the field
+        if self.overridden_by_machine_id is None and "overridden_by_machine_id" in self.model_fields_set:
+            _dict['overriddenByMachineId'] = None
+
         # set to None if last_validated_at (nullable) is None
         # and model_fields_set contains the field
         if self.last_validated_at is None and "last_validated_at" in self.model_fields_set:
@@ -133,6 +139,7 @@ class Machine(BaseModel):
             "name": obj.get("name"),
             "status": obj.get("status"),
             "version": obj.get("version"),
+            "overriddenByMachineId": obj.get("overriddenByMachineId"),
             "lastValidatedAt": obj.get("lastValidatedAt"),
             "createdAt": obj.get("createdAt"),
             "updatedAt": obj.get("updatedAt")

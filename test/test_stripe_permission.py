@@ -37,13 +37,15 @@ class TestStripePermission(unittest.TestCase):
             return StripePermission(
                 resource = 'Prices',
                 access = 'Read',
-                reason = 'Lists your prices so you can choose which ones create licenses, and checks they can still be paid.'
+                reason = 'Lists your prices so you can choose which ones create licenses, and checks they can still be paid.',
+                optional = False
             )
         else:
             return StripePermission(
                 resource = 'Prices',
                 access = 'Read',
                 reason = 'Lists your prices so you can choose which ones create licenses, and checks they can still be paid.',
+                optional = False,
         )
         """
 

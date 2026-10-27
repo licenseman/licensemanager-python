@@ -38,7 +38,7 @@ class TestEventActorOneOf(unittest.TestCase):
                 type = 'user',
                 id = 'u2Hk9PzLq',
                 name = 'Jane Doe',
-                email = 'jane@example.com',
+                email = 'jane@licensemanager.dev',
                 image = 'https://example.com/jane.png'
             )
         else:
@@ -46,7 +46,7 @@ class TestEventActorOneOf(unittest.TestCase):
                 type = 'user',
                 id = 'u2Hk9PzLq',
                 name = 'Jane Doe',
-                email = 'jane@example.com',
+                email = 'jane@licensemanager.dev',
                 image = 'https://example.com/jane.png',
         )
         """

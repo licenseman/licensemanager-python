@@ -41,7 +41,8 @@ class TestCreateProductWithPolicy(unittest.TestCase):
                     duration = null, 
                     max_machines = 3, 
                     max_offline_duration_seconds = 604800, 
-                    max_version = null, ),
+                    max_version = null, 
+                    money_back_guarantee_days = 30, ),
                 is_test_from_product_id = 'x7Kp2QaZ'
             )
         else:

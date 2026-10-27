@@ -58,6 +58,11 @@ class TestLicenseList(unittest.TestCase):
                             amount = 49.99, 
                             currency = 'USD', ), 
                         status = 'active', 
+                        cancellable_until = '2026-02-14T09:30:00.000Z', 
+                        canceled_at = '2026-01-20T16:12:00.000Z', 
+                        cancellation_reason = null, 
+                        cancellation_comment = 'I only needed it for one project.', 
+                        stripe_refund_id = 're_3MtwBwLkdIwHu7ix0Bs5rA2b', 
                         updated_at = '2026-01-15T09:30:00.000Z', )
                     ],
                 pagination = licensemanager.models.pagination.Pagination(
@@ -91,6 +96,11 @@ class TestLicenseList(unittest.TestCase):
                             amount = 49.99, 
                             currency = 'USD', ), 
                         status = 'active', 
+                        cancellable_until = '2026-02-14T09:30:00.000Z', 
+                        canceled_at = '2026-01-20T16:12:00.000Z', 
+                        cancellation_reason = null, 
+                        cancellation_comment = 'I only needed it for one project.', 
+                        stripe_refund_id = 're_3MtwBwLkdIwHu7ix0Bs5rA2b', 
                         updated_at = '2026-01-15T09:30:00.000Z', )
                     ],
                 pagination = licensemanager.models.pagination.Pagination(

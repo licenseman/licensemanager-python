@@ -37,8 +37,9 @@ class UpdatePolicy(BaseModel):
     max_machines: Optional[Annotated[int, Field(le=2147483647, strict=True, gt=0)]] = Field(default=None, description="Maximum number of active machines of the licenses created with this policy, copied to each of them. `null` for no limit. Defaults to `null`.", alias="maxMachines", json_schema_extra={"examples": [3]})
     max_offline_duration_seconds: Optional[Annotated[int, Field(le=2147483647, strict=True, ge=3600)]] = Field(default=None, description="Longest the applications can run offline with the licenses created with this policy, in seconds, copied to each of them. At least one hour (`3600`). Defaults to one week.", alias="maxOfflineDurationSeconds", json_schema_extra={"examples": [604800]})
     max_version: Optional[PolicySettingsMaxVersion] = Field(default=None, alias="maxVersion")
+    money_back_guarantee_days: Optional[Annotated[int, Field(le=3650, strict=True, gt=0)]] = Field(default=None, description="Number of days after their creation during which customers can cancel the licenses created with this policy, from the customer portal or with `cancelLicense`, which refunds their Stripe payment. Each license keeps the end of its own period as `cancellableUntil`. `null` for no money back guarantee. Defaults to `null`.", alias="moneyBackGuaranteeDays", json_schema_extra={"examples": [30]})
     additional_properties: Dict[str, Any] = {}
-    __properties: ClassVar[List[str]] = ["name", "slug", "isDefault", "duration", "maxMachines", "maxOfflineDurationSeconds", "maxVersion"]
+    __properties: ClassVar[List[str]] = ["name", "slug", "isDefault", "duration", "maxMachines", "maxOfflineDurationSeconds", "maxVersion", "moneyBackGuaranteeDays"]
 
     @field_validator('slug', mode="before")
     def slug_validate_regular_expression(cls, value):
@@ -117,6 +118,11 @@ class UpdatePolicy(BaseModel):
         if self.max_version is None and "max_version" in self.model_fields_set:
             _dict['maxVersion'] = None
 
+        # set to None if money_back_guarantee_days (nullable) is None
+        # and model_fields_set contains the field
+        if self.money_back_guarantee_days is None and "money_back_guarantee_days" in self.model_fields_set:
+            _dict['moneyBackGuaranteeDays'] = None
+
         return _dict
 
     @classmethod
@@ -135,7 +141,8 @@ class UpdatePolicy(BaseModel):
             "duration": PolicySettingsDuration.from_dict(obj["duration"]) if obj.get("duration") is not None else None,
             "maxMachines": obj.get("maxMachines"),
             "maxOfflineDurationSeconds": obj.get("maxOfflineDurationSeconds"),
-            "maxVersion": PolicySettingsMaxVersion.from_dict(obj["maxVersion"]) if obj.get("maxVersion") is not None else None
+            "maxVersion": PolicySettingsMaxVersion.from_dict(obj["maxVersion"]) if obj.get("maxVersion") is not None else None,
+            "moneyBackGuaranteeDays": obj.get("moneyBackGuaranteeDays")
         })
         # store additional fields in additional_properties
         for _key in obj.keys():

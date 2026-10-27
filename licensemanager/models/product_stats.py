@@ -19,8 +19,9 @@ import json
 
 from datetime import date
 from pydantic import BaseModel, ConfigDict, Field, StrictInt, field_validator
-from typing import Any, ClassVar, Dict, List
+from typing import Any, ClassVar, Dict, List, Optional
 from typing_extensions import Annotated
+from licensemanager.models.cancellation_stats import CancellationStats
 from licensemanager.models.product_stats_activations_by_version_inner import ProductStatsActivationsByVersionInner
 from licensemanager.models.product_stats_active_machines_by_platform_inner import ProductStatsActiveMachinesByPlatformInner
 from licensemanager.models.product_stats_active_machines_by_version_inner import ProductStatsActiveMachinesByVersionInner
@@ -35,13 +36,13 @@ class ProductStats(BaseModel):
     ProductStats
     """ # noqa: E501
     license_count: StrictInt = Field(description="Number of licenses of the product.", alias="licenseCount", json_schema_extra={"examples": [120]})
-    active_license_count: StrictInt = Field(description="Number of licenses that haven't expired, and that a machine validated in the last 90 days.", alias="activeLicenseCount", json_schema_extra={"examples": [87]})
+    active_license_count: StrictInt = Field(description="Number of licenses that haven't expired nor were canceled, and that a machine validated in the last 90 days.", alias="activeLicenseCount", json_schema_extra={"examples": [87]})
     new_license_count: StrictInt = Field(description="Number of licenses created in the last 30 days, today included, in UTC.", alias="newLicenseCount", json_schema_extra={"examples": [14]})
-    expiring_license_count: StrictInt = Field(description="Number of licenses expiring in the next 30 days.", alias="expiringLicenseCount", json_schema_extra={"examples": [3]})
-    expired_license_count: StrictInt = Field(description="Number of licenses that expired in the last 30 days.", alias="expiredLicenseCount", json_schema_extra={"examples": [2]})
+    expiring_license_count: StrictInt = Field(description="Number of licenses expiring in the next 30 days, canceled ones left out.", alias="expiringLicenseCount", json_schema_extra={"examples": [3]})
+    expired_license_count: StrictInt = Field(description="Number of licenses that expired in the last 30 days, canceled ones left out.", alias="expiredLicenseCount", json_schema_extra={"examples": [2]})
     active_machine_count: StrictInt = Field(description="Number of active machines of the licenses of the product.", alias="activeMachineCount", json_schema_extra={"examples": [154]})
     in_use_license_count: StrictInt = Field(description="Number of licenses with at least one active machine.", alias="inUseLicenseCount", json_schema_extra={"examples": [80]})
-    seat_count: StrictInt = Field(description="Sum of the maximum numbers of machines of the licenses that haven't expired. Licenses without a maximum are left out.", alias="seatCount", json_schema_extra={"examples": [200]})
+    seat_count: StrictInt = Field(description="Sum of the maximum numbers of machines of the licenses that haven't expired nor were canceled. Licenses without a maximum are left out.", alias="seatCount", json_schema_extra={"examples": [200]})
     used_seat_count: StrictInt = Field(description="Number of active machines of the licenses counted in `seatCount`, at most their maximum number of machines each.", alias="usedSeatCount", json_schema_extra={"examples": [130]})
     full_license_count: StrictInt = Field(description="Number of licenses counted in `seatCount` active on their maximum number of machines.", alias="fullLicenseCount", json_schema_extra={"examples": [12]})
     days: List[date] = Field(description="The 30 days covered by the daily stats, from the oldest one, in UTC.")
@@ -49,12 +50,13 @@ class ProductStats(BaseModel):
     new_licenses_by_day: List[StrictInt] = Field(description="Number of licenses created each day, aligned on `days`.", alias="newLicensesByDay", json_schema_extra={"examples": [[0, 2, 1]]})
     new_licenses_by_month: List[StrictInt] = Field(description="Number of licenses created each month, aligned on `months`.", alias="newLicensesByMonth", json_schema_extra={"examples": [[4, 9, 12]]})
     new_licenses_by_policy: List[ProductStatsNewLicensesByPolicyInner] = Field(description="Number of licenses of each policy created each day and each month, for the policies with licenses created over the covered months.", alias="newLicensesByPolicy")
+    cancellation: Optional[CancellationStats] = Field(description="Cancellations of the licenses with a money back guarantee. `null` when no license of the product has one.")
     revenue: List[Revenue] = Field(description="Revenue in each currency licenses were sold in, from the one with the most licenses sold. Amounts aren't converted between currencies.")
     activations_by_version: List[ProductStatsActivationsByVersionInner] = Field(description="Successful activations of the licenses of the product each day, per version of the application, from the most recent one.", alias="activationsByVersion")
     active_machines_by_version: List[ProductStatsActiveMachinesByVersionInner] = Field(description="Number of active machines running each version of the application, from the most recent one.", alias="activeMachinesByVersion")
     active_machines_by_platform: List[ProductStatsActiveMachinesByPlatformInner] = Field(description="Number of active machines on each platform, from the one with the most machines.", alias="activeMachinesByPlatform")
     additional_properties: Dict[str, Any] = {}
-    __properties: ClassVar[List[str]] = ["licenseCount", "activeLicenseCount", "newLicenseCount", "expiringLicenseCount", "expiredLicenseCount", "activeMachineCount", "inUseLicenseCount", "seatCount", "usedSeatCount", "fullLicenseCount", "days", "months", "newLicensesByDay", "newLicensesByMonth", "newLicensesByPolicy", "revenue", "activationsByVersion", "activeMachinesByVersion", "activeMachinesByPlatform"]
+    __properties: ClassVar[List[str]] = ["licenseCount", "activeLicenseCount", "newLicenseCount", "expiringLicenseCount", "expiredLicenseCount", "activeMachineCount", "inUseLicenseCount", "seatCount", "usedSeatCount", "fullLicenseCount", "days", "months", "newLicensesByDay", "newLicensesByMonth", "newLicensesByPolicy", "cancellation", "revenue", "activationsByVersion", "activeMachinesByVersion", "activeMachinesByPlatform"]
 
     model_config = ConfigDict(
         validate_by_name=True,
@@ -103,6 +105,9 @@ class ProductStats(BaseModel):
             for _item_new_licenses_by_policy in self.new_licenses_by_policy:
                 _items.append(_item_new_licenses_by_policy.to_dict() if _item_new_licenses_by_policy is not None else None)
             _dict['newLicensesByPolicy'] = _items
+        # override the default output from pydantic by calling `to_dict()` of cancellation
+        if self.cancellation:
+            _dict['cancellation'] = self.cancellation.to_dict()
         # override the default output from pydantic by calling `to_dict()` of each item in revenue (list)
         _items = []
         if self.revenue:
@@ -132,6 +137,11 @@ class ProductStats(BaseModel):
             for _key, _value in self.additional_properties.items():
                 _dict[_key] = _value
 
+        # set to None if cancellation (nullable) is None
+        # and model_fields_set contains the field
+        if self.cancellation is None and "cancellation" in self.model_fields_set:
+            _dict['cancellation'] = None
+
         return _dict
 
     @classmethod
@@ -159,6 +169,7 @@ class ProductStats(BaseModel):
             "newLicensesByDay": obj.get("newLicensesByDay"),
             "newLicensesByMonth": obj.get("newLicensesByMonth"),
             "newLicensesByPolicy": [ProductStatsNewLicensesByPolicyInner.from_dict(_item) for _item in obj["newLicensesByPolicy"]] if obj.get("newLicensesByPolicy") is not None else None,
+            "cancellation": CancellationStats.from_dict(obj["cancellation"]) if obj.get("cancellation") is not None else None,
             "revenue": [Revenue.from_dict(_item) for _item in obj["revenue"]] if obj.get("revenue") is not None else None,
             "activationsByVersion": [ProductStatsActivationsByVersionInner.from_dict(_item) for _item in obj["activationsByVersion"]] if obj.get("activationsByVersion") is not None else None,
             "activeMachinesByVersion": [ProductStatsActiveMachinesByVersionInner.from_dict(_item) for _item in obj["activeMachinesByVersion"]] if obj.get("activeMachinesByVersion") is not None else None,

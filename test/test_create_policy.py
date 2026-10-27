@@ -41,7 +41,8 @@ class TestCreatePolicy(unittest.TestCase):
                 duration = None,
                 max_machines = 3,
                 max_offline_duration_seconds = 604800,
-                max_version = None
+                max_version = None,
+                money_back_guarantee_days = 30
             )
         else:
             return CreatePolicy(

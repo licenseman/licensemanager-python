@@ -17,7 +17,7 @@ import pprint
 import re  # noqa: F401
 import json
 
-from pydantic import BaseModel, ConfigDict, Field, StrictStr, field_validator
+from pydantic import BaseModel, ConfigDict, Field, StrictBool, StrictStr, field_validator
 from typing import Any, ClassVar, Dict, List
 from typing import Optional, Set
 from typing_extensions import Self
@@ -30,8 +30,9 @@ class StripePermission(BaseModel):
     resource: StrictStr = Field(json_schema_extra={"examples": ["Prices"]})
     access: StrictStr
     reason: StrictStr = Field(json_schema_extra={"examples": ["Lists your prices so you can choose which ones create licenses, and checks they can still be paid."]})
+    optional: StrictBool = Field(description="Whether the key can connect without it, losing what it's for, explained by `reason`.", json_schema_extra={"examples": [False]})
     additional_properties: Dict[str, Any] = {}
-    __properties: ClassVar[List[str]] = ["resource", "access", "reason"]
+    __properties: ClassVar[List[str]] = ["resource", "access", "reason", "optional"]
 
     @field_validator('access')
     def access_validate_enum(cls, value):
@@ -100,7 +101,8 @@ class StripePermission(BaseModel):
         _obj = cls.model_validate({
             "resource": obj.get("resource"),
             "access": obj.get("access"),
-            "reason": obj.get("reason")
+            "reason": obj.get("reason"),
+            "optional": obj.get("optional")
         })
         # store additional fields in additional_properties
         for _key in obj.keys():

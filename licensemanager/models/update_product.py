@@ -17,7 +17,7 @@ import pprint
 import re  # noqa: F401
 import json
 
-from pydantic import BaseModel, ConfigDict, Field, field_validator
+from pydantic import BaseModel, ConfigDict, Field, StrictBool, field_validator
 from typing import Any, ClassVar, Dict, List, Optional
 from typing_extensions import Annotated
 from licensemanager.models.update_product_portal import UpdateProductPortal
@@ -32,8 +32,9 @@ class UpdateProduct(BaseModel):
     name: Optional[Annotated[str, Field(min_length=1, strict=True, max_length=200)]] = Field(default=None, json_schema_extra={"examples": ["Acme Pro"]})
     slug: Optional[Annotated[str, Field(min_length=1, strict=True, max_length=100)]] = Field(default=None, description="Unique within the organization. Defaults to the name, lower cased, without accents and special characters. Starts with `test_` in test products, which is added when missing, and removed in live products.", json_schema_extra={"examples": ["acme-pro"]})
     portal: Optional[UpdateProductPortal] = None
+    auto_machine_change: Optional[StrictBool] = Field(default=None, description="Whether a new machine validating a license already on its max machines takes the place of the license's machine validated the longest ago, rather than being refused with `machine_limit_reached`. When the replaced machine is validated again, it takes its place back and the machine that replaced it is locked. See `validateKey`.", alias="autoMachineChange", json_schema_extra={"examples": [True]})
     additional_properties: Dict[str, Any] = {}
-    __properties: ClassVar[List[str]] = ["name", "slug", "portal"]
+    __properties: ClassVar[List[str]] = ["name", "slug", "portal", "autoMachineChange"]
 
     @field_validator('slug', mode="before")
     def slug_validate_regular_expression(cls, value):
@@ -108,7 +109,8 @@ class UpdateProduct(BaseModel):
         _obj = cls.model_validate({
             "name": obj.get("name"),
             "slug": obj.get("slug"),
-            "portal": UpdateProductPortal.from_dict(obj["portal"]) if obj.get("portal") is not None else None
+            "portal": UpdateProductPortal.from_dict(obj["portal"]) if obj.get("portal") is not None else None,
+            "autoMachineChange": obj.get("autoMachineChange")
         })
         # store additional fields in additional_properties
         for _key in obj.keys():

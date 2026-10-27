@@ -28,7 +28,7 @@ class ConnectStripe(BaseModel):
     """
     ConnectStripe
     """ # noqa: E501
-    api_key: Annotated[str, Field(min_length=1, strict=True)] = Field(description="Restricted API key of the Stripe account (`rk_live_…` for live products, `rk_test_…` for test products), with the `requiredPermissions` of `getStripeIntegration`. A secret key works too, but gives the app more access than it needs.", alias="apiKey", json_schema_extra={"examples": ["rk_live_51Nv0FG…"]})
+    api_key: Annotated[str, Field(min_length=1, strict=True)] = Field(description="Restricted API key of the Stripe account (`rk_live_…` for live products, `rk_test_…` for test products), with the `requiredPermissions` of `getStripeIntegration`. Without the optional ones, it connects with what they're for turned off. A secret key works too, but gives the app more access than it needs.", alias="apiKey", json_schema_extra={"examples": ["rk_live_51Nv0FG…"]})
     additional_properties: Dict[str, Any] = {}
     __properties: ClassVar[List[str]] = ["apiKey"]
 

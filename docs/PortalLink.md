@@ -6,7 +6,7 @@
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **url** | **str** | Link to the customer portal, holding the token. | 
-**token** | **str** | Customer token in the link, with the &#x60;customer:read&#x60;, &#x60;license:read&#x60; and &#x60;machine:write&#x60; permissions. | 
+**token** | **str** | Customer token in the link, with the &#x60;customer:read&#x60;, &#x60;license:read&#x60;, &#x60;license:cancel&#x60; and &#x60;machine:write&#x60; permissions. | 
 **expires_at** | **datetime** | When the link stops working. | 
 
 ## Example

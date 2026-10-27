@@ -42,6 +42,7 @@ class TestMachine(unittest.TestCase):
                 name = 'Jane's MacBook',
                 status = 'active',
                 version = '1.4.2',
+                overridden_by_machine_id = '',
                 last_validated_at = '2026-01-15T09:30:00.000Z',
                 created_at = '2026-01-15T09:30:00.000Z',
                 updated_at = '2026-01-15T09:30:00.000Z'
@@ -55,6 +56,7 @@ class TestMachine(unittest.TestCase):
                 name = 'Jane's MacBook',
                 status = 'active',
                 version = '1.4.2',
+                overridden_by_machine_id = '',
                 last_validated_at = '2026-01-15T09:30:00.000Z',
                 created_at = '2026-01-15T09:30:00.000Z',
                 updated_at = '2026-01-15T09:30:00.000Z',

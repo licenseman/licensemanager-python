@@ -75,6 +75,13 @@ class TestIntegrationsApi(unittest.TestCase):
         """
         pass
 
+    def test_update_integration(self) -> None:
+        """Test case for update_integration
+
+        Update an integration
+        """
+        pass
+
     def test_update_stripe_mapping(self) -> None:
         """Test case for update_stripe_mapping
 

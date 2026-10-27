@@ -13,6 +13,10 @@
 """  # noqa: E501
 
 # import models into model package
+from licensemanager.models.cancel_license import CancelLicense
+from licensemanager.models.cancellation_reason import CancellationReason
+from licensemanager.models.cancellation_stats import CancellationStats
+from licensemanager.models.cancellation_stats_by_reason_inner import CancellationStatsByReasonInner
 from licensemanager.models.connect_stripe import ConnectStripe
 from licensemanager.models.create_customer import CreateCustomer
 from licensemanager.models.create_integration_mapping import CreateIntegrationMapping
@@ -96,6 +100,7 @@ from licensemanager.models.stripe_permission import StripePermission
 from licensemanager.models.stripe_price import StripePrice
 from licensemanager.models.token import Token
 from licensemanager.models.update_customer import UpdateCustomer
+from licensemanager.models.update_integration import UpdateIntegration
 from licensemanager.models.update_integration_mapping import UpdateIntegrationMapping
 from licensemanager.models.update_license import UpdateLicense
 from licensemanager.models.update_policy import UpdatePolicy
