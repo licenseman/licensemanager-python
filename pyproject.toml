@@ -1,6 +1,6 @@
 [project]
 name = "licenseman-sdk"
-version = "0.2.0"
+version = "0.3.0"
 description = "LicenseManager API"
 authors = [
   {name = "OpenAPI Generator Community",email = "team@openapitools.org"},

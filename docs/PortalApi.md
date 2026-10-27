@@ -4,11 +4,112 @@ All URIs are relative to *https://api.licensemanager.dev*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
+[**create_billing_portal_session**](PortalApi.md#create_billing_portal_session) | **POST** /v1/customers/{id}/billing-portal-sessions | Open the Stripe customer portal of a customer
 [**create_portal_link**](PortalApi.md#create_portal_link) | **POST** /v1/customers/{id}/portal-links | Create a link to the customer portal
 [**get_portal**](PortalApi.md#get_portal) | **GET** /v1/portal/{productId} | Get the customer portal of a product
 [**request_portal_link**](PortalApi.md#request_portal_link) | **POST** /v1/portal/{productId}/request-link | Email a link to the customer portal
 [**send_portal_link**](PortalApi.md#send_portal_link) | **POST** /v1/customers/{id}/portal-links/send | Email a link to the customer portal to the customer
 
+
+# **create_billing_portal_session**
+> BillingPortalSession create_billing_portal_session(id, create_billing_portal_session=create_billing_portal_session)
+
+Open the Stripe customer portal of a customer
+
+Link to the Stripe customer portal of the customer's Stripe customer, where they manage their subscriptions: change their plan or payment method, see their invoices, cancel. Needs the Stripe integration's `canBillingPortal`, and the customer portal configured in the Stripe account's settings. The changes come back through the integration's webhook, keeping the subscription licenses in line.
+
+**Token access**: customer tokens with the `customer:billing` permission (or the matching write one). A customer token reaches its own customer.
+
+**Required role permission**: `portalLink:create` when called with a session, granted by the member's role. API keys aren't limited by roles.
+
+### Example
+
+* Api Key Authentication (apiKey):
+* Bearer (JWT) Authentication (token):
+
+```python
+import licensemanager
+from licensemanager.models.billing_portal_session import BillingPortalSession
+from licensemanager.models.create_billing_portal_session import CreateBillingPortalSession
+from licensemanager.rest import ApiException
+from pprint import pprint
+
+# Defining the host is optional and defaults to https://api.licensemanager.dev
+# See configuration.py for a list of all supported configuration parameters.
+configuration = licensemanager.Configuration(
+    host = "https://api.licensemanager.dev"
+)
+
+# The client must configure the authentication and authorization parameters
+# in accordance with the API server security policy.
+# Examples for each auth method are provided below, use the example that
+# satisfies your auth use case.
+
+# Configure API key authorization: apiKey
+configuration.api_key['apiKey'] = os.environ["API_KEY"]
+
+# Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
+# configuration.api_key_prefix['apiKey'] = 'Bearer'
+
+# Configure Bearer authorization (JWT): token
+configuration = licensemanager.Configuration(
+    access_token = os.environ["BEARER_TOKEN"]
+)
+
+# Enter a context with an instance of the API client
+with licensemanager.ApiClient(configuration) as api_client:
+    # Create an instance of the API class
+    api_instance = licensemanager.PortalApi(api_client)
+    id = 'c9Wd3RtE' # str | 
+    create_billing_portal_session = licensemanager.CreateBillingPortalSession() # CreateBillingPortalSession |  (optional)
+
+    try:
+        # Open the Stripe customer portal of a customer
+        api_response = api_instance.create_billing_portal_session(id, create_billing_portal_session=create_billing_portal_session)
+        print("The response of PortalApi->create_billing_portal_session:\n")
+        pprint(api_response)
+    except Exception as e:
+        print("Exception when calling PortalApi->create_billing_portal_session: %s\n" % e)
+```
+
+
+
+### Parameters
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **id** | **str**|  | 
+ **create_billing_portal_session** | [**CreateBillingPortalSession**](CreateBillingPortalSession.md)|  | [optional] 
+
+### Return type
+
+[**BillingPortalSession**](BillingPortalSession.md)
+
+### Authorization
+
+[apiKey](../README.md#apiKey), [token](../README.md#token)
+
+### HTTP request headers
+
+ - **Content-Type**: application/json
+ - **Accept**: application/json
+
+### HTTP response details
+
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+**201** | Created session |  -  |
+**401** | &#x60;unauthorized&#x60;: no credentials. &#x60;invalid_api_key&#x60;: the API key doesn&#39;t exist, was revoked or has expired. &#x60;invalid_token&#x60;: the token&#39;s signature is invalid, it has expired, or the resource it&#39;s scoped to was deleted |  -  |
+**402** | &#x60;plan_limit_exceeded&#x60;: the organization stayed over its plan&#39;s limits after the grace period, its API is blocked until it upgrades. &#x60;plan_limit_reached&#x60;: creating the resource would go over the plan&#39;s limit |  -  |
+**403** | &#x60;token_not_allowed&#x60;: the endpoint doesn&#39;t accept tokens, or not of this type. &#x60;insufficient_scope&#x60;: the token lacks the permission. &#x60;no_active_organization&#x60; or &#x60;forbidden&#x60;: the session has no organization, or isn&#39;t a member of the one requested |  -  |
+**404** | Customer not found |  -  |
+**409** | &#x60;no_stripe_customer&#x60;: the customer didn&#39;t pay through the Stripe integration. &#x60;billing_portal_unavailable&#x60;: the Stripe integration isn&#39;t connected, or its API key lacks the Customer portal: Write permission |  -  |
+**422** | &#x60;validation_error&#x60;: invalid path, query or body, with the &#x60;issues&#x60; |  -  |
+**429** | &#x60;rate_limited&#x60;: the API key made more than 10 requests in the last second. Wait for the &#x60;Retry-After&#x60; seconds |  -  |
+**502** | &#x60;provider_unavailable&#x60;: Stripe refused or couldn&#39;t be reached, like when its customer portal isn&#39;t configured |  -  |
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **create_portal_link**
 > PortalLink create_portal_link(id, create_portal_link)

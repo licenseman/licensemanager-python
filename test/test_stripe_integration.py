@@ -42,7 +42,8 @@ class TestStripeIntegration(unittest.TestCase):
                         resource = 'Prices', 
                         access = 'Read', 
                         reason = 'Lists your prices so you can choose which ones create licenses, and checks they can still be paid.', 
-                        optional = False, )
+                        optional = False, 
+                        subscriptions = False, )
                     ],
                 integration = licensemanager.models.integration.Integration(
                     id = 'i8Fz4QnRt', 
@@ -57,6 +58,9 @@ class TestStripeIntegration(unittest.TestCase):
                     last_event_at = datetime.datetime.strptime('2013-10-20 19:20:30.00', '%Y-%m-%d %H:%M:%S.%f'), 
                     auto_refund = True, 
                     can_refund = True, 
+                    can_manage_subscriptions = True, 
+                    can_billing_portal = True, 
+                    subscription_grace_days = 7, 
                     created_at = datetime.datetime.strptime('2013-10-20 19:20:30.00', '%Y-%m-%d %H:%M:%S.%f'), ),
                 mappings = [
                     licensemanager.models.integration_mapping.IntegrationMapping(
@@ -70,6 +74,9 @@ class TestStripeIntegration(unittest.TestCase):
                         price = licensemanager.models.price.Price(
                             amount = 49.99, 
                             currency = 'USD', ), 
+                        recurring = licensemanager.models.integration_mapping_recurring.IntegrationMapping_recurring(
+                            interval = 'day', 
+                            interval_count = 1, ), 
                         status = 'active', 
                         status_reason = 'The price is archived in Stripe', 
                         created_at = datetime.datetime.strptime('2013-10-20 19:20:30.00', '%Y-%m-%d %H:%M:%S.%f'), )
@@ -84,7 +91,8 @@ class TestStripeIntegration(unittest.TestCase):
                         resource = 'Prices', 
                         access = 'Read', 
                         reason = 'Lists your prices so you can choose which ones create licenses, and checks they can still be paid.', 
-                        optional = False, )
+                        optional = False, 
+                        subscriptions = False, )
                     ],
                 integration = licensemanager.models.integration.Integration(
                     id = 'i8Fz4QnRt', 
@@ -99,6 +107,9 @@ class TestStripeIntegration(unittest.TestCase):
                     last_event_at = datetime.datetime.strptime('2013-10-20 19:20:30.00', '%Y-%m-%d %H:%M:%S.%f'), 
                     auto_refund = True, 
                     can_refund = True, 
+                    can_manage_subscriptions = True, 
+                    can_billing_portal = True, 
+                    subscription_grace_days = 7, 
                     created_at = datetime.datetime.strptime('2013-10-20 19:20:30.00', '%Y-%m-%d %H:%M:%S.%f'), ),
                 mappings = [
                     licensemanager.models.integration_mapping.IntegrationMapping(
@@ -112,6 +123,9 @@ class TestStripeIntegration(unittest.TestCase):
                         price = licensemanager.models.price.Price(
                             amount = 49.99, 
                             currency = 'USD', ), 
+                        recurring = licensemanager.models.integration_mapping_recurring.IntegrationMapping_recurring(
+                            interval = 'day', 
+                            interval_count = 1, ), 
                         status = 'active', 
                         status_reason = 'The price is archived in Stripe', 
                         created_at = datetime.datetime.strptime('2013-10-20 19:20:30.00', '%Y-%m-%d %H:%M:%S.%f'), )

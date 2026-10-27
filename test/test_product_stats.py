@@ -71,11 +71,43 @@ class TestProductStats(unittest.TestCase):
                             reason = 'too_expensive', 
                             count = 2, )
                         ], ),
+                subscriptions = licensemanager.models.subscription_stats.SubscriptionStats(
+                    active_count = 120, 
+                    trialing_count = 4, 
+                    past_due_count = 3, 
+                    canceling_count = 5, 
+                    new_count = 14, 
+                    ended_count = 3, 
+                    churn_rate = 0.025, 
+                    new_by_month = [3, 5, 8], 
+                    ended_by_month = [0, 1, 2], 
+                    active_by_month = [90, 104, 120], 
+                    mrr = [
+                        licensemanager.models.mrr.Mrr(
+                            currency = 'USD', 
+                            mrr = 1240, 
+                            by_interval = [
+                                licensemanager.models.mrr_by_interval_inner.Mrr_byInterval_inner(
+                                    interval = 'day', 
+                                    interval_count = 1, 
+                                    subscription_count = 80, 
+                                    mrr = 800, )
+                                ], 
+                            by_policy = [
+                                licensemanager.models.mrr_by_policy_inner.Mrr_byPolicy_inner(
+                                    policy_id = 'p4Rt8LmQ', 
+                                    subscription_count = 80, 
+                                    mrr = 800, )
+                                ], 
+                            by_month = [900, 1100, 1240], )
+                        ], ),
                 revenue = [
                     licensemanager.models.revenue.Revenue(
                         currency = 'USD', 
                         license_count = 42, 
                         total = 2099.58, 
+                        subscription_total = 480, 
+                        payment_count = 48, 
                         canceled_license_count = 2, 
                         canceled_total = 99.98, 
                         this_month = 349.93, 
@@ -144,11 +176,43 @@ class TestProductStats(unittest.TestCase):
                             reason = 'too_expensive', 
                             count = 2, )
                         ], ),
+                subscriptions = licensemanager.models.subscription_stats.SubscriptionStats(
+                    active_count = 120, 
+                    trialing_count = 4, 
+                    past_due_count = 3, 
+                    canceling_count = 5, 
+                    new_count = 14, 
+                    ended_count = 3, 
+                    churn_rate = 0.025, 
+                    new_by_month = [3, 5, 8], 
+                    ended_by_month = [0, 1, 2], 
+                    active_by_month = [90, 104, 120], 
+                    mrr = [
+                        licensemanager.models.mrr.Mrr(
+                            currency = 'USD', 
+                            mrr = 1240, 
+                            by_interval = [
+                                licensemanager.models.mrr_by_interval_inner.Mrr_byInterval_inner(
+                                    interval = 'day', 
+                                    interval_count = 1, 
+                                    subscription_count = 80, 
+                                    mrr = 800, )
+                                ], 
+                            by_policy = [
+                                licensemanager.models.mrr_by_policy_inner.Mrr_byPolicy_inner(
+                                    policy_id = 'p4Rt8LmQ', 
+                                    subscription_count = 80, 
+                                    mrr = 800, )
+                                ], 
+                            by_month = [900, 1100, 1240], )
+                        ], ),
                 revenue = [
                     licensemanager.models.revenue.Revenue(
                         currency = 'USD', 
                         license_count = 42, 
                         total = 2099.58, 
+                        subscription_total = 480, 
+                        payment_count = 48, 
                         canceled_license_count = 2, 
                         canceled_total = 99.98, 
                         this_month = 349.93, 

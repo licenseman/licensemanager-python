@@ -45,6 +45,9 @@ class TestIntegrationMapping(unittest.TestCase):
                 price = licensemanager.models.price.Price(
                     amount = 49.99, 
                     currency = 'USD', ),
+                recurring = licensemanager.models.integration_mapping_recurring.IntegrationMapping_recurring(
+                    interval = 'day', 
+                    interval_count = 1, ),
                 status = 'active',
                 status_reason = 'The price is archived in Stripe',
                 created_at = datetime.datetime.strptime('2013-10-20 19:20:30.00', '%Y-%m-%d %H:%M:%S.%f')
@@ -61,6 +64,9 @@ class TestIntegrationMapping(unittest.TestCase):
                 price = licensemanager.models.price.Price(
                     amount = 49.99, 
                     currency = 'USD', ),
+                recurring = licensemanager.models.integration_mapping_recurring.IntegrationMapping_recurring(
+                    interval = 'day', 
+                    interval_count = 1, ),
                 status = 'active',
                 status_reason = 'The price is archived in Stripe',
                 created_at = datetime.datetime.strptime('2013-10-20 19:20:30.00', '%Y-%m-%d %H:%M:%S.%f'),

@@ -5,7 +5,7 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**stripe_price_id** | **str** | Active one-time price of the Stripe account. | 
+**stripe_price_id** | **str** | Active one-time or licensed recurring price of the Stripe account. | 
 **policy_id** | **str** |  | 
 
 ## Example

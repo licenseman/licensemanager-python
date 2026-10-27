@@ -38,7 +38,8 @@ class TestStripePermission(unittest.TestCase):
                 resource = 'Prices',
                 access = 'Read',
                 reason = 'Lists your prices so you can choose which ones create licenses, and checks they can still be paid.',
-                optional = False
+                optional = False,
+                subscriptions = False
             )
         else:
             return StripePermission(
@@ -46,6 +47,7 @@ class TestStripePermission(unittest.TestCase):
                 access = 'Read',
                 reason = 'Lists your prices so you can choose which ones create licenses, and checks they can still be paid.',
                 optional = False,
+                subscriptions = False,
         )
         """
 

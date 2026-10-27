@@ -47,6 +47,9 @@ class TestIntegration(unittest.TestCase):
                 last_event_at = datetime.datetime.strptime('2013-10-20 19:20:30.00', '%Y-%m-%d %H:%M:%S.%f'),
                 auto_refund = True,
                 can_refund = True,
+                can_manage_subscriptions = True,
+                can_billing_portal = True,
+                subscription_grace_days = 7,
                 created_at = datetime.datetime.strptime('2013-10-20 19:20:30.00', '%Y-%m-%d %H:%M:%S.%f')
             )
         else:
@@ -63,6 +66,9 @@ class TestIntegration(unittest.TestCase):
                 last_event_at = datetime.datetime.strptime('2013-10-20 19:20:30.00', '%Y-%m-%d %H:%M:%S.%f'),
                 auto_refund = True,
                 can_refund = True,
+                can_manage_subscriptions = True,
+                can_billing_portal = True,
+                subscription_grace_days = 7,
                 created_at = datetime.datetime.strptime('2013-10-20 19:20:30.00', '%Y-%m-%d %H:%M:%S.%f'),
         )
         """

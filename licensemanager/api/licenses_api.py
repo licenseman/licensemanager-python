@@ -68,7 +68,7 @@ class LicensesApi:
     ) -> License:
         """Cancel a license
 
-        Cancels the license right away: validating its key then fails with `license_expired`, like an expired license, and its status is `canceled`. A cancellation can't be undone.  Customers can cancel their licenses until their `cancellableUntil`, the end of their money back guarantee: tokens can't cancel a license past it, or without one. API keys and sessions can cancel any license.  When the license was bought through the Stripe integration, its payment is refunded in the background, unless the integration disables `autoRefund`, its API key lacks the optional Refunds: Write permission (`canRefund`), or `refund` is `false`: the refund is its price paid, taxes included, and its id is set as `stripeRefundId`. The customer is emailed a confirmation, and the owners and admins of the organization are told about the cancellation and its refund. In test products, the customer is only emailed when their email is a member's of the organization.  Records a `license.canceled` event, then a `license.refunded` or `license.refund_failed` one once the refund is done.  **Token access**: customer, license tokens with the `license:cancel` permission (or the matching write one). A token reaches the license it's scoped to, or the licenses of its customer.  **Required role permission**: `license:cancel` when called with a session, granted by the member's role. API keys aren't limited by roles.
+        Cancels the license right away: validating its key then fails with `license_expired`, like an expired license, and its status is `canceled`. A cancellation can't be undone.  Customers can cancel their licenses until their `cancellableUntil`, the end of their money back guarantee: tokens can't cancel a license past it, or without one. API keys and sessions can cancel any license.  When the license was bought through the Stripe integration, its payment is refunded in the background, unless the integration disables `autoRefund`, its API key lacks the optional Refunds: Write permission (`canRefund`), or `refund` is `false`: the refund is its price paid, taxes included, and its id is set as `stripeRefundId`. The customer is emailed a confirmation, and the owners and admins of the organization are told about the cancellation and its refund. In test products, the customer is only emailed when their email is a member's of the organization.  A subscription license isn't refunded: its Stripe subscription is canceled at once, without proration, which needs the integration's `canManageSubscriptions`.  Records a `license.canceled` event, then a `license.refunded` or `license.refund_failed` one once the refund is done.  **Token access**: customer, license tokens with the `license:cancel` permission (or the matching write one). A token reaches the license it's scoped to, or the licenses of its customer.  **Required role permission**: `license:cancel` when called with a session, granted by the member's role. API keys aren't limited by roles.
 
         :param id: (required)
         :type id: str
@@ -146,7 +146,7 @@ class LicensesApi:
     ) -> ApiResponse[License]:
         """Cancel a license
 
-        Cancels the license right away: validating its key then fails with `license_expired`, like an expired license, and its status is `canceled`. A cancellation can't be undone.  Customers can cancel their licenses until their `cancellableUntil`, the end of their money back guarantee: tokens can't cancel a license past it, or without one. API keys and sessions can cancel any license.  When the license was bought through the Stripe integration, its payment is refunded in the background, unless the integration disables `autoRefund`, its API key lacks the optional Refunds: Write permission (`canRefund`), or `refund` is `false`: the refund is its price paid, taxes included, and its id is set as `stripeRefundId`. The customer is emailed a confirmation, and the owners and admins of the organization are told about the cancellation and its refund. In test products, the customer is only emailed when their email is a member's of the organization.  Records a `license.canceled` event, then a `license.refunded` or `license.refund_failed` one once the refund is done.  **Token access**: customer, license tokens with the `license:cancel` permission (or the matching write one). A token reaches the license it's scoped to, or the licenses of its customer.  **Required role permission**: `license:cancel` when called with a session, granted by the member's role. API keys aren't limited by roles.
+        Cancels the license right away: validating its key then fails with `license_expired`, like an expired license, and its status is `canceled`. A cancellation can't be undone.  Customers can cancel their licenses until their `cancellableUntil`, the end of their money back guarantee: tokens can't cancel a license past it, or without one. API keys and sessions can cancel any license.  When the license was bought through the Stripe integration, its payment is refunded in the background, unless the integration disables `autoRefund`, its API key lacks the optional Refunds: Write permission (`canRefund`), or `refund` is `false`: the refund is its price paid, taxes included, and its id is set as `stripeRefundId`. The customer is emailed a confirmation, and the owners and admins of the organization are told about the cancellation and its refund. In test products, the customer is only emailed when their email is a member's of the organization.  A subscription license isn't refunded: its Stripe subscription is canceled at once, without proration, which needs the integration's `canManageSubscriptions`.  Records a `license.canceled` event, then a `license.refunded` or `license.refund_failed` one once the refund is done.  **Token access**: customer, license tokens with the `license:cancel` permission (or the matching write one). A token reaches the license it's scoped to, or the licenses of its customer.  **Required role permission**: `license:cancel` when called with a session, granted by the member's role. API keys aren't limited by roles.
 
         :param id: (required)
         :type id: str
@@ -224,7 +224,7 @@ class LicensesApi:
     ) -> RESTResponseType:
         """Cancel a license
 
-        Cancels the license right away: validating its key then fails with `license_expired`, like an expired license, and its status is `canceled`. A cancellation can't be undone.  Customers can cancel their licenses until their `cancellableUntil`, the end of their money back guarantee: tokens can't cancel a license past it, or without one. API keys and sessions can cancel any license.  When the license was bought through the Stripe integration, its payment is refunded in the background, unless the integration disables `autoRefund`, its API key lacks the optional Refunds: Write permission (`canRefund`), or `refund` is `false`: the refund is its price paid, taxes included, and its id is set as `stripeRefundId`. The customer is emailed a confirmation, and the owners and admins of the organization are told about the cancellation and its refund. In test products, the customer is only emailed when their email is a member's of the organization.  Records a `license.canceled` event, then a `license.refunded` or `license.refund_failed` one once the refund is done.  **Token access**: customer, license tokens with the `license:cancel` permission (or the matching write one). A token reaches the license it's scoped to, or the licenses of its customer.  **Required role permission**: `license:cancel` when called with a session, granted by the member's role. API keys aren't limited by roles.
+        Cancels the license right away: validating its key then fails with `license_expired`, like an expired license, and its status is `canceled`. A cancellation can't be undone.  Customers can cancel their licenses until their `cancellableUntil`, the end of their money back guarantee: tokens can't cancel a license past it, or without one. API keys and sessions can cancel any license.  When the license was bought through the Stripe integration, its payment is refunded in the background, unless the integration disables `autoRefund`, its API key lacks the optional Refunds: Write permission (`canRefund`), or `refund` is `false`: the refund is its price paid, taxes included, and its id is set as `stripeRefundId`. The customer is emailed a confirmation, and the owners and admins of the organization are told about the cancellation and its refund. In test products, the customer is only emailed when their email is a member's of the organization.  A subscription license isn't refunded: its Stripe subscription is canceled at once, without proration, which needs the integration's `canManageSubscriptions`.  Records a `license.canceled` event, then a `license.refunded` or `license.refund_failed` one once the refund is done.  **Token access**: customer, license tokens with the `license:cancel` permission (or the matching write one). A token reaches the license it's scoped to, or the licenses of its customer.  **Required role permission**: `license:cancel` when called with a session, granted by the member's role. API keys aren't limited by roles.
 
         :param id: (required)
         :type id: str
@@ -3527,6 +3527,7 @@ class LicensesApi:
             '402': "Error",
             '403': "Error",
             '404': "Error",
+            '409': "Error",
             '422': "Error",
             '429': "Error",
         }
@@ -3604,6 +3605,7 @@ class LicensesApi:
             '402': "Error",
             '403': "Error",
             '404': "Error",
+            '409': "Error",
             '422': "Error",
             '429': "Error",
         }
@@ -3681,6 +3683,7 @@ class LicensesApi:
             '402': "Error",
             '403': "Error",
             '404': "Error",
+            '409': "Error",
             '422': "Error",
             '429': "Error",
         }

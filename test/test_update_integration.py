@@ -35,7 +35,8 @@ class TestUpdateIntegration(unittest.TestCase):
         model = UpdateIntegration()
         if include_optional:
             return UpdateIntegration(
-                auto_refund = False
+                auto_refund = False,
+                subscription_grace_days = 7
             )
         else:
             return UpdateIntegration(

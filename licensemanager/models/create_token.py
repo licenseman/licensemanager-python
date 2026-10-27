@@ -37,8 +37,8 @@ class CreateToken(BaseModel):
     def scope_validate_enum(cls, value):
         """Validates the enum"""
         for i in value:
-            if i not in set(['customer:read', 'customer:write', 'license:read', 'license:write', 'license:cancel', 'machine:read', 'machine:write', 'unknown_default_open_api']):
-                raise ValueError("each list item must be one of ('customer:read', 'customer:write', 'license:read', 'license:write', 'license:cancel', 'machine:read', 'machine:write', 'unknown_default_open_api')")
+            if i not in set(['customer:read', 'customer:write', 'customer:billing', 'license:read', 'license:write', 'license:cancel', 'machine:read', 'machine:write', 'unknown_default_open_api']):
+                raise ValueError("each list item must be one of ('customer:read', 'customer:write', 'customer:billing', 'license:read', 'license:write', 'license:cancel', 'machine:read', 'machine:write', 'unknown_default_open_api')")
         return value
 
     model_config = ConfigDict(

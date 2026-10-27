@@ -13,11 +13,13 @@
 """  # noqa: E501
 
 # import models into model package
+from licensemanager.models.billing_portal_session import BillingPortalSession
 from licensemanager.models.cancel_license import CancelLicense
 from licensemanager.models.cancellation_reason import CancellationReason
 from licensemanager.models.cancellation_stats import CancellationStats
 from licensemanager.models.cancellation_stats_by_reason_inner import CancellationStatsByReasonInner
 from licensemanager.models.connect_stripe import ConnectStripe
+from licensemanager.models.create_billing_portal_session import CreateBillingPortalSession
 from licensemanager.models.create_customer import CreateCustomer
 from licensemanager.models.create_integration_mapping import CreateIntegrationMapping
 from licensemanager.models.create_license import CreateLicense
@@ -46,6 +48,7 @@ from licensemanager.models.event_type import EventType
 from licensemanager.models.fixed_max_version import FixedMaxVersion
 from licensemanager.models.integration import Integration
 from licensemanager.models.integration_mapping import IntegrationMapping
+from licensemanager.models.integration_mapping_recurring import IntegrationMappingRecurring
 from licensemanager.models.integration_status import IntegrationStatus
 from licensemanager.models.license import License
 from licensemanager.models.license_list import LicenseList
@@ -55,6 +58,7 @@ from licensemanager.models.license_stats import LicenseStats
 from licensemanager.models.license_stats_activations_by_machine_inner import LicenseStatsActivationsByMachineInner
 from licensemanager.models.license_stats_activations_by_version_inner import LicenseStatsActivationsByVersionInner
 from licensemanager.models.license_status import LicenseStatus
+from licensemanager.models.license_subscription import LicenseSubscription
 from licensemanager.models.license_token import LicenseToken
 from licensemanager.models.list_policy_events_type_parameter import ListPolicyEventsTypeParameter
 from licensemanager.models.list_stripe_prices200_response import ListStripePrices200Response
@@ -65,6 +69,9 @@ from licensemanager.models.lock_max_version_major_after_one_of1 import LockMaxVe
 from licensemanager.models.lock_max_version_minor_after import LockMaxVersionMinorAfter
 from licensemanager.models.machine import Machine
 from licensemanager.models.machine_list import MachineList
+from licensemanager.models.mrr import Mrr
+from licensemanager.models.mrr_by_interval_inner import MrrByIntervalInner
+from licensemanager.models.mrr_by_policy_inner import MrrByPolicyInner
 from licensemanager.models.pagination import Pagination
 from licensemanager.models.policy import Policy
 from licensemanager.models.policy_duration import PolicyDuration
@@ -98,6 +105,8 @@ from licensemanager.models.signing_key import SigningKey
 from licensemanager.models.stripe_integration import StripeIntegration
 from licensemanager.models.stripe_permission import StripePermission
 from licensemanager.models.stripe_price import StripePrice
+from licensemanager.models.stripe_price_recurring import StripePriceRecurring
+from licensemanager.models.subscription_stats import SubscriptionStats
 from licensemanager.models.token import Token
 from licensemanager.models.update_customer import UpdateCustomer
 from licensemanager.models.update_integration import UpdateIntegration

@@ -26,13 +26,15 @@ from pydantic_core import to_jsonable_python
 
 class Revenue(BaseModel):
     """
-    Revenue of the licenses sold in one currency, each license counting on the day it was created. Licenses without a price are left out, and so are canceled ones, but in `canceledLicenseCount` and `canceledTotal`.
+    Revenue in one currency: the licenses sold once, each counting on the day it was created, and the payments of the subscription licenses, each counting on the day it was paid, with the license's policy. Licenses without a price are left out, and so are canceled ones, but in `canceledLicenseCount` and `canceledTotal`.
     """ # noqa: E501
     currency: StrictStr = Field(description="ISO 4217 code of the currency of the revenue.", json_schema_extra={"examples": ["USD"]})
-    license_count: StrictInt = Field(description="Number of licenses sold in the currency, free ones included, canceled ones left out.", alias="licenseCount", json_schema_extra={"examples": [42]})
-    total: Union[StrictFloat, StrictInt] = Field(description="Sum of the prices of the licenses sold in the currency, in major units, canceled ones left out.", json_schema_extra={"examples": [2099.58]})
-    canceled_license_count: StrictInt = Field(description="Number of canceled licenses sold in the currency.", alias="canceledLicenseCount", json_schema_extra={"examples": [2]})
-    canceled_total: Union[StrictFloat, StrictInt] = Field(description="Sum of the prices of the canceled licenses sold in the currency, in major units: revenue lost to cancellations.", alias="canceledTotal", json_schema_extra={"examples": [99.98]})
+    license_count: StrictInt = Field(description="Number of licenses sold once in the currency, free ones included, canceled ones and subscription licenses left out.", alias="licenseCount", json_schema_extra={"examples": [42]})
+    total: Union[StrictFloat, StrictInt] = Field(description="Revenue in the currency, in major units: the prices of the licenses sold once, canceled ones left out, plus the payments of the subscriptions, `subscriptionTotal`.", json_schema_extra={"examples": [2099.58]})
+    subscription_total: Union[StrictFloat, StrictInt] = Field(description="Sum of the payments of the subscription licenses in the currency, before taxes, in major units.", alias="subscriptionTotal", json_schema_extra={"examples": [480]})
+    payment_count: StrictInt = Field(description="Number of payments of the subscription licenses in the currency.", alias="paymentCount", json_schema_extra={"examples": [48]})
+    canceled_license_count: StrictInt = Field(description="Number of canceled licenses sold once in the currency.", alias="canceledLicenseCount", json_schema_extra={"examples": [2]})
+    canceled_total: Union[StrictFloat, StrictInt] = Field(description="Sum of the prices of the canceled licenses sold once in the currency, in major units: revenue lost to cancellations.", alias="canceledTotal", json_schema_extra={"examples": [99.98]})
     this_month: Union[StrictFloat, StrictInt] = Field(description="Revenue of the current month, in UTC.", alias="thisMonth", json_schema_extra={"examples": [349.93]})
     last_month: Union[StrictFloat, StrictInt] = Field(description="Revenue of the previous month, in UTC.", alias="lastMonth", json_schema_extra={"examples": [299.94]})
     last30_days: Union[StrictFloat, StrictInt] = Field(description="Revenue of the last 30 days, today included, in UTC.", alias="last30Days", json_schema_extra={"examples": [399.92]})
@@ -40,7 +42,7 @@ class Revenue(BaseModel):
     by_month: List[Union[StrictFloat, StrictInt]] = Field(description="Revenue each month, aligned on `months`.", alias="byMonth", json_schema_extra={"examples": [[199.96, 249.95, 349.93]]})
     by_policy: List[ProductStatsNewLicensesByPolicyInner] = Field(description="Revenue of the licenses of each policy, for the policies with licenses sold in the currency over the covered months.", alias="byPolicy")
     additional_properties: Dict[str, Any] = {}
-    __properties: ClassVar[List[str]] = ["currency", "licenseCount", "total", "canceledLicenseCount", "canceledTotal", "thisMonth", "lastMonth", "last30Days", "byDay", "byMonth", "byPolicy"]
+    __properties: ClassVar[List[str]] = ["currency", "licenseCount", "total", "subscriptionTotal", "paymentCount", "canceledLicenseCount", "canceledTotal", "thisMonth", "lastMonth", "last30Days", "byDay", "byMonth", "byPolicy"]
 
     model_config = ConfigDict(
         validate_by_name=True,
@@ -109,6 +111,8 @@ class Revenue(BaseModel):
             "currency": obj.get("currency"),
             "licenseCount": obj.get("licenseCount"),
             "total": obj.get("total"),
+            "subscriptionTotal": obj.get("subscriptionTotal"),
+            "paymentCount": obj.get("paymentCount"),
             "canceledLicenseCount": obj.get("canceledLicenseCount"),
             "canceledTotal": obj.get("canceledTotal"),
             "thisMonth": obj.get("thisMonth"),

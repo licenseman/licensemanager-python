@@ -27,6 +27,7 @@ from licensemanager.models.product_stats_active_machines_by_platform_inner impor
 from licensemanager.models.product_stats_active_machines_by_version_inner import ProductStatsActiveMachinesByVersionInner
 from licensemanager.models.product_stats_new_licenses_by_policy_inner import ProductStatsNewLicensesByPolicyInner
 from licensemanager.models.revenue import Revenue
+from licensemanager.models.subscription_stats import SubscriptionStats
 from typing import Optional, Set
 from typing_extensions import Self
 from pydantic_core import to_jsonable_python
@@ -51,12 +52,13 @@ class ProductStats(BaseModel):
     new_licenses_by_month: List[StrictInt] = Field(description="Number of licenses created each month, aligned on `months`.", alias="newLicensesByMonth", json_schema_extra={"examples": [[4, 9, 12]]})
     new_licenses_by_policy: List[ProductStatsNewLicensesByPolicyInner] = Field(description="Number of licenses of each policy created each day and each month, for the policies with licenses created over the covered months.", alias="newLicensesByPolicy")
     cancellation: Optional[CancellationStats] = Field(description="Cancellations of the licenses with a money back guarantee. `null` when no license of the product has one.")
+    subscriptions: Optional[SubscriptionStats] = Field(description="Subscriptions of the product. `null` when it has never had one.")
     revenue: List[Revenue] = Field(description="Revenue in each currency licenses were sold in, from the one with the most licenses sold. Amounts aren't converted between currencies.")
     activations_by_version: List[ProductStatsActivationsByVersionInner] = Field(description="Successful activations of the licenses of the product each day, per version of the application, from the most recent one.", alias="activationsByVersion")
     active_machines_by_version: List[ProductStatsActiveMachinesByVersionInner] = Field(description="Number of active machines running each version of the application, from the most recent one.", alias="activeMachinesByVersion")
     active_machines_by_platform: List[ProductStatsActiveMachinesByPlatformInner] = Field(description="Number of active machines on each platform, from the one with the most machines.", alias="activeMachinesByPlatform")
     additional_properties: Dict[str, Any] = {}
-    __properties: ClassVar[List[str]] = ["licenseCount", "activeLicenseCount", "newLicenseCount", "expiringLicenseCount", "expiredLicenseCount", "activeMachineCount", "inUseLicenseCount", "seatCount", "usedSeatCount", "fullLicenseCount", "days", "months", "newLicensesByDay", "newLicensesByMonth", "newLicensesByPolicy", "cancellation", "revenue", "activationsByVersion", "activeMachinesByVersion", "activeMachinesByPlatform"]
+    __properties: ClassVar[List[str]] = ["licenseCount", "activeLicenseCount", "newLicenseCount", "expiringLicenseCount", "expiredLicenseCount", "activeMachineCount", "inUseLicenseCount", "seatCount", "usedSeatCount", "fullLicenseCount", "days", "months", "newLicensesByDay", "newLicensesByMonth", "newLicensesByPolicy", "cancellation", "subscriptions", "revenue", "activationsByVersion", "activeMachinesByVersion", "activeMachinesByPlatform"]
 
     model_config = ConfigDict(
         validate_by_name=True,
@@ -108,6 +110,9 @@ class ProductStats(BaseModel):
         # override the default output from pydantic by calling `to_dict()` of cancellation
         if self.cancellation:
             _dict['cancellation'] = self.cancellation.to_dict()
+        # override the default output from pydantic by calling `to_dict()` of subscriptions
+        if self.subscriptions:
+            _dict['subscriptions'] = self.subscriptions.to_dict()
         # override the default output from pydantic by calling `to_dict()` of each item in revenue (list)
         _items = []
         if self.revenue:
@@ -142,6 +147,11 @@ class ProductStats(BaseModel):
         if self.cancellation is None and "cancellation" in self.model_fields_set:
             _dict['cancellation'] = None
 
+        # set to None if subscriptions (nullable) is None
+        # and model_fields_set contains the field
+        if self.subscriptions is None and "subscriptions" in self.model_fields_set:
+            _dict['subscriptions'] = None
+
         return _dict
 
     @classmethod
@@ -170,6 +180,7 @@ class ProductStats(BaseModel):
             "newLicensesByMonth": obj.get("newLicensesByMonth"),
             "newLicensesByPolicy": [ProductStatsNewLicensesByPolicyInner.from_dict(_item) for _item in obj["newLicensesByPolicy"]] if obj.get("newLicensesByPolicy") is not None else None,
             "cancellation": CancellationStats.from_dict(obj["cancellation"]) if obj.get("cancellation") is not None else None,
+            "subscriptions": SubscriptionStats.from_dict(obj["subscriptions"]) if obj.get("subscriptions") is not None else None,
             "revenue": [Revenue.from_dict(_item) for _item in obj["revenue"]] if obj.get("revenue") is not None else None,
             "activationsByVersion": [ProductStatsActivationsByVersionInner.from_dict(_item) for _item in obj["activationsByVersion"]] if obj.get("activationsByVersion") is not None else None,
             "activeMachinesByVersion": [ProductStatsActiveMachinesByVersionInner.from_dict(_item) for _item in obj["activeMachinesByVersion"]] if obj.get("activeMachinesByVersion") is not None else None,

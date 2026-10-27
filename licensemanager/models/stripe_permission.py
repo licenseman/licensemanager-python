@@ -31,8 +31,9 @@ class StripePermission(BaseModel):
     access: StrictStr
     reason: StrictStr = Field(json_schema_extra={"examples": ["Lists your prices so you can choose which ones create licenses, and checks they can still be paid."]})
     optional: StrictBool = Field(description="Whether the key can connect without it, losing what it's for, explained by `reason`.", json_schema_extra={"examples": [False]})
+    subscriptions: StrictBool = Field(description="Whether it's only needed to sell subscriptions: checked once a recurring price is mapped.", json_schema_extra={"examples": [False]})
     additional_properties: Dict[str, Any] = {}
-    __properties: ClassVar[List[str]] = ["resource", "access", "reason", "optional"]
+    __properties: ClassVar[List[str]] = ["resource", "access", "reason", "optional", "subscriptions"]
 
     @field_validator('access')
     def access_validate_enum(cls, value):
@@ -102,7 +103,8 @@ class StripePermission(BaseModel):
             "resource": obj.get("resource"),
             "access": obj.get("access"),
             "reason": obj.get("reason"),
-            "optional": obj.get("optional")
+            "optional": obj.get("optional"),
+            "subscriptions": obj.get("subscriptions")
         })
         # store additional fields in additional_properties
         for _key in obj.keys():

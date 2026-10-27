@@ -10,6 +10,7 @@ Name | Type | Description | Notes
 **product_name** | **str** |  | 
 **nickname** | **str** |  | 
 **price** | [**Price**](Price.md) |  | 
+**recurring** | [**StripePriceRecurring**](StripePriceRecurring.md) |  | 
 **mapped** | **bool** | Whether the price already creates licenses of a product. | 
 
 ## Example

@@ -20,6 +20,7 @@ import json
 from datetime import datetime
 from pydantic import BaseModel, ConfigDict, Field, StrictStr, field_validator
 from typing import Any, ClassVar, Dict, List, Optional
+from licensemanager.models.integration_mapping_recurring import IntegrationMappingRecurring
 from licensemanager.models.price import Price
 from typing import Optional, Set
 from typing_extensions import Self
@@ -37,11 +38,12 @@ class IntegrationMapping(BaseModel):
     stripe_price_id: StrictStr = Field(alias="stripePriceId", json_schema_extra={"examples": ["price_1MoBy5LkdIwHu7ix"]})
     product_name: StrictStr = Field(description="Name of the Stripe product when it was mapped.", alias="productName", json_schema_extra={"examples": ["Acme Pro"]})
     price: Optional[Price]
+    recurring: Optional[IntegrationMappingRecurring]
     status: StrictStr = Field(description="`error` when the price can no longer be paid, explained by `statusReason`.")
     status_reason: Optional[StrictStr] = Field(alias="statusReason", json_schema_extra={"examples": ["The price is archived in Stripe"]})
     created_at: datetime = Field(alias="createdAt")
     additional_properties: Dict[str, Any] = {}
-    __properties: ClassVar[List[str]] = ["id", "integrationId", "productId", "policyId", "stripeProductId", "stripePriceId", "productName", "price", "status", "statusReason", "createdAt"]
+    __properties: ClassVar[List[str]] = ["id", "integrationId", "productId", "policyId", "stripeProductId", "stripePriceId", "productName", "price", "recurring", "status", "statusReason", "createdAt"]
 
     @field_validator('status')
     def status_validate_enum(cls, value):
@@ -94,6 +96,9 @@ class IntegrationMapping(BaseModel):
         # override the default output from pydantic by calling `to_dict()` of price
         if self.price:
             _dict['price'] = self.price.to_dict()
+        # override the default output from pydantic by calling `to_dict()` of recurring
+        if self.recurring:
+            _dict['recurring'] = self.recurring.to_dict()
         # puts key-value pairs in additional_properties in the top level
         if self.additional_properties is not None:
             for _key, _value in self.additional_properties.items():
@@ -103,6 +108,11 @@ class IntegrationMapping(BaseModel):
         # and model_fields_set contains the field
         if self.price is None and "price" in self.model_fields_set:
             _dict['price'] = None
+
+        # set to None if recurring (nullable) is None
+        # and model_fields_set contains the field
+        if self.recurring is None and "recurring" in self.model_fields_set:
+            _dict['recurring'] = None
 
         # set to None if status_reason (nullable) is None
         # and model_fields_set contains the field
@@ -129,6 +139,7 @@ class IntegrationMapping(BaseModel):
             "stripePriceId": obj.get("stripePriceId"),
             "productName": obj.get("productName"),
             "price": Price.from_dict(obj["price"]) if obj.get("price") is not None else None,
+            "recurring": IntegrationMappingRecurring.from_dict(obj["recurring"]) if obj.get("recurring") is not None else None,
             "status": obj.get("status"),
             "statusReason": obj.get("statusReason"),
             "createdAt": obj.get("createdAt")

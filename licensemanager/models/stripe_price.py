@@ -20,6 +20,7 @@ import json
 from pydantic import BaseModel, ConfigDict, Field, StrictBool, StrictStr
 from typing import Any, ClassVar, Dict, List, Optional
 from licensemanager.models.price import Price
+from licensemanager.models.stripe_price_recurring import StripePriceRecurring
 from typing import Optional, Set
 from typing_extensions import Self
 from pydantic_core import to_jsonable_python
@@ -33,9 +34,10 @@ class StripePrice(BaseModel):
     product_name: StrictStr = Field(alias="productName", json_schema_extra={"examples": ["Acme Pro"]})
     nickname: Optional[StrictStr] = Field(json_schema_extra={"examples": ["Launch price"]})
     price: Optional[Price]
+    recurring: Optional[StripePriceRecurring]
     mapped: StrictBool = Field(description="Whether the price already creates licenses of a product.")
     additional_properties: Dict[str, Any] = {}
-    __properties: ClassVar[List[str]] = ["id", "productId", "productName", "nickname", "price", "mapped"]
+    __properties: ClassVar[List[str]] = ["id", "productId", "productName", "nickname", "price", "recurring", "mapped"]
 
     model_config = ConfigDict(
         validate_by_name=True,
@@ -81,6 +83,9 @@ class StripePrice(BaseModel):
         # override the default output from pydantic by calling `to_dict()` of price
         if self.price:
             _dict['price'] = self.price.to_dict()
+        # override the default output from pydantic by calling `to_dict()` of recurring
+        if self.recurring:
+            _dict['recurring'] = self.recurring.to_dict()
         # puts key-value pairs in additional_properties in the top level
         if self.additional_properties is not None:
             for _key, _value in self.additional_properties.items():
@@ -95,6 +100,11 @@ class StripePrice(BaseModel):
         # and model_fields_set contains the field
         if self.price is None and "price" in self.model_fields_set:
             _dict['price'] = None
+
+        # set to None if recurring (nullable) is None
+        # and model_fields_set contains the field
+        if self.recurring is None and "recurring" in self.model_fields_set:
+            _dict['recurring'] = None
 
         return _dict
 
@@ -113,6 +123,7 @@ class StripePrice(BaseModel):
             "productName": obj.get("productName"),
             "nickname": obj.get("nickname"),
             "price": Price.from_dict(obj["price"]) if obj.get("price") is not None else None,
+            "recurring": StripePriceRecurring.from_dict(obj["recurring"]) if obj.get("recurring") is not None else None,
             "mapped": obj.get("mapped")
         })
         # store additional fields in additional_properties

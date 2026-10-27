@@ -4,11 +4,13 @@
 .openapi-generator-ignore
 .travis.yml
 README.md
+docs/BillingPortalSession.md
 docs/CancelLicense.md
 docs/CancellationReason.md
 docs/CancellationStats.md
 docs/CancellationStatsByReasonInner.md
 docs/ConnectStripe.md
+docs/CreateBillingPortalSession.md
 docs/CreateCustomer.md
 docs/CreateIntegrationMapping.md
 docs/CreateLicense.md
@@ -39,6 +41,7 @@ docs/EventsApi.md
 docs/FixedMaxVersion.md
 docs/Integration.md
 docs/IntegrationMapping.md
+docs/IntegrationMappingRecurring.md
 docs/IntegrationStatus.md
 docs/IntegrationsApi.md
 docs/License.md
@@ -49,6 +52,7 @@ docs/LicenseStats.md
 docs/LicenseStatsActivationsByMachineInner.md
 docs/LicenseStatsActivationsByVersionInner.md
 docs/LicenseStatus.md
+docs/LicenseSubscription.md
 docs/LicenseToken.md
 docs/LicensesApi.md
 docs/ListPolicyEventsTypeParameter.md
@@ -61,6 +65,9 @@ docs/LockMaxVersionMinorAfter.md
 docs/Machine.md
 docs/MachineList.md
 docs/MachinesApi.md
+docs/Mrr.md
+docs/MrrByIntervalInner.md
+docs/MrrByPolicyInner.md
 docs/Pagination.md
 docs/PoliciesApi.md
 docs/Policy.md
@@ -98,6 +105,8 @@ docs/SigningKey.md
 docs/StripeIntegration.md
 docs/StripePermission.md
 docs/StripePrice.md
+docs/StripePriceRecurring.md
+docs/SubscriptionStats.md
 docs/Token.md
 docs/TokensApi.md
 docs/UpdateCustomer.md
@@ -129,11 +138,13 @@ licensemanager/api_response.py
 licensemanager/configuration.py
 licensemanager/exceptions.py
 licensemanager/models/__init__.py
+licensemanager/models/billing_portal_session.py
 licensemanager/models/cancel_license.py
 licensemanager/models/cancellation_reason.py
 licensemanager/models/cancellation_stats.py
 licensemanager/models/cancellation_stats_by_reason_inner.py
 licensemanager/models/connect_stripe.py
+licensemanager/models/create_billing_portal_session.py
 licensemanager/models/create_customer.py
 licensemanager/models/create_integration_mapping.py
 licensemanager/models/create_license.py
@@ -162,6 +173,7 @@ licensemanager/models/event_type.py
 licensemanager/models/fixed_max_version.py
 licensemanager/models/integration.py
 licensemanager/models/integration_mapping.py
+licensemanager/models/integration_mapping_recurring.py
 licensemanager/models/integration_status.py
 licensemanager/models/license.py
 licensemanager/models/license_list.py
@@ -171,6 +183,7 @@ licensemanager/models/license_stats.py
 licensemanager/models/license_stats_activations_by_machine_inner.py
 licensemanager/models/license_stats_activations_by_version_inner.py
 licensemanager/models/license_status.py
+licensemanager/models/license_subscription.py
 licensemanager/models/license_token.py
 licensemanager/models/list_policy_events_type_parameter.py
 licensemanager/models/list_stripe_prices200_response.py
@@ -181,6 +194,9 @@ licensemanager/models/lock_max_version_major_after_one_of1.py
 licensemanager/models/lock_max_version_minor_after.py
 licensemanager/models/machine.py
 licensemanager/models/machine_list.py
+licensemanager/models/mrr.py
+licensemanager/models/mrr_by_interval_inner.py
+licensemanager/models/mrr_by_policy_inner.py
 licensemanager/models/pagination.py
 licensemanager/models/policy.py
 licensemanager/models/policy_duration.py
@@ -214,6 +230,8 @@ licensemanager/models/signing_key.py
 licensemanager/models/stripe_integration.py
 licensemanager/models/stripe_permission.py
 licensemanager/models/stripe_price.py
+licensemanager/models/stripe_price_recurring.py
+licensemanager/models/subscription_stats.py
 licensemanager/models/token.py
 licensemanager/models/update_customer.py
 licensemanager/models/update_integration.py
@@ -234,11 +252,13 @@ setup.cfg
 setup.py
 test-requirements.txt
 test/__init__.py
+test/test_billing_portal_session.py
 test/test_cancel_license.py
 test/test_cancellation_reason.py
 test/test_cancellation_stats.py
 test/test_cancellation_stats_by_reason_inner.py
 test/test_connect_stripe.py
+test/test_create_billing_portal_session.py
 test/test_create_customer.py
 test/test_create_integration_mapping.py
 test/test_create_license.py
@@ -269,6 +289,7 @@ test/test_events_api.py
 test/test_fixed_max_version.py
 test/test_integration.py
 test/test_integration_mapping.py
+test/test_integration_mapping_recurring.py
 test/test_integration_status.py
 test/test_integrations_api.py
 test/test_license.py
@@ -279,6 +300,7 @@ test/test_license_stats.py
 test/test_license_stats_activations_by_machine_inner.py
 test/test_license_stats_activations_by_version_inner.py
 test/test_license_status.py
+test/test_license_subscription.py
 test/test_license_token.py
 test/test_licenses_api.py
 test/test_list_policy_events_type_parameter.py
@@ -291,6 +313,9 @@ test/test_lock_max_version_minor_after.py
 test/test_machine.py
 test/test_machine_list.py
 test/test_machines_api.py
+test/test_mrr.py
+test/test_mrr_by_interval_inner.py
+test/test_mrr_by_policy_inner.py
 test/test_pagination.py
 test/test_policies_api.py
 test/test_policy.py
@@ -328,6 +353,8 @@ test/test_signing_key.py
 test/test_stripe_integration.py
 test/test_stripe_permission.py
 test/test_stripe_price.py
+test/test_stripe_price_recurring.py
+test/test_subscription_stats.py
 test/test_token.py
 test/test_tokens_api.py
 test/test_update_customer.py

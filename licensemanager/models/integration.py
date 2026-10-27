@@ -18,7 +18,7 @@ import re  # noqa: F401
 import json
 
 from datetime import datetime
-from pydantic import BaseModel, ConfigDict, Field, StrictBool, StrictStr, field_validator
+from pydantic import BaseModel, ConfigDict, Field, StrictBool, StrictInt, StrictStr, field_validator
 from typing import Any, ClassVar, Dict, List, Optional
 from licensemanager.models.integration_status import IntegrationStatus
 from typing import Optional, Set
@@ -41,9 +41,12 @@ class Integration(BaseModel):
     last_event_at: Optional[datetime] = Field(description="Last time it received an event from the provider.", alias="lastEventAt")
     auto_refund: StrictBool = Field(description="Whether canceling a license bought through Stripe refunds its payment. On by default, always off when `canRefund` is false.", alias="autoRefund", json_schema_extra={"examples": [True]})
     can_refund: StrictBool = Field(description="Whether the API key has the optional Refunds: Write permission, checked when connecting and every day. Without it, canceled licenses aren't refunded: refund their payments from Stripe.", alias="canRefund", json_schema_extra={"examples": [True]})
+    can_manage_subscriptions: StrictBool = Field(description="Whether the API key has the optional Subscriptions: Write permission, checked when connecting and every day. Without it, subscription licenses can't be canceled from the app: cancel their subscriptions from Stripe.", alias="canManageSubscriptions", json_schema_extra={"examples": [True]})
+    can_billing_portal: StrictBool = Field(description="Whether the API key has the optional Customer portal: Write permission, checked when connecting and every day. Without it, the license portal doesn't link to the Stripe customer portal.", alias="canBillingPortal", json_schema_extra={"examples": [True]})
+    subscription_grace_days: StrictInt = Field(description="Days a subscription license stays valid after its period ends while its renewal is unpaid, as Stripe retries the payment. 7 by default.", alias="subscriptionGraceDays", json_schema_extra={"examples": [7]})
     created_at: datetime = Field(alias="createdAt")
     additional_properties: Dict[str, Any] = {}
-    __properties: ClassVar[List[str]] = ["id", "provider", "livemode", "accountName", "apiKeyHint", "webhookUrl", "status", "statusReason", "lastCheckedAt", "lastEventAt", "autoRefund", "canRefund", "createdAt"]
+    __properties: ClassVar[List[str]] = ["id", "provider", "livemode", "accountName", "apiKeyHint", "webhookUrl", "status", "statusReason", "lastCheckedAt", "lastEventAt", "autoRefund", "canRefund", "canManageSubscriptions", "canBillingPortal", "subscriptionGraceDays", "createdAt"]
 
     @field_validator('provider')
     def provider_validate_enum(cls, value):
@@ -142,6 +145,9 @@ class Integration(BaseModel):
             "lastEventAt": obj.get("lastEventAt"),
             "autoRefund": obj.get("autoRefund"),
             "canRefund": obj.get("canRefund"),
+            "canManageSubscriptions": obj.get("canManageSubscriptions"),
+            "canBillingPortal": obj.get("canBillingPortal"),
+            "subscriptionGraceDays": obj.get("subscriptionGraceDays"),
             "createdAt": obj.get("createdAt")
         })
         # store additional fields in additional_properties

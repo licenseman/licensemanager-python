@@ -14,7 +14,7 @@
 """  # noqa: E501
 
 
-__version__ = "0.2.0"
+__version__ = "0.3.0"
 
 # Define package exports
 __all__ = [
@@ -37,11 +37,13 @@ __all__ = [
     "ApiKeyError",
     "ApiAttributeError",
     "ApiException",
+    "BillingPortalSession",
     "CancelLicense",
     "CancellationReason",
     "CancellationStats",
     "CancellationStatsByReasonInner",
     "ConnectStripe",
+    "CreateBillingPortalSession",
     "CreateCustomer",
     "CreateIntegrationMapping",
     "CreateLicense",
@@ -70,6 +72,7 @@ __all__ = [
     "FixedMaxVersion",
     "Integration",
     "IntegrationMapping",
+    "IntegrationMappingRecurring",
     "IntegrationStatus",
     "License",
     "LicenseList",
@@ -79,6 +82,7 @@ __all__ = [
     "LicenseStatsActivationsByMachineInner",
     "LicenseStatsActivationsByVersionInner",
     "LicenseStatus",
+    "LicenseSubscription",
     "LicenseToken",
     "ListPolicyEventsTypeParameter",
     "ListStripePrices200Response",
@@ -89,6 +93,9 @@ __all__ = [
     "LockMaxVersionMinorAfter",
     "Machine",
     "MachineList",
+    "Mrr",
+    "MrrByIntervalInner",
+    "MrrByPolicyInner",
     "Pagination",
     "Policy",
     "PolicyDuration",
@@ -122,6 +129,8 @@ __all__ = [
     "StripeIntegration",
     "StripePermission",
     "StripePrice",
+    "StripePriceRecurring",
+    "SubscriptionStats",
     "Token",
     "UpdateCustomer",
     "UpdateIntegration",
@@ -160,11 +169,13 @@ from licensemanager.exceptions import ApiAttributeError as ApiAttributeError
 from licensemanager.exceptions import ApiException as ApiException
 
 # import models into sdk package
+from licensemanager.models.billing_portal_session import BillingPortalSession as BillingPortalSession
 from licensemanager.models.cancel_license import CancelLicense as CancelLicense
 from licensemanager.models.cancellation_reason import CancellationReason as CancellationReason
 from licensemanager.models.cancellation_stats import CancellationStats as CancellationStats
 from licensemanager.models.cancellation_stats_by_reason_inner import CancellationStatsByReasonInner as CancellationStatsByReasonInner
 from licensemanager.models.connect_stripe import ConnectStripe as ConnectStripe
+from licensemanager.models.create_billing_portal_session import CreateBillingPortalSession as CreateBillingPortalSession
 from licensemanager.models.create_customer import CreateCustomer as CreateCustomer
 from licensemanager.models.create_integration_mapping import CreateIntegrationMapping as CreateIntegrationMapping
 from licensemanager.models.create_license import CreateLicense as CreateLicense
@@ -193,6 +204,7 @@ from licensemanager.models.event_type import EventType as EventType
 from licensemanager.models.fixed_max_version import FixedMaxVersion as FixedMaxVersion
 from licensemanager.models.integration import Integration as Integration
 from licensemanager.models.integration_mapping import IntegrationMapping as IntegrationMapping
+from licensemanager.models.integration_mapping_recurring import IntegrationMappingRecurring as IntegrationMappingRecurring
 from licensemanager.models.integration_status import IntegrationStatus as IntegrationStatus
 from licensemanager.models.license import License as License
 from licensemanager.models.license_list import LicenseList as LicenseList
@@ -202,6 +214,7 @@ from licensemanager.models.license_stats import LicenseStats as LicenseStats
 from licensemanager.models.license_stats_activations_by_machine_inner import LicenseStatsActivationsByMachineInner as LicenseStatsActivationsByMachineInner
 from licensemanager.models.license_stats_activations_by_version_inner import LicenseStatsActivationsByVersionInner as LicenseStatsActivationsByVersionInner
 from licensemanager.models.license_status import LicenseStatus as LicenseStatus
+from licensemanager.models.license_subscription import LicenseSubscription as LicenseSubscription
 from licensemanager.models.license_token import LicenseToken as LicenseToken
 from licensemanager.models.list_policy_events_type_parameter import ListPolicyEventsTypeParameter as ListPolicyEventsTypeParameter
 from licensemanager.models.list_stripe_prices200_response import ListStripePrices200Response as ListStripePrices200Response
@@ -212,6 +225,9 @@ from licensemanager.models.lock_max_version_major_after_one_of1 import LockMaxVe
 from licensemanager.models.lock_max_version_minor_after import LockMaxVersionMinorAfter as LockMaxVersionMinorAfter
 from licensemanager.models.machine import Machine as Machine
 from licensemanager.models.machine_list import MachineList as MachineList
+from licensemanager.models.mrr import Mrr as Mrr
+from licensemanager.models.mrr_by_interval_inner import MrrByIntervalInner as MrrByIntervalInner
+from licensemanager.models.mrr_by_policy_inner import MrrByPolicyInner as MrrByPolicyInner
 from licensemanager.models.pagination import Pagination as Pagination
 from licensemanager.models.policy import Policy as Policy
 from licensemanager.models.policy_duration import PolicyDuration as PolicyDuration
@@ -245,6 +261,8 @@ from licensemanager.models.signing_key import SigningKey as SigningKey
 from licensemanager.models.stripe_integration import StripeIntegration as StripeIntegration
 from licensemanager.models.stripe_permission import StripePermission as StripePermission
 from licensemanager.models.stripe_price import StripePrice as StripePrice
+from licensemanager.models.stripe_price_recurring import StripePriceRecurring as StripePriceRecurring
+from licensemanager.models.subscription_stats import SubscriptionStats as SubscriptionStats
 from licensemanager.models.token import Token as Token
 from licensemanager.models.update_customer import UpdateCustomer as UpdateCustomer
 from licensemanager.models.update_integration import UpdateIntegration as UpdateIntegration

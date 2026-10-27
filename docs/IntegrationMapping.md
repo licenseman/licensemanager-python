@@ -13,6 +13,7 @@ Name | Type | Description | Notes
 **stripe_price_id** | **str** |  | 
 **product_name** | **str** | Name of the Stripe product when it was mapped. | 
 **price** | [**Price**](Price.md) |  | 
+**recurring** | [**IntegrationMappingRecurring**](IntegrationMappingRecurring.md) |  | 
 **status** | **str** | &#x60;error&#x60; when the price can no longer be paid, explained by &#x60;statusReason&#x60;. | 
 **status_reason** | **str** |  | 
 **created_at** | **datetime** |  | 

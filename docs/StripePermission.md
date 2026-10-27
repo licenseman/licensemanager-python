@@ -9,6 +9,7 @@ Name | Type | Description | Notes
 **access** | **str** |  | 
 **reason** | **str** |  | 
 **optional** | **bool** | Whether the key can connect without it, losing what it&#39;s for, explained by &#x60;reason&#x60;. | 
+**subscriptions** | **bool** | Whether it&#39;s only needed to sell subscriptions: checked once a recurring price is mapped. | 
 
 ## Example
 

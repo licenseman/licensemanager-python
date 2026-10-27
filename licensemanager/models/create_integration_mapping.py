@@ -28,7 +28,7 @@ class CreateIntegrationMapping(BaseModel):
     """
     CreateIntegrationMapping
     """ # noqa: E501
-    stripe_price_id: Annotated[str, Field(min_length=1, strict=True)] = Field(description="Active one-time price of the Stripe account.", alias="stripePriceId", json_schema_extra={"examples": ["price_1MoBy5LkdIwHu7ix"]})
+    stripe_price_id: Annotated[str, Field(min_length=1, strict=True)] = Field(description="Active one-time or licensed recurring price of the Stripe account.", alias="stripePriceId", json_schema_extra={"examples": ["price_1MoBy5LkdIwHu7ix"]})
     policy_id: Annotated[str, Field(min_length=1, strict=True)] = Field(alias="policyId", json_schema_extra={"examples": ["p4Rt8LmQ"]})
     additional_properties: Dict[str, Any] = {}
     __properties: ClassVar[List[str]] = ["stripePriceId", "policyId"]

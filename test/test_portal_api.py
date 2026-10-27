@@ -26,6 +26,13 @@ class TestPortalApi(unittest.TestCase):
     def tearDown(self) -> None:
         pass
 
+    def test_create_billing_portal_session(self) -> None:
+        """Test case for create_billing_portal_session
+
+        Open the Stripe customer portal of a customer
+        """
+        pass
+
     def test_create_portal_link(self) -> None:
         """Test case for create_portal_link
 

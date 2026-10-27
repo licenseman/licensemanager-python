@@ -19,6 +19,7 @@ import json
 
 from pydantic import BaseModel, ConfigDict, Field, StrictBool
 from typing import Any, ClassVar, Dict, List, Optional
+from typing_extensions import Annotated
 from typing import Optional, Set
 from typing_extensions import Self
 from pydantic_core import to_jsonable_python
@@ -28,8 +29,9 @@ class UpdateIntegration(BaseModel):
     UpdateIntegration
     """ # noqa: E501
     auto_refund: Optional[StrictBool] = Field(default=None, description="Whether canceling a license bought through Stripe refunds its payment. Can only be turned on when the integration's `canRefund` is true: the API key has the Refunds: Write permission.", alias="autoRefund", json_schema_extra={"examples": [False]})
+    subscription_grace_days: Optional[Annotated[int, Field(le=60, strict=True, ge=0)]] = Field(default=None, description="Days a subscription license stays valid after its period ends while its renewal is unpaid, as Stripe retries the payment.", alias="subscriptionGraceDays", json_schema_extra={"examples": [7]})
     additional_properties: Dict[str, Any] = {}
-    __properties: ClassVar[List[str]] = ["autoRefund"]
+    __properties: ClassVar[List[str]] = ["autoRefund", "subscriptionGraceDays"]
 
     model_config = ConfigDict(
         validate_by_name=True,
@@ -89,7 +91,8 @@ class UpdateIntegration(BaseModel):
             return cls.model_validate(obj)
 
         _obj = cls.model_validate({
-            "autoRefund": obj.get("autoRefund")
+            "autoRefund": obj.get("autoRefund"),
+            "subscriptionGraceDays": obj.get("subscriptionGraceDays")
         })
         # store additional fields in additional_properties
         for _key in obj.keys():

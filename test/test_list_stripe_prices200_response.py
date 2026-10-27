@@ -44,6 +44,9 @@ class TestListStripePrices200Response(unittest.TestCase):
                         price = licensemanager.models.price.Price(
                             amount = 49.99, 
                             currency = 'USD', ), 
+                        recurring = licensemanager.models.stripe_price_recurring.StripePrice_recurring(
+                            interval = 'day', 
+                            interval_count = 1, ), 
                         mapped = True, )
                     ]
             )
@@ -58,6 +61,9 @@ class TestListStripePrices200Response(unittest.TestCase):
                         price = licensemanager.models.price.Price(
                             amount = 49.99, 
                             currency = 'USD', ), 
+                        recurring = licensemanager.models.stripe_price_recurring.StripePrice_recurring(
+                            interval = 'day', 
+                            interval_count = 1, ), 
                         mapped = True, )
                     ],
         )
