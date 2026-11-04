@@ -1778,7 +1778,7 @@ class LicensesApi:
         page: Annotated[Optional[Annotated[int, Field(strict=True, ge=1)]], Field(description="Page to return. Pages are numbered from 1: `1` is the first page. A page past the last one returns an empty `data`, not an error. Defaults to `1`.")] = None,
         page_size: Annotated[Optional[Annotated[int, Field(le=100, strict=True, ge=1)]], Field(description="Maximum number of items per page, from 1 to 100. Every page holds this many items except the last one, which can hold fewer. Defaults to `20`.")] = None,
         sort: Annotated[Optional[StrictStr], Field(description="Field to sort by, prefixed with `-` for descending order. Defaults to `-createdAt`.")] = None,
-        search: Annotated[Optional[Annotated[str, Field(min_length=1, strict=True, max_length=200)]], Field(description="Case-insensitive text the key contains.")] = None,
+        search: Annotated[Optional[Annotated[str, Field(min_length=1, strict=True, max_length=200)]], Field(description="Case-insensitive text the key or the email of the customer contains.")] = None,
         key: Annotated[Optional[StrictStr], Field(description="Only returns the license with this exact key, case included. Keys of test products start with `TEST-`.")] = None,
         policy_id: Annotated[Optional[StrictStr], Field(description="Only returns the licenses following this policy.")] = None,
         machine_version: Annotated[Optional[StrictStr], Field(description="Only returns the licenses with at least one active machine running this version of the product.")] = None,
@@ -1821,7 +1821,7 @@ class LicensesApi:
         :type page_size: int
         :param sort: Field to sort by, prefixed with `-` for descending order. Defaults to `-createdAt`.
         :type sort: str
-        :param search: Case-insensitive text the key contains.
+        :param search: Case-insensitive text the key or the email of the customer contains.
         :type search: str
         :param key: Only returns the license with this exact key, case included. Keys of test products start with `TEST-`.
         :type key: str
@@ -1935,7 +1935,7 @@ class LicensesApi:
         page: Annotated[Optional[Annotated[int, Field(strict=True, ge=1)]], Field(description="Page to return. Pages are numbered from 1: `1` is the first page. A page past the last one returns an empty `data`, not an error. Defaults to `1`.")] = None,
         page_size: Annotated[Optional[Annotated[int, Field(le=100, strict=True, ge=1)]], Field(description="Maximum number of items per page, from 1 to 100. Every page holds this many items except the last one, which can hold fewer. Defaults to `20`.")] = None,
         sort: Annotated[Optional[StrictStr], Field(description="Field to sort by, prefixed with `-` for descending order. Defaults to `-createdAt`.")] = None,
-        search: Annotated[Optional[Annotated[str, Field(min_length=1, strict=True, max_length=200)]], Field(description="Case-insensitive text the key contains.")] = None,
+        search: Annotated[Optional[Annotated[str, Field(min_length=1, strict=True, max_length=200)]], Field(description="Case-insensitive text the key or the email of the customer contains.")] = None,
         key: Annotated[Optional[StrictStr], Field(description="Only returns the license with this exact key, case included. Keys of test products start with `TEST-`.")] = None,
         policy_id: Annotated[Optional[StrictStr], Field(description="Only returns the licenses following this policy.")] = None,
         machine_version: Annotated[Optional[StrictStr], Field(description="Only returns the licenses with at least one active machine running this version of the product.")] = None,
@@ -1978,7 +1978,7 @@ class LicensesApi:
         :type page_size: int
         :param sort: Field to sort by, prefixed with `-` for descending order. Defaults to `-createdAt`.
         :type sort: str
-        :param search: Case-insensitive text the key contains.
+        :param search: Case-insensitive text the key or the email of the customer contains.
         :type search: str
         :param key: Only returns the license with this exact key, case included. Keys of test products start with `TEST-`.
         :type key: str
@@ -2092,7 +2092,7 @@ class LicensesApi:
         page: Annotated[Optional[Annotated[int, Field(strict=True, ge=1)]], Field(description="Page to return. Pages are numbered from 1: `1` is the first page. A page past the last one returns an empty `data`, not an error. Defaults to `1`.")] = None,
         page_size: Annotated[Optional[Annotated[int, Field(le=100, strict=True, ge=1)]], Field(description="Maximum number of items per page, from 1 to 100. Every page holds this many items except the last one, which can hold fewer. Defaults to `20`.")] = None,
         sort: Annotated[Optional[StrictStr], Field(description="Field to sort by, prefixed with `-` for descending order. Defaults to `-createdAt`.")] = None,
-        search: Annotated[Optional[Annotated[str, Field(min_length=1, strict=True, max_length=200)]], Field(description="Case-insensitive text the key contains.")] = None,
+        search: Annotated[Optional[Annotated[str, Field(min_length=1, strict=True, max_length=200)]], Field(description="Case-insensitive text the key or the email of the customer contains.")] = None,
         key: Annotated[Optional[StrictStr], Field(description="Only returns the license with this exact key, case included. Keys of test products start with `TEST-`.")] = None,
         policy_id: Annotated[Optional[StrictStr], Field(description="Only returns the licenses following this policy.")] = None,
         machine_version: Annotated[Optional[StrictStr], Field(description="Only returns the licenses with at least one active machine running this version of the product.")] = None,
@@ -2135,7 +2135,7 @@ class LicensesApi:
         :type page_size: int
         :param sort: Field to sort by, prefixed with `-` for descending order. Defaults to `-createdAt`.
         :type sort: str
-        :param search: Case-insensitive text the key contains.
+        :param search: Case-insensitive text the key or the email of the customer contains.
         :type search: str
         :param key: Only returns the license with this exact key, case included. Keys of test products start with `TEST-`.
         :type key: str
@@ -2469,7 +2469,7 @@ class LicensesApi:
         page: Annotated[Optional[Annotated[int, Field(strict=True, ge=1)]], Field(description="Page to return. Pages are numbered from 1: `1` is the first page. A page past the last one returns an empty `data`, not an error. Defaults to `1`.")] = None,
         page_size: Annotated[Optional[Annotated[int, Field(le=100, strict=True, ge=1)]], Field(description="Maximum number of items per page, from 1 to 100. Every page holds this many items except the last one, which can hold fewer. Defaults to `20`.")] = None,
         sort: Annotated[Optional[StrictStr], Field(description="Field to sort by, prefixed with `-` for descending order. Defaults to `-createdAt`.")] = None,
-        search: Annotated[Optional[Annotated[str, Field(min_length=1, strict=True, max_length=200)]], Field(description="Case-insensitive text the key contains.")] = None,
+        search: Annotated[Optional[Annotated[str, Field(min_length=1, strict=True, max_length=200)]], Field(description="Case-insensitive text the key or the email of the customer contains.")] = None,
         key: Annotated[Optional[StrictStr], Field(description="Only returns the license with this exact key, case included. Keys of test products start with `TEST-`.")] = None,
         policy_id: Annotated[Optional[StrictStr], Field(description="Only returns the licenses following this policy.")] = None,
         customer_id: Annotated[Optional[StrictStr], Field(description="Only returns the licenses of this customer.")] = None,
@@ -2513,7 +2513,7 @@ class LicensesApi:
         :type page_size: int
         :param sort: Field to sort by, prefixed with `-` for descending order. Defaults to `-createdAt`.
         :type sort: str
-        :param search: Case-insensitive text the key contains.
+        :param search: Case-insensitive text the key or the email of the customer contains.
         :type search: str
         :param key: Only returns the license with this exact key, case included. Keys of test products start with `TEST-`.
         :type key: str
@@ -2630,7 +2630,7 @@ class LicensesApi:
         page: Annotated[Optional[Annotated[int, Field(strict=True, ge=1)]], Field(description="Page to return. Pages are numbered from 1: `1` is the first page. A page past the last one returns an empty `data`, not an error. Defaults to `1`.")] = None,
         page_size: Annotated[Optional[Annotated[int, Field(le=100, strict=True, ge=1)]], Field(description="Maximum number of items per page, from 1 to 100. Every page holds this many items except the last one, which can hold fewer. Defaults to `20`.")] = None,
         sort: Annotated[Optional[StrictStr], Field(description="Field to sort by, prefixed with `-` for descending order. Defaults to `-createdAt`.")] = None,
-        search: Annotated[Optional[Annotated[str, Field(min_length=1, strict=True, max_length=200)]], Field(description="Case-insensitive text the key contains.")] = None,
+        search: Annotated[Optional[Annotated[str, Field(min_length=1, strict=True, max_length=200)]], Field(description="Case-insensitive text the key or the email of the customer contains.")] = None,
         key: Annotated[Optional[StrictStr], Field(description="Only returns the license with this exact key, case included. Keys of test products start with `TEST-`.")] = None,
         policy_id: Annotated[Optional[StrictStr], Field(description="Only returns the licenses following this policy.")] = None,
         customer_id: Annotated[Optional[StrictStr], Field(description="Only returns the licenses of this customer.")] = None,
@@ -2674,7 +2674,7 @@ class LicensesApi:
         :type page_size: int
         :param sort: Field to sort by, prefixed with `-` for descending order. Defaults to `-createdAt`.
         :type sort: str
-        :param search: Case-insensitive text the key contains.
+        :param search: Case-insensitive text the key or the email of the customer contains.
         :type search: str
         :param key: Only returns the license with this exact key, case included. Keys of test products start with `TEST-`.
         :type key: str
@@ -2791,7 +2791,7 @@ class LicensesApi:
         page: Annotated[Optional[Annotated[int, Field(strict=True, ge=1)]], Field(description="Page to return. Pages are numbered from 1: `1` is the first page. A page past the last one returns an empty `data`, not an error. Defaults to `1`.")] = None,
         page_size: Annotated[Optional[Annotated[int, Field(le=100, strict=True, ge=1)]], Field(description="Maximum number of items per page, from 1 to 100. Every page holds this many items except the last one, which can hold fewer. Defaults to `20`.")] = None,
         sort: Annotated[Optional[StrictStr], Field(description="Field to sort by, prefixed with `-` for descending order. Defaults to `-createdAt`.")] = None,
-        search: Annotated[Optional[Annotated[str, Field(min_length=1, strict=True, max_length=200)]], Field(description="Case-insensitive text the key contains.")] = None,
+        search: Annotated[Optional[Annotated[str, Field(min_length=1, strict=True, max_length=200)]], Field(description="Case-insensitive text the key or the email of the customer contains.")] = None,
         key: Annotated[Optional[StrictStr], Field(description="Only returns the license with this exact key, case included. Keys of test products start with `TEST-`.")] = None,
         policy_id: Annotated[Optional[StrictStr], Field(description="Only returns the licenses following this policy.")] = None,
         customer_id: Annotated[Optional[StrictStr], Field(description="Only returns the licenses of this customer.")] = None,
@@ -2835,7 +2835,7 @@ class LicensesApi:
         :type page_size: int
         :param sort: Field to sort by, prefixed with `-` for descending order. Defaults to `-createdAt`.
         :type sort: str
-        :param search: Case-insensitive text the key contains.
+        :param search: Case-insensitive text the key or the email of the customer contains.
         :type search: str
         :param key: Only returns the license with this exact key, case included. Keys of test products start with `TEST-`.
         :type key: str

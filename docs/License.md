@@ -9,6 +9,7 @@ Name | Type | Description | Notes
 **product_id** | **str** |  | 
 **policy_id** | **str** |  | 
 **customer_id** | **str** |  | 
+**customer** | [**LicenseCustomer**](LicenseCustomer.md) |  | 
 **key** | **str** | Unique within the product. Case sensitive: &#x60;validateKey&#x60; compares keys exactly. | 
 **created_at** | **datetime** |  | 
 **expires_at** | **datetime** | &#x60;null&#x60; when the license never expires. | 

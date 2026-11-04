@@ -41,6 +41,10 @@ class TestLicenseList(unittest.TestCase):
                         product_id = 'x7Kp2QaZ', 
                         policy_id = 'p4Rt8LmQ', 
                         customer_id = 'c9Wd3RtE', 
+                        customer = licensemanager.models.license_customer.LicenseCustomer(
+                            id = 'c9Wd3RtE', 
+                            email = 'jane@example.com', 
+                            name = 'Jane Doe', ), 
                         key = '7KQ2M-X9ZPA-H4TRC-WN6EY-B3JDF', 
                         created_at = '2026-01-15T09:30:00.000Z', 
                         expires_at = '2027-01-15T09:30:00.000Z', 
@@ -89,6 +93,10 @@ class TestLicenseList(unittest.TestCase):
                         product_id = 'x7Kp2QaZ', 
                         policy_id = 'p4Rt8LmQ', 
                         customer_id = 'c9Wd3RtE', 
+                        customer = licensemanager.models.license_customer.LicenseCustomer(
+                            id = 'c9Wd3RtE', 
+                            email = 'jane@example.com', 
+                            name = 'Jane Doe', ), 
                         key = '7KQ2M-X9ZPA-H4TRC-WN6EY-B3JDF', 
                         created_at = '2026-01-15T09:30:00.000Z', 
                         expires_at = '2027-01-15T09:30:00.000Z', 

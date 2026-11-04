@@ -622,7 +622,7 @@ with licensemanager.ApiClient(configuration) as api_client:
     page = 1 # int | Page to return. Pages are numbered from 1: `1` is the first page. A page past the last one returns an empty `data`, not an error. Defaults to `1`. (optional) (default to 1)
     page_size = 20 # int | Maximum number of items per page, from 1 to 100. Every page holds this many items except the last one, which can hold fewer. Defaults to `20`. (optional) (default to 20)
     sort = '-createdAt' # str | Field to sort by, prefixed with `-` for descending order. Defaults to `-createdAt`. (optional) (default to '-createdAt')
-    search = 'X9ZPA' # str | Case-insensitive text the key contains. (optional)
+    search = 'X9ZPA' # str | Case-insensitive text the key or the email of the customer contains. (optional)
     key = '7KQ2M-X9ZPA-H4TRC-WN6EY-B3JDF' # str | Only returns the license with this exact key, case included. Keys of test products start with `TEST-`. (optional)
     policy_id = 'p4Rt8LmQ' # str | Only returns the licenses following this policy. (optional)
     machine_version = '2.3.1' # str | Only returns the licenses with at least one active machine running this version of the product. (optional)
@@ -661,7 +661,7 @@ Name | Type | Description  | Notes
  **page** | **int**| Page to return. Pages are numbered from 1: &#x60;1&#x60; is the first page. A page past the last one returns an empty &#x60;data&#x60;, not an error. Defaults to &#x60;1&#x60;. | [optional] [default to 1]
  **page_size** | **int**| Maximum number of items per page, from 1 to 100. Every page holds this many items except the last one, which can hold fewer. Defaults to &#x60;20&#x60;. | [optional] [default to 20]
  **sort** | **str**| Field to sort by, prefixed with &#x60;-&#x60; for descending order. Defaults to &#x60;-createdAt&#x60;. | [optional] [default to &#39;-createdAt&#39;]
- **search** | **str**| Case-insensitive text the key contains. | [optional] 
+ **search** | **str**| Case-insensitive text the key or the email of the customer contains. | [optional] 
  **key** | **str**| Only returns the license with this exact key, case included. Keys of test products start with &#x60;TEST-&#x60;. | [optional] 
  **policy_id** | **str**| Only returns the licenses following this policy. | [optional] 
  **machine_version** | **str**| Only returns the licenses with at least one active machine running this version of the product. | [optional] 
@@ -749,7 +749,7 @@ with licensemanager.ApiClient(configuration) as api_client:
     page = 1 # int | Page to return. Pages are numbered from 1: `1` is the first page. A page past the last one returns an empty `data`, not an error. Defaults to `1`. (optional) (default to 1)
     page_size = 20 # int | Maximum number of items per page, from 1 to 100. Every page holds this many items except the last one, which can hold fewer. Defaults to `20`. (optional) (default to 20)
     sort = '-createdAt' # str | Field to sort by, prefixed with `-` for descending order. Defaults to `-createdAt`. (optional) (default to '-createdAt')
-    search = 'X9ZPA' # str | Case-insensitive text the key contains. (optional)
+    search = 'X9ZPA' # str | Case-insensitive text the key or the email of the customer contains. (optional)
     key = '7KQ2M-X9ZPA-H4TRC-WN6EY-B3JDF' # str | Only returns the license with this exact key, case included. Keys of test products start with `TEST-`. (optional)
     policy_id = 'p4Rt8LmQ' # str | Only returns the licenses following this policy. (optional)
     customer_id = 'c9Wd3RtE' # str | Only returns the licenses of this customer. (optional)
@@ -789,7 +789,7 @@ Name | Type | Description  | Notes
  **page** | **int**| Page to return. Pages are numbered from 1: &#x60;1&#x60; is the first page. A page past the last one returns an empty &#x60;data&#x60;, not an error. Defaults to &#x60;1&#x60;. | [optional] [default to 1]
  **page_size** | **int**| Maximum number of items per page, from 1 to 100. Every page holds this many items except the last one, which can hold fewer. Defaults to &#x60;20&#x60;. | [optional] [default to 20]
  **sort** | **str**| Field to sort by, prefixed with &#x60;-&#x60; for descending order. Defaults to &#x60;-createdAt&#x60;. | [optional] [default to &#39;-createdAt&#39;]
- **search** | **str**| Case-insensitive text the key contains. | [optional] 
+ **search** | **str**| Case-insensitive text the key or the email of the customer contains. | [optional] 
  **key** | **str**| Only returns the license with this exact key, case included. Keys of test products start with &#x60;TEST-&#x60;. | [optional] 
  **policy_id** | **str**| Only returns the licenses following this policy. | [optional] 
  **customer_id** | **str**| Only returns the licenses of this customer. | [optional] 

@@ -14,7 +14,7 @@
 """  # noqa: E501
 
 
-__version__ = "0.3.0"
+__version__ = "0.3.1"
 
 # Define package exports
 __all__ = [
@@ -75,6 +75,7 @@ __all__ = [
     "IntegrationMappingRecurring",
     "IntegrationStatus",
     "License",
+    "LicenseCustomer",
     "LicenseList",
     "LicenseMaxVersion",
     "LicenseMaxVersionInput",
@@ -207,6 +208,7 @@ from licensemanager.models.integration_mapping import IntegrationMapping as Inte
 from licensemanager.models.integration_mapping_recurring import IntegrationMappingRecurring as IntegrationMappingRecurring
 from licensemanager.models.integration_status import IntegrationStatus as IntegrationStatus
 from licensemanager.models.license import License as License
+from licensemanager.models.license_customer import LicenseCustomer as LicenseCustomer
 from licensemanager.models.license_list import LicenseList as LicenseList
 from licensemanager.models.license_max_version import LicenseMaxVersion as LicenseMaxVersion
 from licensemanager.models.license_max_version_input import LicenseMaxVersionInput as LicenseMaxVersionInput

@@ -51,6 +51,7 @@ from licensemanager.models.integration_mapping import IntegrationMapping
 from licensemanager.models.integration_mapping_recurring import IntegrationMappingRecurring
 from licensemanager.models.integration_status import IntegrationStatus
 from licensemanager.models.license import License
+from licensemanager.models.license_customer import LicenseCustomer
 from licensemanager.models.license_list import LicenseList
 from licensemanager.models.license_max_version import LicenseMaxVersion
 from licensemanager.models.license_max_version_input import LicenseMaxVersionInput

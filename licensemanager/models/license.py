@@ -20,6 +20,7 @@ import json
 from datetime import datetime
 from pydantic import BaseModel, ConfigDict, Field, StrictInt, StrictStr
 from typing import Any, ClassVar, Dict, List, Optional
+from licensemanager.models.license_customer import LicenseCustomer
 from licensemanager.models.license_max_version import LicenseMaxVersion
 from licensemanager.models.license_status import LicenseStatus
 from licensemanager.models.license_subscription import LicenseSubscription
@@ -36,6 +37,7 @@ class License(BaseModel):
     product_id: StrictStr = Field(alias="productId", json_schema_extra={"examples": ["x7Kp2QaZ"]})
     policy_id: StrictStr = Field(alias="policyId", json_schema_extra={"examples": ["p4Rt8LmQ"]})
     customer_id: StrictStr = Field(alias="customerId", json_schema_extra={"examples": ["c9Wd3RtE"]})
+    customer: LicenseCustomer
     key: StrictStr = Field(description="Unique within the product. Case sensitive: `validateKey` compares keys exactly.", json_schema_extra={"examples": ["7KQ2M-X9ZPA-H4TRC-WN6EY-B3JDF"]})
     created_at: datetime = Field(alias="createdAt", json_schema_extra={"examples": ["2026-01-15T09:30:00.000Z"]})
     expires_at: Optional[datetime] = Field(description="`null` when the license never expires.", alias="expiresAt", json_schema_extra={"examples": ["2027-01-15T09:30:00.000Z"]})
@@ -56,7 +58,7 @@ class License(BaseModel):
     stripe_refund_id: Optional[StrictStr] = Field(description="Id of the Stripe refund of the license's payment once it was canceled, through the Stripe integration. `null` otherwise.", alias="stripeRefundId", json_schema_extra={"examples": ["re_3MtwBwLkdIwHu7ix0Bs5rA2b"]})
     updated_at: datetime = Field(description="Last time the license's settings were edited, not when its key was validated.", alias="updatedAt", json_schema_extra={"examples": ["2026-01-15T09:30:00.000Z"]})
     additional_properties: Dict[str, Any] = {}
-    __properties: ClassVar[List[str]] = ["id", "productId", "policyId", "customerId", "key", "createdAt", "expiresAt", "meta", "stripePaymentIntentId", "maxMachines", "maxOfflineDurationSeconds", "activeMachineCount", "lastActivatedAt", "maxVersion", "price", "status", "cancellableUntil", "canceledAt", "cancellationReason", "subscription", "cancellationComment", "stripeRefundId", "updatedAt"]
+    __properties: ClassVar[List[str]] = ["id", "productId", "policyId", "customerId", "customer", "key", "createdAt", "expiresAt", "meta", "stripePaymentIntentId", "maxMachines", "maxOfflineDurationSeconds", "activeMachineCount", "lastActivatedAt", "maxVersion", "price", "status", "cancellableUntil", "canceledAt", "cancellationReason", "subscription", "cancellationComment", "stripeRefundId", "updatedAt"]
 
     model_config = ConfigDict(
         validate_by_name=True,
@@ -99,6 +101,9 @@ class License(BaseModel):
             exclude=excluded_fields,
             exclude_none=True,
         )
+        # override the default output from pydantic by calling `to_dict()` of customer
+        if self.customer:
+            _dict['customer'] = self.customer.to_dict()
         # override the default output from pydantic by calling `to_dict()` of max_version
         if self.max_version:
             _dict['maxVersion'] = self.max_version.to_dict()
@@ -187,6 +192,7 @@ class License(BaseModel):
             "productId": obj.get("productId"),
             "policyId": obj.get("policyId"),
             "customerId": obj.get("customerId"),
+            "customer": LicenseCustomer.from_dict(obj["customer"]) if obj.get("customer") is not None else None,
             "key": obj.get("key"),
             "createdAt": obj.get("createdAt"),
             "expiresAt": obj.get("expiresAt"),

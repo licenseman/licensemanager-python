@@ -45,6 +45,7 @@ docs/IntegrationMappingRecurring.md
 docs/IntegrationStatus.md
 docs/IntegrationsApi.md
 docs/License.md
+docs/LicenseCustomer.md
 docs/LicenseList.md
 docs/LicenseMaxVersion.md
 docs/LicenseMaxVersionInput.md
@@ -176,6 +177,7 @@ licensemanager/models/integration_mapping.py
 licensemanager/models/integration_mapping_recurring.py
 licensemanager/models/integration_status.py
 licensemanager/models/license.py
+licensemanager/models/license_customer.py
 licensemanager/models/license_list.py
 licensemanager/models/license_max_version.py
 licensemanager/models/license_max_version_input.py
@@ -293,6 +295,7 @@ test/test_integration_mapping_recurring.py
 test/test_integration_status.py
 test/test_integrations_api.py
 test/test_license.py
+test/test_license_customer.py
 test/test_license_list.py
 test/test_license_max_version.py
 test/test_license_max_version_input.py
