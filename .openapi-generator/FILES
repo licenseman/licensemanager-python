@@ -103,6 +103,9 @@ docs/Revenue.md
 docs/SendLicenseKeys.md
 docs/SendPortalLink.md
 docs/SigningKey.md
+docs/SlackAuthorize.md
+docs/SlackConnection.md
+docs/SlackIntegration.md
 docs/StripeIntegration.md
 docs/StripePermission.md
 docs/StripePrice.md
@@ -118,6 +121,7 @@ docs/UpdatePolicy.md
 docs/UpdateProduct.md
 docs/UpdateProductPortal.md
 docs/UpdateRelease.md
+docs/UpdateSlackConnection.md
 docs/ValidateKey.md
 docs/ValidateKeyError.md
 docs/ValidateKeyErrorError.md
@@ -229,6 +233,9 @@ licensemanager/models/revenue.py
 licensemanager/models/send_license_keys.py
 licensemanager/models/send_portal_link.py
 licensemanager/models/signing_key.py
+licensemanager/models/slack_authorize.py
+licensemanager/models/slack_connection.py
+licensemanager/models/slack_integration.py
 licensemanager/models/stripe_integration.py
 licensemanager/models/stripe_permission.py
 licensemanager/models/stripe_price.py
@@ -243,6 +250,7 @@ licensemanager/models/update_policy.py
 licensemanager/models/update_product.py
 licensemanager/models/update_product_portal.py
 licensemanager/models/update_release.py
+licensemanager/models/update_slack_connection.py
 licensemanager/models/validate_key.py
 licensemanager/models/validate_key_error.py
 licensemanager/models/validate_key_error_error.py
@@ -353,6 +361,9 @@ test/test_revenue.py
 test/test_send_license_keys.py
 test/test_send_portal_link.py
 test/test_signing_key.py
+test/test_slack_authorize.py
+test/test_slack_connection.py
+test/test_slack_integration.py
 test/test_stripe_integration.py
 test/test_stripe_permission.py
 test/test_stripe_price.py
@@ -368,6 +379,7 @@ test/test_update_policy.py
 test/test_update_product.py
 test/test_update_product_portal.py
 test/test_update_release.py
+test/test_update_slack_connection.py
 test/test_validate_key.py
 test/test_validate_key_error.py
 test/test_validate_key_error_error.py

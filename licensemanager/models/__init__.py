@@ -103,6 +103,9 @@ from licensemanager.models.revenue import Revenue
 from licensemanager.models.send_license_keys import SendLicenseKeys
 from licensemanager.models.send_portal_link import SendPortalLink
 from licensemanager.models.signing_key import SigningKey
+from licensemanager.models.slack_authorize import SlackAuthorize
+from licensemanager.models.slack_connection import SlackConnection
+from licensemanager.models.slack_integration import SlackIntegration
 from licensemanager.models.stripe_integration import StripeIntegration
 from licensemanager.models.stripe_permission import StripePermission
 from licensemanager.models.stripe_price import StripePrice
@@ -117,6 +120,7 @@ from licensemanager.models.update_policy import UpdatePolicy
 from licensemanager.models.update_product import UpdateProduct
 from licensemanager.models.update_product_portal import UpdateProductPortal
 from licensemanager.models.update_release import UpdateRelease
+from licensemanager.models.update_slack_connection import UpdateSlackConnection
 from licensemanager.models.validate_key import ValidateKey
 from licensemanager.models.validate_key_error import ValidateKeyError
 from licensemanager.models.validate_key_error_error import ValidateKeyErrorError

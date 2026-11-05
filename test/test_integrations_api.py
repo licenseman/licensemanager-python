@@ -26,6 +26,13 @@ class TestIntegrationsApi(unittest.TestCase):
     def tearDown(self) -> None:
         pass
 
+    def test_authorize_slack(self) -> None:
+        """Test case for authorize_slack
+
+        Start connecting a Slack channel
+        """
+        pass
+
     def test_check_integration(self) -> None:
         """Test case for check_integration
 
@@ -47,6 +54,13 @@ class TestIntegrationsApi(unittest.TestCase):
         """
         pass
 
+    def test_delete_slack_connection(self) -> None:
+        """Test case for delete_slack_connection
+
+        Remove a Slack connection
+        """
+        pass
+
     def test_delete_stripe_mapping(self) -> None:
         """Test case for delete_stripe_mapping
 
@@ -58,6 +72,13 @@ class TestIntegrationsApi(unittest.TestCase):
         """Test case for disconnect_integration
 
         Disconnect an integration
+        """
+        pass
+
+    def test_get_slack_integration(self) -> None:
+        """Test case for get_slack_integration
+
+        Get the Slack integration of a product
         """
         pass
 
@@ -75,10 +96,24 @@ class TestIntegrationsApi(unittest.TestCase):
         """
         pass
 
+    def test_test_slack_connection(self) -> None:
+        """Test case for test_slack_connection
+
+        Send a test message to a Slack channel
+        """
+        pass
+
     def test_update_integration(self) -> None:
         """Test case for update_integration
 
         Update an integration
+        """
+        pass
+
+    def test_update_slack_connection(self) -> None:
+        """Test case for update_slack_connection
+
+        Update a Slack connection
         """
         pass
 

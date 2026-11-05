@@ -14,7 +14,7 @@
 """  # noqa: E501
 
 
-__version__ = "0.3.1"
+__version__ = "0.3.2"
 
 # Define package exports
 __all__ = [
@@ -127,6 +127,9 @@ __all__ = [
     "SendLicenseKeys",
     "SendPortalLink",
     "SigningKey",
+    "SlackAuthorize",
+    "SlackConnection",
+    "SlackIntegration",
     "StripeIntegration",
     "StripePermission",
     "StripePrice",
@@ -141,6 +144,7 @@ __all__ = [
     "UpdateProduct",
     "UpdateProductPortal",
     "UpdateRelease",
+    "UpdateSlackConnection",
     "ValidateKey",
     "ValidateKeyError",
     "ValidateKeyErrorError",
@@ -260,6 +264,9 @@ from licensemanager.models.revenue import Revenue as Revenue
 from licensemanager.models.send_license_keys import SendLicenseKeys as SendLicenseKeys
 from licensemanager.models.send_portal_link import SendPortalLink as SendPortalLink
 from licensemanager.models.signing_key import SigningKey as SigningKey
+from licensemanager.models.slack_authorize import SlackAuthorize as SlackAuthorize
+from licensemanager.models.slack_connection import SlackConnection as SlackConnection
+from licensemanager.models.slack_integration import SlackIntegration as SlackIntegration
 from licensemanager.models.stripe_integration import StripeIntegration as StripeIntegration
 from licensemanager.models.stripe_permission import StripePermission as StripePermission
 from licensemanager.models.stripe_price import StripePrice as StripePrice
@@ -274,6 +281,7 @@ from licensemanager.models.update_policy import UpdatePolicy as UpdatePolicy
 from licensemanager.models.update_product import UpdateProduct as UpdateProduct
 from licensemanager.models.update_product_portal import UpdateProductPortal as UpdateProductPortal
 from licensemanager.models.update_release import UpdateRelease as UpdateRelease
+from licensemanager.models.update_slack_connection import UpdateSlackConnection as UpdateSlackConnection
 from licensemanager.models.validate_key import ValidateKey as ValidateKey
 from licensemanager.models.validate_key_error import ValidateKeyError as ValidateKeyError
 from licensemanager.models.validate_key_error_error import ValidateKeyErrorError as ValidateKeyErrorError
