@@ -62,7 +62,7 @@ class TestLicense(unittest.TestCase):
                 status = 'active',
                 cancellable_until = '2026-02-14T09:30:00.000Z',
                 canceled_at = '2026-01-20T16:12:00.000Z',
-                cancellation_reason = None,
+                cancellation_reason = 'too_expensive',
                 subscription = licensemanager.models.license_subscription.LicenseSubscription(
                     stripe_subscription_id = 'sub_1MowQVLkdIwHu7ix', 
                     status = 'active', 
@@ -106,7 +106,7 @@ class TestLicense(unittest.TestCase):
                 status = 'active',
                 cancellable_until = '2026-02-14T09:30:00.000Z',
                 canceled_at = '2026-01-20T16:12:00.000Z',
-                cancellation_reason = None,
+                cancellation_reason = 'too_expensive',
                 subscription = licensemanager.models.license_subscription.LicenseSubscription(
                     stripe_subscription_id = 'sub_1MowQVLkdIwHu7ix', 
                     status = 'active', 

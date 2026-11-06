@@ -20,6 +20,7 @@ import json
 from datetime import datetime
 from pydantic import BaseModel, ConfigDict, Field, StrictInt, StrictStr
 from typing import Any, ClassVar, Dict, List, Optional
+from licensemanager.models.cancellation_reason import CancellationReason
 from licensemanager.models.license_customer import LicenseCustomer
 from licensemanager.models.license_max_version import LicenseMaxVersion
 from licensemanager.models.license_status import LicenseStatus
@@ -52,7 +53,7 @@ class License(BaseModel):
     status: LicenseStatus
     cancellable_until: Optional[datetime] = Field(description="End of the money back guarantee: until then, the customer can cancel the license from the customer portal, or with a token. Set from the policy's `moneyBackGuaranteeDays` when the license is created. `null` when the customer can't cancel it.", alias="cancellableUntil", json_schema_extra={"examples": ["2026-02-14T09:30:00.000Z"]})
     canceled_at: Optional[datetime] = Field(description="When the license was canceled: validating its key fails since. `null` when it wasn't.", alias="canceledAt", json_schema_extra={"examples": ["2026-01-20T16:12:00.000Z"]})
-    cancellation_reason: Any = Field(alias="cancellationReason")
+    cancellation_reason: Optional[CancellationReason] = Field(description="Why the license was canceled. `null` when it wasn't.", alias="cancellationReason")
     subscription: Optional[LicenseSubscription]
     cancellation_comment: Optional[StrictStr] = Field(description="Comment given when the license was canceled. `null` when there's none.", alias="cancellationComment", json_schema_extra={"examples": ["I only needed it for one project."]})
     stripe_refund_id: Optional[StrictStr] = Field(description="Id of the Stripe refund of the license's payment once it was canceled, through the Stripe integration. `null` otherwise.", alias="stripeRefundId", json_schema_extra={"examples": ["re_3MtwBwLkdIwHu7ix0Bs5rA2b"]})
@@ -110,9 +111,6 @@ class License(BaseModel):
         # override the default output from pydantic by calling `to_dict()` of price
         if self.price:
             _dict['price'] = self.price.to_dict()
-        # override the default output from pydantic by calling `to_dict()` of cancellation_reason
-        if self.cancellation_reason:
-            _dict['cancellationReason'] = self.cancellation_reason.to_dict()
         # override the default output from pydantic by calling `to_dict()` of subscription
         if self.subscription:
             _dict['subscription'] = self.subscription.to_dict()
@@ -161,6 +159,11 @@ class License(BaseModel):
         if self.canceled_at is None and "canceled_at" in self.model_fields_set:
             _dict['canceledAt'] = None
 
+        # set to None if cancellation_reason (nullable) is None
+        # and model_fields_set contains the field
+        if self.cancellation_reason is None and "cancellation_reason" in self.model_fields_set:
+            _dict['cancellationReason'] = None
+
         # set to None if subscription (nullable) is None
         # and model_fields_set contains the field
         if self.subscription is None and "subscription" in self.model_fields_set:
@@ -207,7 +210,7 @@ class License(BaseModel):
             "status": obj.get("status"),
             "cancellableUntil": obj.get("cancellableUntil"),
             "canceledAt": obj.get("canceledAt"),
-            "cancellationReason": CancellationReason.from_dict(obj["cancellationReason"]) if obj.get("cancellationReason") is not None else None,
+            "cancellationReason": obj.get("cancellationReason"),
             "subscription": LicenseSubscription.from_dict(obj["subscription"]) if obj.get("subscription") is not None else None,
             "cancellationComment": obj.get("cancellationComment"),
             "stripeRefundId": obj.get("stripeRefundId"),

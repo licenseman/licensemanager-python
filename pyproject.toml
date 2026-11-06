@@ -1,6 +1,6 @@
 [project]
 name = "licenseman-sdk"
-version = "0.3.2"
+version = "0.3.3"
 description = "LicenseManager API"
 authors = [
   {name = "OpenAPI Generator Community",email = "team@openapitools.org"},
@@ -27,6 +27,10 @@ dependencies = [
 ]
 
 [project.urls]
+Homepage = "https://licensemanager.dev/docs/sdks/python"
+Documentation = "https://licensemanager.dev/docs/sdks/python"
+Changelog = "https://github.com/licenseman/licensemanager-python/blob/main/CHANGELOG.md"
+Issues = "https://github.com/licenseman/licensemanager-python/issues"
 Repository = "https://github.com/licenseman/licensemanager-python"
 
 [dependency-groups]
