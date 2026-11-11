@@ -573,7 +573,7 @@ This endpoint does not need any parameter.
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **list_customer_licenses**
-> LicenseList list_customer_licenses(customer_id, page=page, page_size=page_size, sort=sort, search=search, key=key, policy_id=policy_id, machine_version=machine_version, status=status, created_from=created_from, created_to=created_to, last_activated_from=last_activated_from, last_activated_to=last_activated_to, never_activated=never_activated, expires_from=expires_from, expires_to=expires_to, never_expires=never_expires, currency=currency, price=price, price_min=price_min, price_max=price_max, has_price=has_price)
+> LicenseList list_customer_licenses(customer_id, page=page, page_size=page_size, sort=sort, search=search, key=key, policy_id=policy_id, machine_version=machine_version, machine_platform=machine_platform, status=status, created_from=created_from, created_to=created_to, last_activated_from=last_activated_from, last_activated_to=last_activated_to, never_activated=never_activated, expires_from=expires_from, expires_to=expires_to, never_expires=never_expires, currency=currency, price=price, price_min=price_min, price_max=price_max, has_price=has_price)
 
 List the licenses of a customer
 
@@ -626,6 +626,7 @@ with licensemanager.ApiClient(configuration) as api_client:
     key = '7KQ2M-X9ZPA-H4TRC-WN6EY-B3JDF' # str | Only returns the license with this exact key, case included. Keys of test products start with `TEST-`. (optional)
     policy_id = 'p4Rt8LmQ' # str | Only returns the licenses following this policy. (optional)
     machine_version = '2.3.1' # str | Only returns the licenses with at least one active machine running this version of the product. (optional)
+    machine_platform = 'macOS 15.1' # str | Only returns the licenses with at least one active machine on this platform. (optional)
     status = licensemanager.LicenseStatus() # LicenseStatus | Only returns the licenses with this status. (optional)
     created_from = '2026-01-01T00:00:00.000Z' # datetime | Only returns the licenses created at or after this date. (optional)
     created_to = '2026-02-01T00:00:00.000Z' # datetime | Only returns the licenses created at or before this date. (optional)
@@ -643,7 +644,7 @@ with licensemanager.ApiClient(configuration) as api_client:
 
     try:
         # List the licenses of a customer
-        api_response = api_instance.list_customer_licenses(customer_id, page=page, page_size=page_size, sort=sort, search=search, key=key, policy_id=policy_id, machine_version=machine_version, status=status, created_from=created_from, created_to=created_to, last_activated_from=last_activated_from, last_activated_to=last_activated_to, never_activated=never_activated, expires_from=expires_from, expires_to=expires_to, never_expires=never_expires, currency=currency, price=price, price_min=price_min, price_max=price_max, has_price=has_price)
+        api_response = api_instance.list_customer_licenses(customer_id, page=page, page_size=page_size, sort=sort, search=search, key=key, policy_id=policy_id, machine_version=machine_version, machine_platform=machine_platform, status=status, created_from=created_from, created_to=created_to, last_activated_from=last_activated_from, last_activated_to=last_activated_to, never_activated=never_activated, expires_from=expires_from, expires_to=expires_to, never_expires=never_expires, currency=currency, price=price, price_min=price_min, price_max=price_max, has_price=has_price)
         print("The response of LicensesApi->list_customer_licenses:\n")
         pprint(api_response)
     except Exception as e:
@@ -665,6 +666,7 @@ Name | Type | Description  | Notes
  **key** | **str**| Only returns the license with this exact key, case included. Keys of test products start with &#x60;TEST-&#x60;. | [optional] 
  **policy_id** | **str**| Only returns the licenses following this policy. | [optional] 
  **machine_version** | **str**| Only returns the licenses with at least one active machine running this version of the product. | [optional] 
+ **machine_platform** | **str**| Only returns the licenses with at least one active machine on this platform. | [optional] 
  **status** | [**LicenseStatus**](.md)| Only returns the licenses with this status. | [optional] 
  **created_from** | **datetime**| Only returns the licenses created at or after this date. | [optional] 
  **created_to** | **datetime**| Only returns the licenses created at or before this date. | [optional] 
@@ -708,7 +710,7 @@ Name | Type | Description  | Notes
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **list_licenses**
-> LicenseList list_licenses(product_id, page=page, page_size=page_size, sort=sort, search=search, key=key, policy_id=policy_id, customer_id=customer_id, machine_version=machine_version, status=status, created_from=created_from, created_to=created_to, last_activated_from=last_activated_from, last_activated_to=last_activated_to, never_activated=never_activated, expires_from=expires_from, expires_to=expires_to, never_expires=never_expires, currency=currency, price=price, price_min=price_min, price_max=price_max, has_price=has_price)
+> LicenseList list_licenses(product_id, page=page, page_size=page_size, sort=sort, search=search, key=key, policy_id=policy_id, customer_id=customer_id, machine_version=machine_version, machine_platform=machine_platform, status=status, created_from=created_from, created_to=created_to, last_activated_from=last_activated_from, last_activated_to=last_activated_to, never_activated=never_activated, expires_from=expires_from, expires_to=expires_to, never_expires=never_expires, currency=currency, price=price, price_min=price_min, price_max=price_max, has_price=has_price)
 
 List the licenses of a product
 
@@ -754,6 +756,7 @@ with licensemanager.ApiClient(configuration) as api_client:
     policy_id = 'p4Rt8LmQ' # str | Only returns the licenses following this policy. (optional)
     customer_id = 'c9Wd3RtE' # str | Only returns the licenses of this customer. (optional)
     machine_version = '2.3.1' # str | Only returns the licenses with at least one active machine running this version of the product. (optional)
+    machine_platform = 'macOS 15.1' # str | Only returns the licenses with at least one active machine on this platform. (optional)
     status = licensemanager.LicenseStatus() # LicenseStatus | Only returns the licenses with this status. (optional)
     created_from = '2026-01-01T00:00:00.000Z' # datetime | Only returns the licenses created at or after this date. (optional)
     created_to = '2026-02-01T00:00:00.000Z' # datetime | Only returns the licenses created at or before this date. (optional)
@@ -771,7 +774,7 @@ with licensemanager.ApiClient(configuration) as api_client:
 
     try:
         # List the licenses of a product
-        api_response = api_instance.list_licenses(product_id, page=page, page_size=page_size, sort=sort, search=search, key=key, policy_id=policy_id, customer_id=customer_id, machine_version=machine_version, status=status, created_from=created_from, created_to=created_to, last_activated_from=last_activated_from, last_activated_to=last_activated_to, never_activated=never_activated, expires_from=expires_from, expires_to=expires_to, never_expires=never_expires, currency=currency, price=price, price_min=price_min, price_max=price_max, has_price=has_price)
+        api_response = api_instance.list_licenses(product_id, page=page, page_size=page_size, sort=sort, search=search, key=key, policy_id=policy_id, customer_id=customer_id, machine_version=machine_version, machine_platform=machine_platform, status=status, created_from=created_from, created_to=created_to, last_activated_from=last_activated_from, last_activated_to=last_activated_to, never_activated=never_activated, expires_from=expires_from, expires_to=expires_to, never_expires=never_expires, currency=currency, price=price, price_min=price_min, price_max=price_max, has_price=has_price)
         print("The response of LicensesApi->list_licenses:\n")
         pprint(api_response)
     except Exception as e:
@@ -794,6 +797,7 @@ Name | Type | Description  | Notes
  **policy_id** | **str**| Only returns the licenses following this policy. | [optional] 
  **customer_id** | **str**| Only returns the licenses of this customer. | [optional] 
  **machine_version** | **str**| Only returns the licenses with at least one active machine running this version of the product. | [optional] 
+ **machine_platform** | **str**| Only returns the licenses with at least one active machine on this platform. | [optional] 
  **status** | [**LicenseStatus**](.md)| Only returns the licenses with this status. | [optional] 
  **created_from** | **datetime**| Only returns the licenses created at or after this date. | [optional] 
  **created_to** | **datetime**| Only returns the licenses created at or before this date. | [optional] 

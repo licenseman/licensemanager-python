@@ -1782,6 +1782,7 @@ class LicensesApi:
         key: Annotated[Optional[StrictStr], Field(description="Only returns the license with this exact key, case included. Keys of test products start with `TEST-`.")] = None,
         policy_id: Annotated[Optional[StrictStr], Field(description="Only returns the licenses following this policy.")] = None,
         machine_version: Annotated[Optional[StrictStr], Field(description="Only returns the licenses with at least one active machine running this version of the product.")] = None,
+        machine_platform: Annotated[Optional[StrictStr], Field(description="Only returns the licenses with at least one active machine on this platform.")] = None,
         status: Annotated[Optional[Any], Field(description="Only returns the licenses with this status.")] = None,
         created_from: Annotated[Optional[datetime], Field(description="Only returns the licenses created at or after this date.")] = None,
         created_to: Annotated[Optional[datetime], Field(description="Only returns the licenses created at or before this date.")] = None,
@@ -1829,6 +1830,8 @@ class LicensesApi:
         :type policy_id: str
         :param machine_version: Only returns the licenses with at least one active machine running this version of the product.
         :type machine_version: str
+        :param machine_platform: Only returns the licenses with at least one active machine on this platform.
+        :type machine_platform: str
         :param status: Only returns the licenses with this status.
         :type status: LicenseStatus
         :param created_from: Only returns the licenses created at or after this date.
@@ -1888,6 +1891,7 @@ class LicensesApi:
             key=key,
             policy_id=policy_id,
             machine_version=machine_version,
+            machine_platform=machine_platform,
             status=status,
             created_from=created_from,
             created_to=created_to,
@@ -1939,6 +1943,7 @@ class LicensesApi:
         key: Annotated[Optional[StrictStr], Field(description="Only returns the license with this exact key, case included. Keys of test products start with `TEST-`.")] = None,
         policy_id: Annotated[Optional[StrictStr], Field(description="Only returns the licenses following this policy.")] = None,
         machine_version: Annotated[Optional[StrictStr], Field(description="Only returns the licenses with at least one active machine running this version of the product.")] = None,
+        machine_platform: Annotated[Optional[StrictStr], Field(description="Only returns the licenses with at least one active machine on this platform.")] = None,
         status: Annotated[Optional[Any], Field(description="Only returns the licenses with this status.")] = None,
         created_from: Annotated[Optional[datetime], Field(description="Only returns the licenses created at or after this date.")] = None,
         created_to: Annotated[Optional[datetime], Field(description="Only returns the licenses created at or before this date.")] = None,
@@ -1986,6 +1991,8 @@ class LicensesApi:
         :type policy_id: str
         :param machine_version: Only returns the licenses with at least one active machine running this version of the product.
         :type machine_version: str
+        :param machine_platform: Only returns the licenses with at least one active machine on this platform.
+        :type machine_platform: str
         :param status: Only returns the licenses with this status.
         :type status: LicenseStatus
         :param created_from: Only returns the licenses created at or after this date.
@@ -2045,6 +2052,7 @@ class LicensesApi:
             key=key,
             policy_id=policy_id,
             machine_version=machine_version,
+            machine_platform=machine_platform,
             status=status,
             created_from=created_from,
             created_to=created_to,
@@ -2096,6 +2104,7 @@ class LicensesApi:
         key: Annotated[Optional[StrictStr], Field(description="Only returns the license with this exact key, case included. Keys of test products start with `TEST-`.")] = None,
         policy_id: Annotated[Optional[StrictStr], Field(description="Only returns the licenses following this policy.")] = None,
         machine_version: Annotated[Optional[StrictStr], Field(description="Only returns the licenses with at least one active machine running this version of the product.")] = None,
+        machine_platform: Annotated[Optional[StrictStr], Field(description="Only returns the licenses with at least one active machine on this platform.")] = None,
         status: Annotated[Optional[Any], Field(description="Only returns the licenses with this status.")] = None,
         created_from: Annotated[Optional[datetime], Field(description="Only returns the licenses created at or after this date.")] = None,
         created_to: Annotated[Optional[datetime], Field(description="Only returns the licenses created at or before this date.")] = None,
@@ -2143,6 +2152,8 @@ class LicensesApi:
         :type policy_id: str
         :param machine_version: Only returns the licenses with at least one active machine running this version of the product.
         :type machine_version: str
+        :param machine_platform: Only returns the licenses with at least one active machine on this platform.
+        :type machine_platform: str
         :param status: Only returns the licenses with this status.
         :type status: LicenseStatus
         :param created_from: Only returns the licenses created at or after this date.
@@ -2202,6 +2213,7 @@ class LicensesApi:
             key=key,
             policy_id=policy_id,
             machine_version=machine_version,
+            machine_platform=machine_platform,
             status=status,
             created_from=created_from,
             created_to=created_to,
@@ -2248,6 +2260,7 @@ class LicensesApi:
         key,
         policy_id,
         machine_version,
+        machine_platform,
         status,
         created_from,
         created_to,
@@ -2313,6 +2326,10 @@ class LicensesApi:
         if machine_version is not None:
             
             _query_params.append(('machineVersion', machine_version))
+            
+        if machine_platform is not None:
+            
+            _query_params.append(('machinePlatform', machine_platform))
             
         if status is not None:
             
@@ -2474,6 +2491,7 @@ class LicensesApi:
         policy_id: Annotated[Optional[StrictStr], Field(description="Only returns the licenses following this policy.")] = None,
         customer_id: Annotated[Optional[StrictStr], Field(description="Only returns the licenses of this customer.")] = None,
         machine_version: Annotated[Optional[StrictStr], Field(description="Only returns the licenses with at least one active machine running this version of the product.")] = None,
+        machine_platform: Annotated[Optional[StrictStr], Field(description="Only returns the licenses with at least one active machine on this platform.")] = None,
         status: Annotated[Optional[Any], Field(description="Only returns the licenses with this status.")] = None,
         created_from: Annotated[Optional[datetime], Field(description="Only returns the licenses created at or after this date.")] = None,
         created_to: Annotated[Optional[datetime], Field(description="Only returns the licenses created at or before this date.")] = None,
@@ -2523,6 +2541,8 @@ class LicensesApi:
         :type customer_id: str
         :param machine_version: Only returns the licenses with at least one active machine running this version of the product.
         :type machine_version: str
+        :param machine_platform: Only returns the licenses with at least one active machine on this platform.
+        :type machine_platform: str
         :param status: Only returns the licenses with this status.
         :type status: LicenseStatus
         :param created_from: Only returns the licenses created at or after this date.
@@ -2583,6 +2603,7 @@ class LicensesApi:
             policy_id=policy_id,
             customer_id=customer_id,
             machine_version=machine_version,
+            machine_platform=machine_platform,
             status=status,
             created_from=created_from,
             created_to=created_to,
@@ -2635,6 +2656,7 @@ class LicensesApi:
         policy_id: Annotated[Optional[StrictStr], Field(description="Only returns the licenses following this policy.")] = None,
         customer_id: Annotated[Optional[StrictStr], Field(description="Only returns the licenses of this customer.")] = None,
         machine_version: Annotated[Optional[StrictStr], Field(description="Only returns the licenses with at least one active machine running this version of the product.")] = None,
+        machine_platform: Annotated[Optional[StrictStr], Field(description="Only returns the licenses with at least one active machine on this platform.")] = None,
         status: Annotated[Optional[Any], Field(description="Only returns the licenses with this status.")] = None,
         created_from: Annotated[Optional[datetime], Field(description="Only returns the licenses created at or after this date.")] = None,
         created_to: Annotated[Optional[datetime], Field(description="Only returns the licenses created at or before this date.")] = None,
@@ -2684,6 +2706,8 @@ class LicensesApi:
         :type customer_id: str
         :param machine_version: Only returns the licenses with at least one active machine running this version of the product.
         :type machine_version: str
+        :param machine_platform: Only returns the licenses with at least one active machine on this platform.
+        :type machine_platform: str
         :param status: Only returns the licenses with this status.
         :type status: LicenseStatus
         :param created_from: Only returns the licenses created at or after this date.
@@ -2744,6 +2768,7 @@ class LicensesApi:
             policy_id=policy_id,
             customer_id=customer_id,
             machine_version=machine_version,
+            machine_platform=machine_platform,
             status=status,
             created_from=created_from,
             created_to=created_to,
@@ -2796,6 +2821,7 @@ class LicensesApi:
         policy_id: Annotated[Optional[StrictStr], Field(description="Only returns the licenses following this policy.")] = None,
         customer_id: Annotated[Optional[StrictStr], Field(description="Only returns the licenses of this customer.")] = None,
         machine_version: Annotated[Optional[StrictStr], Field(description="Only returns the licenses with at least one active machine running this version of the product.")] = None,
+        machine_platform: Annotated[Optional[StrictStr], Field(description="Only returns the licenses with at least one active machine on this platform.")] = None,
         status: Annotated[Optional[Any], Field(description="Only returns the licenses with this status.")] = None,
         created_from: Annotated[Optional[datetime], Field(description="Only returns the licenses created at or after this date.")] = None,
         created_to: Annotated[Optional[datetime], Field(description="Only returns the licenses created at or before this date.")] = None,
@@ -2845,6 +2871,8 @@ class LicensesApi:
         :type customer_id: str
         :param machine_version: Only returns the licenses with at least one active machine running this version of the product.
         :type machine_version: str
+        :param machine_platform: Only returns the licenses with at least one active machine on this platform.
+        :type machine_platform: str
         :param status: Only returns the licenses with this status.
         :type status: LicenseStatus
         :param created_from: Only returns the licenses created at or after this date.
@@ -2905,6 +2933,7 @@ class LicensesApi:
             policy_id=policy_id,
             customer_id=customer_id,
             machine_version=machine_version,
+            machine_platform=machine_platform,
             status=status,
             created_from=created_from,
             created_to=created_to,
@@ -2952,6 +2981,7 @@ class LicensesApi:
         policy_id,
         customer_id,
         machine_version,
+        machine_platform,
         status,
         created_from,
         created_to,
@@ -3021,6 +3051,10 @@ class LicensesApi:
         if machine_version is not None:
             
             _query_params.append(('machineVersion', machine_version))
+            
+        if machine_platform is not None:
+            
+            _query_params.append(('machinePlatform', machine_platform))
             
         if status is not None:
             
