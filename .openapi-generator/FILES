@@ -9,11 +9,13 @@ docs/CancelLicense.md
 docs/CancellationReason.md
 docs/CancellationStats.md
 docs/CancellationStatsByReasonInner.md
+docs/ConnectPaddle.md
 docs/ConnectStripe.md
 docs/CreateBillingPortalSession.md
 docs/CreateCustomer.md
 docs/CreateIntegrationMapping.md
 docs/CreateLicense.md
+docs/CreatePaddleMapping.md
 docs/CreatePolicy.md
 docs/CreatePortalLink.md
 docs/CreateProduct.md
@@ -56,6 +58,7 @@ docs/LicenseStatus.md
 docs/LicenseSubscription.md
 docs/LicenseToken.md
 docs/LicensesApi.md
+docs/ListPaddlePrices200Response.md
 docs/ListPolicyEventsTypeParameter.md
 docs/ListStripePrices200Response.md
 docs/LockMaxVersion.md
@@ -69,6 +72,9 @@ docs/MachinesApi.md
 docs/Mrr.md
 docs/MrrByIntervalInner.md
 docs/MrrByPolicyInner.md
+docs/PaddleIntegration.md
+docs/PaddlePermission.md
+docs/PaddlePrice.md
 docs/Pagination.md
 docs/PoliciesApi.md
 docs/Policy.md
@@ -148,11 +154,13 @@ licensemanager/models/cancel_license.py
 licensemanager/models/cancellation_reason.py
 licensemanager/models/cancellation_stats.py
 licensemanager/models/cancellation_stats_by_reason_inner.py
+licensemanager/models/connect_paddle.py
 licensemanager/models/connect_stripe.py
 licensemanager/models/create_billing_portal_session.py
 licensemanager/models/create_customer.py
 licensemanager/models/create_integration_mapping.py
 licensemanager/models/create_license.py
+licensemanager/models/create_paddle_mapping.py
 licensemanager/models/create_policy.py
 licensemanager/models/create_portal_link.py
 licensemanager/models/create_product.py
@@ -191,6 +199,7 @@ licensemanager/models/license_stats_activations_by_version_inner.py
 licensemanager/models/license_status.py
 licensemanager/models/license_subscription.py
 licensemanager/models/license_token.py
+licensemanager/models/list_paddle_prices200_response.py
 licensemanager/models/list_policy_events_type_parameter.py
 licensemanager/models/list_stripe_prices200_response.py
 licensemanager/models/lock_max_version.py
@@ -203,6 +212,9 @@ licensemanager/models/machine_list.py
 licensemanager/models/mrr.py
 licensemanager/models/mrr_by_interval_inner.py
 licensemanager/models/mrr_by_policy_inner.py
+licensemanager/models/paddle_integration.py
+licensemanager/models/paddle_permission.py
+licensemanager/models/paddle_price.py
 licensemanager/models/pagination.py
 licensemanager/models/policy.py
 licensemanager/models/policy_duration.py
@@ -267,11 +279,13 @@ test/test_cancel_license.py
 test/test_cancellation_reason.py
 test/test_cancellation_stats.py
 test/test_cancellation_stats_by_reason_inner.py
+test/test_connect_paddle.py
 test/test_connect_stripe.py
 test/test_create_billing_portal_session.py
 test/test_create_customer.py
 test/test_create_integration_mapping.py
 test/test_create_license.py
+test/test_create_paddle_mapping.py
 test/test_create_policy.py
 test/test_create_portal_link.py
 test/test_create_product.py
@@ -314,6 +328,7 @@ test/test_license_status.py
 test/test_license_subscription.py
 test/test_license_token.py
 test/test_licenses_api.py
+test/test_list_paddle_prices200_response.py
 test/test_list_policy_events_type_parameter.py
 test/test_list_stripe_prices200_response.py
 test/test_lock_max_version.py
@@ -327,6 +342,9 @@ test/test_machines_api.py
 test/test_mrr.py
 test/test_mrr_by_interval_inner.py
 test/test_mrr_by_policy_inner.py
+test/test_paddle_integration.py
+test/test_paddle_permission.py
+test/test_paddle_price.py
 test/test_pagination.py
 test/test_policies_api.py
 test/test_policy.py

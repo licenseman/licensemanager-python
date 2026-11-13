@@ -18,7 +18,7 @@ import re  # noqa: F401
 import json
 
 from datetime import datetime
-from pydantic import BaseModel, ConfigDict, Field, StrictInt, StrictStr
+from pydantic import BaseModel, ConfigDict, Field, StrictInt, StrictStr, field_validator
 from typing import Any, ClassVar, Dict, List, Optional
 from licensemanager.models.cancellation_reason import CancellationReason
 from licensemanager.models.license_customer import LicenseCustomer
@@ -44,6 +44,7 @@ class License(BaseModel):
     expires_at: Optional[datetime] = Field(description="`null` when the license never expires.", alias="expiresAt", json_schema_extra={"examples": ["2027-01-15T09:30:00.000Z"]})
     meta: Optional[Dict[str, Any]] = Field(description="Free-form JSON object.", json_schema_extra={"examples": [{"seats": 5}]})
     stripe_payment_intent_id: Optional[StrictStr] = Field(description="Id of the Stripe payment intent that paid the license, when it was bought through the Stripe integration. `null` otherwise, or when nothing was paid.", alias="stripePaymentIntentId", json_schema_extra={"examples": ["pi_3MtwBwLkdIwHu7ix28a3tqPa"]})
+    paddle_transaction_id: Optional[StrictStr] = Field(description="Id of the Paddle transaction that paid the license, when it was bought through the Paddle integration. `null` otherwise.", alias="paddleTransactionId", json_schema_extra={"examples": ["txn_01h04vsc0qhwtsbsxh3422wjs4"]})
     max_machines: Optional[StrictInt] = Field(description="Maximum number of active machines the license can be used on. `null` when there's no limit. Can be lower than `activeMachineCount` after it was lowered: machines aren't deactivated to match it.", alias="maxMachines", json_schema_extra={"examples": [3]})
     max_offline_duration_seconds: StrictInt = Field(description="Longest the applications can run offline with the license: the license tokens returned by `validateKey` expire this long after they're issued, unless the license expires sooner.", alias="maxOfflineDurationSeconds", json_schema_extra={"examples": [604800]})
     active_machine_count: StrictInt = Field(description="Number of active machines the license is used on.", alias="activeMachineCount", json_schema_extra={"examples": [2]})
@@ -57,9 +58,21 @@ class License(BaseModel):
     subscription: Optional[LicenseSubscription]
     cancellation_comment: Optional[StrictStr] = Field(description="Comment given when the license was canceled. `null` when there's none.", alias="cancellationComment", json_schema_extra={"examples": ["I only needed it for one project."]})
     stripe_refund_id: Optional[StrictStr] = Field(description="Id of the Stripe refund of the license's payment once it was canceled, through the Stripe integration. `null` otherwise.", alias="stripeRefundId", json_schema_extra={"examples": ["re_3MtwBwLkdIwHu7ix0Bs5rA2b"]})
+    paddle_adjustment_id: Optional[StrictStr] = Field(description="Id of the Paddle refund adjustment of the license's transaction once it was canceled, through the Paddle integration. `null` otherwise.", alias="paddleAdjustmentId", json_schema_extra={"examples": ["adj_01h04vsc0qhwtsbsxh3422wjs4"]})
+    paddle_refund_status: Optional[StrictStr] = Field(description="Outcome of the Paddle refund: `pending_approval` while Paddle reviews it, then `approved` or `rejected`. `null` without a Paddle refund.", alias="paddleRefundStatus", json_schema_extra={"examples": ["approved"]})
     updated_at: datetime = Field(description="Last time the license's settings were edited, not when its key was validated.", alias="updatedAt", json_schema_extra={"examples": ["2026-01-15T09:30:00.000Z"]})
     additional_properties: Dict[str, Any] = {}
-    __properties: ClassVar[List[str]] = ["id", "productId", "policyId", "customerId", "customer", "key", "createdAt", "expiresAt", "meta", "stripePaymentIntentId", "maxMachines", "maxOfflineDurationSeconds", "activeMachineCount", "lastActivatedAt", "maxVersion", "price", "status", "cancellableUntil", "canceledAt", "cancellationReason", "subscription", "cancellationComment", "stripeRefundId", "updatedAt"]
+    __properties: ClassVar[List[str]] = ["id", "productId", "policyId", "customerId", "customer", "key", "createdAt", "expiresAt", "meta", "stripePaymentIntentId", "paddleTransactionId", "maxMachines", "maxOfflineDurationSeconds", "activeMachineCount", "lastActivatedAt", "maxVersion", "price", "status", "cancellableUntil", "canceledAt", "cancellationReason", "subscription", "cancellationComment", "stripeRefundId", "paddleAdjustmentId", "paddleRefundStatus", "updatedAt"]
+
+    @field_validator('paddle_refund_status')
+    def paddle_refund_status_validate_enum(cls, value):
+        """Validates the enum"""
+        if value is None:
+            return value
+
+        if value not in set(['pending_approval', 'approved', 'rejected', 'unknown_default_open_api']):
+            raise ValueError("must be one of enum values ('pending_approval', 'approved', 'rejected', 'unknown_default_open_api')")
+        return value
 
     model_config = ConfigDict(
         validate_by_name=True,
@@ -134,6 +147,11 @@ class License(BaseModel):
         if self.stripe_payment_intent_id is None and "stripe_payment_intent_id" in self.model_fields_set:
             _dict['stripePaymentIntentId'] = None
 
+        # set to None if paddle_transaction_id (nullable) is None
+        # and model_fields_set contains the field
+        if self.paddle_transaction_id is None and "paddle_transaction_id" in self.model_fields_set:
+            _dict['paddleTransactionId'] = None
+
         # set to None if max_machines (nullable) is None
         # and model_fields_set contains the field
         if self.max_machines is None and "max_machines" in self.model_fields_set:
@@ -179,6 +197,16 @@ class License(BaseModel):
         if self.stripe_refund_id is None and "stripe_refund_id" in self.model_fields_set:
             _dict['stripeRefundId'] = None
 
+        # set to None if paddle_adjustment_id (nullable) is None
+        # and model_fields_set contains the field
+        if self.paddle_adjustment_id is None and "paddle_adjustment_id" in self.model_fields_set:
+            _dict['paddleAdjustmentId'] = None
+
+        # set to None if paddle_refund_status (nullable) is None
+        # and model_fields_set contains the field
+        if self.paddle_refund_status is None and "paddle_refund_status" in self.model_fields_set:
+            _dict['paddleRefundStatus'] = None
+
         return _dict
 
     @classmethod
@@ -201,6 +229,7 @@ class License(BaseModel):
             "expiresAt": obj.get("expiresAt"),
             "meta": obj.get("meta"),
             "stripePaymentIntentId": obj.get("stripePaymentIntentId"),
+            "paddleTransactionId": obj.get("paddleTransactionId"),
             "maxMachines": obj.get("maxMachines"),
             "maxOfflineDurationSeconds": obj.get("maxOfflineDurationSeconds"),
             "activeMachineCount": obj.get("activeMachineCount"),
@@ -214,6 +243,8 @@ class License(BaseModel):
             "subscription": LicenseSubscription.from_dict(obj["subscription"]) if obj.get("subscription") is not None else None,
             "cancellationComment": obj.get("cancellationComment"),
             "stripeRefundId": obj.get("stripeRefundId"),
+            "paddleAdjustmentId": obj.get("paddleAdjustmentId"),
+            "paddleRefundStatus": obj.get("paddleRefundStatus"),
             "updatedAt": obj.get("updatedAt")
         })
         # store additional fields in additional_properties

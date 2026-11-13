@@ -32,18 +32,28 @@ class IntegrationMapping(BaseModel):
     """ # noqa: E501
     id: StrictStr = Field(json_schema_extra={"examples": ["g2Lk7RwPa"]})
     integration_id: StrictStr = Field(alias="integrationId", json_schema_extra={"examples": ["i8Fz4QnRt"]})
+    provider: StrictStr
     product_id: StrictStr = Field(alias="productId", json_schema_extra={"examples": ["x7Kp2QaZ"]})
     policy_id: StrictStr = Field(alias="policyId", json_schema_extra={"examples": ["p4Rt8LmQ"]})
-    stripe_product_id: StrictStr = Field(alias="stripeProductId", json_schema_extra={"examples": ["prod_NWjs8kKbJWmuuc"]})
-    stripe_price_id: StrictStr = Field(alias="stripePriceId", json_schema_extra={"examples": ["price_1MoBy5LkdIwHu7ix"]})
-    product_name: StrictStr = Field(description="Name of the Stripe product when it was mapped.", alias="productName", json_schema_extra={"examples": ["Acme Pro"]})
+    external_product_id: StrictStr = Field(description="Id of the product in the provider: `prod_…` in Stripe, `pro_…` in Paddle.", alias="externalProductId", json_schema_extra={"examples": ["prod_NWjs8kKbJWmuuc"]})
+    external_price_id: StrictStr = Field(description="Id of the price in the provider: `price_…` in Stripe, `pri_…` in Paddle.", alias="externalPriceId", json_schema_extra={"examples": ["price_1MoBy5LkdIwHu7ix"]})
+    stripe_product_id: StrictStr = Field(description="Deprecated: use `externalProductId`, which it equals.", alias="stripeProductId", json_schema_extra={"examples": ["prod_NWjs8kKbJWmuuc"]})
+    stripe_price_id: StrictStr = Field(description="Deprecated: use `externalPriceId`, which it equals.", alias="stripePriceId", json_schema_extra={"examples": ["price_1MoBy5LkdIwHu7ix"]})
+    product_name: StrictStr = Field(description="Name of the provider's product when it was mapped.", alias="productName", json_schema_extra={"examples": ["Acme Pro"]})
     price: Optional[Price]
     recurring: Optional[IntegrationMappingRecurring]
     status: StrictStr = Field(description="`error` when the price can no longer be paid, explained by `statusReason`.")
     status_reason: Optional[StrictStr] = Field(alias="statusReason", json_schema_extra={"examples": ["The price is archived in Stripe"]})
     created_at: datetime = Field(alias="createdAt")
     additional_properties: Dict[str, Any] = {}
-    __properties: ClassVar[List[str]] = ["id", "integrationId", "productId", "policyId", "stripeProductId", "stripePriceId", "productName", "price", "recurring", "status", "statusReason", "createdAt"]
+    __properties: ClassVar[List[str]] = ["id", "integrationId", "provider", "productId", "policyId", "externalProductId", "externalPriceId", "stripeProductId", "stripePriceId", "productName", "price", "recurring", "status", "statusReason", "createdAt"]
+
+    @field_validator('provider')
+    def provider_validate_enum(cls, value):
+        """Validates the enum"""
+        if value not in set(['stripe', 'paddle', 'unknown_default_open_api']):
+            raise ValueError("must be one of enum values ('stripe', 'paddle', 'unknown_default_open_api')")
+        return value
 
     @field_validator('status')
     def status_validate_enum(cls, value):
@@ -133,8 +143,11 @@ class IntegrationMapping(BaseModel):
         _obj = cls.model_validate({
             "id": obj.get("id"),
             "integrationId": obj.get("integrationId"),
+            "provider": obj.get("provider"),
             "productId": obj.get("productId"),
             "policyId": obj.get("policyId"),
+            "externalProductId": obj.get("externalProductId"),
+            "externalPriceId": obj.get("externalPriceId"),
             "stripeProductId": obj.get("stripeProductId"),
             "stripePriceId": obj.get("stripePriceId"),
             "productName": obj.get("productName"),

@@ -35,6 +35,8 @@ class TestLicenseSubscription(unittest.TestCase):
         model = LicenseSubscription()
         if include_optional:
             return LicenseSubscription(
+                provider = 'stripe',
+                external_id = 'sub_1MowQVLkdIwHu7ix',
                 stripe_subscription_id = 'sub_1MowQVLkdIwHu7ix',
                 status = 'active',
                 interval = 'day',
@@ -49,6 +51,8 @@ class TestLicenseSubscription(unittest.TestCase):
             )
         else:
             return LicenseSubscription(
+                provider = 'stripe',
+                external_id = 'sub_1MowQVLkdIwHu7ix',
                 stripe_subscription_id = 'sub_1MowQVLkdIwHu7ix',
                 status = 'active',
                 interval = 'day',

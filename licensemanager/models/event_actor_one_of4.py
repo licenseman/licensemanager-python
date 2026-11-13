@@ -43,8 +43,8 @@ class EventActorOneOf4(BaseModel):
     @field_validator('provider')
     def provider_validate_enum(cls, value):
         """Validates the enum"""
-        if value not in set(['stripe', 'unknown_default_open_api']):
-            raise ValueError("must be one of enum values ('stripe', 'unknown_default_open_api')")
+        if value not in set(['stripe', 'paddle', 'unknown_default_open_api']):
+            raise ValueError("must be one of enum values ('stripe', 'paddle', 'unknown_default_open_api')")
         return value
 
     model_config = ConfigDict(

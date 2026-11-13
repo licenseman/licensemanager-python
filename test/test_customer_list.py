@@ -43,6 +43,7 @@ class TestCustomerList(unittest.TestCase):
                         name = 'Jane Doe', 
                         license_count = 3, 
                         stripe_customer_id = 'cus_NffrFeUfNV2Hib', 
+                        paddle_customer_id = 'ctm_01h04vsc0qhwtsbsxh3422wjs4', 
                         created_at = '2026-01-15T09:30:00.000Z', )
                     ],
                 pagination = licensemanager.models.pagination.Pagination(
@@ -61,6 +62,7 @@ class TestCustomerList(unittest.TestCase):
                         name = 'Jane Doe', 
                         license_count = 3, 
                         stripe_customer_id = 'cus_NffrFeUfNV2Hib', 
+                        paddle_customer_id = 'ctm_01h04vsc0qhwtsbsxh3422wjs4', 
                         created_at = '2026-01-15T09:30:00.000Z', )
                     ],
                 pagination = licensemanager.models.pagination.Pagination(

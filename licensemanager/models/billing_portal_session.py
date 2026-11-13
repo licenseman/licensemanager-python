@@ -27,7 +27,7 @@ class BillingPortalSession(BaseModel):
     """
     BillingPortalSession
     """ # noqa: E501
-    url: StrictStr = Field(description="Link to the Stripe customer portal, to open right away: it expires shortly.", json_schema_extra={"examples": ["https://billing.stripe.com/p/session/test_YWNjdF8x"]})
+    url: StrictStr = Field(description="Link to the Stripe or Paddle customer portal, to open right away: it expires shortly.", json_schema_extra={"examples": ["https://billing.stripe.com/p/session/test_YWNjdF8x"]})
     additional_properties: Dict[str, Any] = {}
     __properties: ClassVar[List[str]] = ["url"]
 

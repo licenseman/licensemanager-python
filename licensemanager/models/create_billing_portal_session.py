@@ -27,7 +27,7 @@ class CreateBillingPortalSession(BaseModel):
     """
     CreateBillingPortalSession
     """ # noqa: E501
-    return_url: Optional[StrictStr] = Field(default=None, description="Where the Stripe customer portal links back to: a page of the customer portal, or of one of the product's `returnDomains`. The customer portal of the product by default.", alias="returnUrl", json_schema_extra={"examples": ["https://example.com/account"]})
+    return_url: Optional[StrictStr] = Field(default=None, description="Where the Stripe customer portal links back to: a page of the customer portal, or of one of the product's `returnDomains`. The customer portal of the product by default. Paddle's customer portal has no link back: ignored for Paddle customers.", alias="returnUrl", json_schema_extra={"examples": ["https://example.com/account"]})
     additional_properties: Dict[str, Any] = {}
     __properties: ClassVar[List[str]] = ["returnUrl"]
 

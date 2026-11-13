@@ -27,10 +27,12 @@ from pydantic_core import to_jsonable_python
 
 class LicenseSubscription(BaseModel):
     """
-    The Stripe subscription keeping the license valid, `null` when it isn't a subscription license. The license expires when it stops being paid, includes every update, and can't be canceled during a money back guarantee.
+    The Stripe or Paddle subscription keeping the license valid, `null` when it isn't a subscription license. The license expires when it stops being paid, includes every update, and can't be canceled during a money back guarantee.
     """ # noqa: E501
-    stripe_subscription_id: StrictStr = Field(alias="stripeSubscriptionId", json_schema_extra={"examples": ["sub_1MowQVLkdIwHu7ix"]})
-    status: StrictStr = Field(description="Status of the subscription in Stripe: `active`, `trialing`, `past_due` while a failed payment is retried, `canceled`, `unpaid`, `paused`, `incomplete` or `incomplete_expired`.", json_schema_extra={"examples": ["active"]})
+    provider: StrictStr = Field(description="Provider of the subscription.")
+    external_id: StrictStr = Field(description="Id of the subscription in the provider: `sub_…` in Stripe and in Paddle.", alias="externalId", json_schema_extra={"examples": ["sub_1MowQVLkdIwHu7ix"]})
+    stripe_subscription_id: StrictStr = Field(description="Deprecated: use `externalId`, which it equals.", alias="stripeSubscriptionId", json_schema_extra={"examples": ["sub_1MowQVLkdIwHu7ix"]})
+    status: StrictStr = Field(description="Status of the subscription in the provider. Stripe: `active`, `trialing`, `past_due` while a failed payment is retried, `canceled`, `unpaid`, `paused`, `incomplete` or `incomplete_expired`. Paddle: `active`, `trialing`, `past_due`, `paused` or `canceled`.", json_schema_extra={"examples": ["active"]})
     interval: StrictStr
     interval_count: StrictInt = Field(description="Number of intervals between payments.", alias="intervalCount", json_schema_extra={"examples": [1]})
     quantity: StrictInt = Field(description="Units subscribed, multiplying the policy's machines.", json_schema_extra={"examples": [1]})
@@ -39,7 +41,14 @@ class LicenseSubscription(BaseModel):
     cancel_at_period_end: StrictBool = Field(description="Whether the subscription ends at the end of the period.", alias="cancelAtPeriodEnd")
     ended_at: Optional[datetime] = Field(alias="endedAt")
     additional_properties: Dict[str, Any] = {}
-    __properties: ClassVar[List[str]] = ["stripeSubscriptionId", "status", "interval", "intervalCount", "quantity", "price", "currentPeriodEnd", "cancelAtPeriodEnd", "endedAt"]
+    __properties: ClassVar[List[str]] = ["provider", "externalId", "stripeSubscriptionId", "status", "interval", "intervalCount", "quantity", "price", "currentPeriodEnd", "cancelAtPeriodEnd", "endedAt"]
+
+    @field_validator('provider')
+    def provider_validate_enum(cls, value):
+        """Validates the enum"""
+        if value not in set(['stripe', 'paddle', 'unknown_default_open_api']):
+            raise ValueError("must be one of enum values ('stripe', 'paddle', 'unknown_default_open_api')")
+        return value
 
     @field_validator('interval')
     def interval_validate_enum(cls, value):
@@ -119,6 +128,8 @@ class LicenseSubscription(BaseModel):
             return cls.model_validate(obj)
 
         _obj = cls.model_validate({
+            "provider": obj.get("provider"),
+            "externalId": obj.get("externalId"),
             "stripeSubscriptionId": obj.get("stripeSubscriptionId"),
             "status": obj.get("status"),
             "interval": obj.get("interval"),

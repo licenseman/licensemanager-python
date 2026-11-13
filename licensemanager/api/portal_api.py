@@ -64,7 +64,7 @@ class PortalApi:
     ) -> BillingPortalSession:
         """Open the Stripe customer portal of a customer
 
-        Link to the Stripe customer portal of the customer's Stripe customer, where they manage their subscriptions: change their plan or payment method, see their invoices, cancel. Needs the Stripe integration's `canBillingPortal`, and the customer portal configured in the Stripe account's settings. The changes come back through the integration's webhook, keeping the subscription licenses in line.  **Token access**: customer tokens with the `customer:billing` permission (or the matching write one). A customer token reaches its own customer.  **Required role permission**: `portalLink:create` when called with a session, granted by the member's role. API keys aren't limited by roles.
+        Link to the customer portal of the customer's Stripe or Paddle customer, where they manage their subscriptions: change their plan or payment method, see their invoices, cancel. Needs the integration's `canBillingPortal`, and for Stripe, the customer portal configured in the Stripe account's settings. The changes come back through the integration's webhook, keeping the subscription licenses in line.  **Token access**: customer tokens with the `customer:billing` permission (or the matching write one). A customer token reaches its own customer.  **Required role permission**: `portalLink:create` when called with a session, granted by the member's role. API keys aren't limited by roles.
 
         :param id: (required)
         :type id: str
@@ -143,7 +143,7 @@ class PortalApi:
     ) -> ApiResponse[BillingPortalSession]:
         """Open the Stripe customer portal of a customer
 
-        Link to the Stripe customer portal of the customer's Stripe customer, where they manage their subscriptions: change their plan or payment method, see their invoices, cancel. Needs the Stripe integration's `canBillingPortal`, and the customer portal configured in the Stripe account's settings. The changes come back through the integration's webhook, keeping the subscription licenses in line.  **Token access**: customer tokens with the `customer:billing` permission (or the matching write one). A customer token reaches its own customer.  **Required role permission**: `portalLink:create` when called with a session, granted by the member's role. API keys aren't limited by roles.
+        Link to the customer portal of the customer's Stripe or Paddle customer, where they manage their subscriptions: change their plan or payment method, see their invoices, cancel. Needs the integration's `canBillingPortal`, and for Stripe, the customer portal configured in the Stripe account's settings. The changes come back through the integration's webhook, keeping the subscription licenses in line.  **Token access**: customer tokens with the `customer:billing` permission (or the matching write one). A customer token reaches its own customer.  **Required role permission**: `portalLink:create` when called with a session, granted by the member's role. API keys aren't limited by roles.
 
         :param id: (required)
         :type id: str
@@ -222,7 +222,7 @@ class PortalApi:
     ) -> RESTResponseType:
         """Open the Stripe customer portal of a customer
 
-        Link to the Stripe customer portal of the customer's Stripe customer, where they manage their subscriptions: change their plan or payment method, see their invoices, cancel. Needs the Stripe integration's `canBillingPortal`, and the customer portal configured in the Stripe account's settings. The changes come back through the integration's webhook, keeping the subscription licenses in line.  **Token access**: customer tokens with the `customer:billing` permission (or the matching write one). A customer token reaches its own customer.  **Required role permission**: `portalLink:create` when called with a session, granted by the member's role. API keys aren't limited by roles.
+        Link to the customer portal of the customer's Stripe or Paddle customer, where they manage their subscriptions: change their plan or payment method, see their invoices, cancel. Needs the integration's `canBillingPortal`, and for Stripe, the customer portal configured in the Stripe account's settings. The changes come back through the integration's webhook, keeping the subscription licenses in line.  **Token access**: customer tokens with the `customer:billing` permission (or the matching write one). A customer token reaches its own customer.  **Required role permission**: `portalLink:create` when called with a session, granted by the member's role. API keys aren't limited by roles.
 
         :param id: (required)
         :type id: str

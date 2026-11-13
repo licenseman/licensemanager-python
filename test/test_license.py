@@ -48,6 +48,7 @@ class TestLicense(unittest.TestCase):
                 expires_at = '2027-01-15T09:30:00.000Z',
                 meta = {seats=5},
                 stripe_payment_intent_id = 'pi_3MtwBwLkdIwHu7ix28a3tqPa',
+                paddle_transaction_id = 'txn_01h04vsc0qhwtsbsxh3422wjs4',
                 max_machines = 3,
                 max_offline_duration_seconds = 604800,
                 active_machine_count = 2,
@@ -64,6 +65,8 @@ class TestLicense(unittest.TestCase):
                 canceled_at = '2026-01-20T16:12:00.000Z',
                 cancellation_reason = 'too_expensive',
                 subscription = licensemanager.models.license_subscription.LicenseSubscription(
+                    provider = 'stripe', 
+                    external_id = 'sub_1MowQVLkdIwHu7ix', 
                     stripe_subscription_id = 'sub_1MowQVLkdIwHu7ix', 
                     status = 'active', 
                     interval = 'day', 
@@ -75,6 +78,8 @@ class TestLicense(unittest.TestCase):
                     ended_at = datetime.datetime.strptime('2013-10-20 19:20:30.00', '%Y-%m-%d %H:%M:%S.%f'), ),
                 cancellation_comment = 'I only needed it for one project.',
                 stripe_refund_id = 're_3MtwBwLkdIwHu7ix0Bs5rA2b',
+                paddle_adjustment_id = 'adj_01h04vsc0qhwtsbsxh3422wjs4',
+                paddle_refund_status = 'approved',
                 updated_at = '2026-01-15T09:30:00.000Z'
             )
         else:
@@ -92,6 +97,7 @@ class TestLicense(unittest.TestCase):
                 expires_at = '2027-01-15T09:30:00.000Z',
                 meta = {seats=5},
                 stripe_payment_intent_id = 'pi_3MtwBwLkdIwHu7ix28a3tqPa',
+                paddle_transaction_id = 'txn_01h04vsc0qhwtsbsxh3422wjs4',
                 max_machines = 3,
                 max_offline_duration_seconds = 604800,
                 active_machine_count = 2,
@@ -108,6 +114,8 @@ class TestLicense(unittest.TestCase):
                 canceled_at = '2026-01-20T16:12:00.000Z',
                 cancellation_reason = 'too_expensive',
                 subscription = licensemanager.models.license_subscription.LicenseSubscription(
+                    provider = 'stripe', 
+                    external_id = 'sub_1MowQVLkdIwHu7ix', 
                     stripe_subscription_id = 'sub_1MowQVLkdIwHu7ix', 
                     status = 'active', 
                     interval = 'day', 
@@ -119,6 +127,8 @@ class TestLicense(unittest.TestCase):
                     ended_at = datetime.datetime.strptime('2013-10-20 19:20:30.00', '%Y-%m-%d %H:%M:%S.%f'), ),
                 cancellation_comment = 'I only needed it for one project.',
                 stripe_refund_id = 're_3MtwBwLkdIwHu7ix0Bs5rA2b',
+                paddle_adjustment_id = 'adj_01h04vsc0qhwtsbsxh3422wjs4',
+                paddle_refund_status = 'approved',
                 updated_at = '2026-01-15T09:30:00.000Z',
         )
         """

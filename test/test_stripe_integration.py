@@ -66,8 +66,11 @@ class TestStripeIntegration(unittest.TestCase):
                     licensemanager.models.integration_mapping.IntegrationMapping(
                         id = 'g2Lk7RwPa', 
                         integration_id = 'i8Fz4QnRt', 
+                        provider = 'stripe', 
                         product_id = 'x7Kp2QaZ', 
                         policy_id = 'p4Rt8LmQ', 
+                        external_product_id = 'prod_NWjs8kKbJWmuuc', 
+                        external_price_id = 'price_1MoBy5LkdIwHu7ix', 
                         stripe_product_id = 'prod_NWjs8kKbJWmuuc', 
                         stripe_price_id = 'price_1MoBy5LkdIwHu7ix', 
                         product_name = 'Acme Pro', 
@@ -115,8 +118,11 @@ class TestStripeIntegration(unittest.TestCase):
                     licensemanager.models.integration_mapping.IntegrationMapping(
                         id = 'g2Lk7RwPa', 
                         integration_id = 'i8Fz4QnRt', 
+                        provider = 'stripe', 
                         product_id = 'x7Kp2QaZ', 
                         policy_id = 'p4Rt8LmQ', 
+                        external_product_id = 'prod_NWjs8kKbJWmuuc', 
+                        external_price_id = 'price_1MoBy5LkdIwHu7ix', 
                         stripe_product_id = 'prod_NWjs8kKbJWmuuc', 
                         stripe_price_id = 'price_1MoBy5LkdIwHu7ix', 
                         product_name = 'Acme Pro', 

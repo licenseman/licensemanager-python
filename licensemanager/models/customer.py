@@ -34,9 +34,10 @@ class Customer(BaseModel):
     name: Optional[StrictStr] = Field(description="Display name of the customer. `null` when unknown.", json_schema_extra={"examples": ["Jane Doe"]})
     license_count: StrictInt = Field(description="Number of licenses of this customer.", alias="licenseCount", json_schema_extra={"examples": [3]})
     stripe_customer_id: Optional[StrictStr] = Field(description="Id of the Stripe customer, when the customer bought licenses through the Stripe integration as a Stripe customer. `null` otherwise, e.g. for a guest checkout.", alias="stripeCustomerId", json_schema_extra={"examples": ["cus_NffrFeUfNV2Hib"]})
+    paddle_customer_id: Optional[StrictStr] = Field(description="Id of the Paddle customer, when the customer bought licenses through the Paddle integration. `null` otherwise.", alias="paddleCustomerId", json_schema_extra={"examples": ["ctm_01h04vsc0qhwtsbsxh3422wjs4"]})
     created_at: datetime = Field(alias="createdAt", json_schema_extra={"examples": ["2026-01-15T09:30:00.000Z"]})
     additional_properties: Dict[str, Any] = {}
-    __properties: ClassVar[List[str]] = ["id", "productId", "email", "name", "licenseCount", "stripeCustomerId", "createdAt"]
+    __properties: ClassVar[List[str]] = ["id", "productId", "email", "name", "licenseCount", "stripeCustomerId", "paddleCustomerId", "createdAt"]
 
     model_config = ConfigDict(
         validate_by_name=True,
@@ -94,6 +95,11 @@ class Customer(BaseModel):
         if self.stripe_customer_id is None and "stripe_customer_id" in self.model_fields_set:
             _dict['stripeCustomerId'] = None
 
+        # set to None if paddle_customer_id (nullable) is None
+        # and model_fields_set contains the field
+        if self.paddle_customer_id is None and "paddle_customer_id" in self.model_fields_set:
+            _dict['paddleCustomerId'] = None
+
         return _dict
 
     @classmethod
@@ -112,6 +118,7 @@ class Customer(BaseModel):
             "name": obj.get("name"),
             "licenseCount": obj.get("licenseCount"),
             "stripeCustomerId": obj.get("stripeCustomerId"),
+            "paddleCustomerId": obj.get("paddleCustomerId"),
             "createdAt": obj.get("createdAt")
         })
         # store additional fields in additional_properties

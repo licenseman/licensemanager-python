@@ -7,11 +7,14 @@ Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **id** | **str** |  | 
 **integration_id** | **str** |  | 
+**provider** | **str** |  | 
 **product_id** | **str** |  | 
 **policy_id** | **str** |  | 
-**stripe_product_id** | **str** |  | 
-**stripe_price_id** | **str** |  | 
-**product_name** | **str** | Name of the Stripe product when it was mapped. | 
+**external_product_id** | **str** | Id of the product in the provider: &#x60;prod_…&#x60; in Stripe, &#x60;pro_…&#x60; in Paddle. | 
+**external_price_id** | **str** | Id of the price in the provider: &#x60;price_…&#x60; in Stripe, &#x60;pri_…&#x60; in Paddle. | 
+**stripe_product_id** | **str** | Deprecated: use &#x60;externalProductId&#x60;, which it equals. | 
+**stripe_price_id** | **str** | Deprecated: use &#x60;externalPriceId&#x60;, which it equals. | 
+**product_name** | **str** | Name of the provider&#39;s product when it was mapped. | 
 **price** | [**Price**](Price.md) |  | 
 **recurring** | [**IntegrationMappingRecurring**](IntegrationMappingRecurring.md) |  | 
 **status** | **str** | &#x60;error&#x60; when the price can no longer be paid, explained by &#x60;statusReason&#x60;. | 

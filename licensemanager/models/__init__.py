@@ -18,11 +18,13 @@ from licensemanager.models.cancel_license import CancelLicense
 from licensemanager.models.cancellation_reason import CancellationReason
 from licensemanager.models.cancellation_stats import CancellationStats
 from licensemanager.models.cancellation_stats_by_reason_inner import CancellationStatsByReasonInner
+from licensemanager.models.connect_paddle import ConnectPaddle
 from licensemanager.models.connect_stripe import ConnectStripe
 from licensemanager.models.create_billing_portal_session import CreateBillingPortalSession
 from licensemanager.models.create_customer import CreateCustomer
 from licensemanager.models.create_integration_mapping import CreateIntegrationMapping
 from licensemanager.models.create_license import CreateLicense
+from licensemanager.models.create_paddle_mapping import CreatePaddleMapping
 from licensemanager.models.create_policy import CreatePolicy
 from licensemanager.models.create_portal_link import CreatePortalLink
 from licensemanager.models.create_product import CreateProduct
@@ -61,6 +63,7 @@ from licensemanager.models.license_stats_activations_by_version_inner import Lic
 from licensemanager.models.license_status import LicenseStatus
 from licensemanager.models.license_subscription import LicenseSubscription
 from licensemanager.models.license_token import LicenseToken
+from licensemanager.models.list_paddle_prices200_response import ListPaddlePrices200Response
 from licensemanager.models.list_policy_events_type_parameter import ListPolicyEventsTypeParameter
 from licensemanager.models.list_stripe_prices200_response import ListStripePrices200Response
 from licensemanager.models.lock_max_version import LockMaxVersion
@@ -73,6 +76,9 @@ from licensemanager.models.machine_list import MachineList
 from licensemanager.models.mrr import Mrr
 from licensemanager.models.mrr_by_interval_inner import MrrByIntervalInner
 from licensemanager.models.mrr_by_policy_inner import MrrByPolicyInner
+from licensemanager.models.paddle_integration import PaddleIntegration
+from licensemanager.models.paddle_permission import PaddlePermission
+from licensemanager.models.paddle_price import PaddlePrice
 from licensemanager.models.pagination import Pagination
 from licensemanager.models.policy import Policy
 from licensemanager.models.policy_duration import PolicyDuration

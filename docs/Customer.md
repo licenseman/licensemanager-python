@@ -11,6 +11,7 @@ Name | Type | Description | Notes
 **name** | **str** | Display name of the customer. &#x60;null&#x60; when unknown. | 
 **license_count** | **int** | Number of licenses of this customer. | 
 **stripe_customer_id** | **str** | Id of the Stripe customer, when the customer bought licenses through the Stripe integration as a Stripe customer. &#x60;null&#x60; otherwise, e.g. for a guest checkout. | 
+**paddle_customer_id** | **str** | Id of the Paddle customer, when the customer bought licenses through the Paddle integration. &#x60;null&#x60; otherwise. | 
 **created_at** | **datetime** |  | 
 
 ## Example

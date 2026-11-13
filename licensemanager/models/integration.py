@@ -32,18 +32,18 @@ class Integration(BaseModel):
     id: StrictStr = Field(json_schema_extra={"examples": ["i8Fz4QnRt"]})
     provider: StrictStr
     livemode: StrictBool = Field(description="Whether it's connected in live mode, for the live products, or in test mode, for the test products.")
-    account_name: Optional[StrictStr] = Field(description="Name of the Stripe account, `null` when the API key can't read it.", alias="accountName", json_schema_extra={"examples": ["Acme Inc."]})
+    account_name: Optional[StrictStr] = Field(description="Name of the Stripe account, `null` when the API key can't read it, and for Paddle, whose API doesn't give it.", alias="accountName", json_schema_extra={"examples": ["Acme Inc."]})
     api_key_hint: StrictStr = Field(description="Start and end of the API key, to recognize it.", alias="apiKeyHint", json_schema_extra={"examples": ["rk_live_…Ab3d"]})
-    webhook_url: StrictStr = Field(description="URL of the webhook endpoint created on the Stripe account.", alias="webhookUrl", json_schema_extra={"examples": ["https://api.licensemanager.dev/v1/webhooks/stripe/i8Fz4QnRt"]})
+    webhook_url: StrictStr = Field(description="URL of the webhook endpoint created on the Stripe account, or of the notification destination created on the Paddle account.", alias="webhookUrl", json_schema_extra={"examples": ["https://api.licensemanager.dev/v1/webhooks/stripe/i8Fz4QnRt"]})
     status: IntegrationStatus
     status_reason: Optional[StrictStr] = Field(description="Why the integration isn't `active`, `null` when it is.", alias="statusReason", json_schema_extra={"examples": ["The API key can't manage webhook endpoints: give it the Webhook Endpoints: Write permission"]})
     last_checked_at: Optional[datetime] = Field(description="Last time its health was checked, done every day.", alias="lastCheckedAt")
     last_event_at: Optional[datetime] = Field(description="Last time it received an event from the provider.", alias="lastEventAt")
-    auto_refund: StrictBool = Field(description="Whether canceling a license bought through Stripe refunds its payment. On by default, always off when `canRefund` is false.", alias="autoRefund", json_schema_extra={"examples": [True]})
-    can_refund: StrictBool = Field(description="Whether the API key has the optional Refunds: Write permission, checked when connecting and every day. Without it, canceled licenses aren't refunded: refund their payments from Stripe.", alias="canRefund", json_schema_extra={"examples": [True]})
-    can_manage_subscriptions: StrictBool = Field(description="Whether the API key has the optional Subscriptions: Write permission, checked when connecting and every day. Without it, subscription licenses can't be canceled from the app: cancel their subscriptions from Stripe.", alias="canManageSubscriptions", json_schema_extra={"examples": [True]})
-    can_billing_portal: StrictBool = Field(description="Whether the API key has the optional Customer portal: Write permission, checked when connecting and every day. Without it, the license portal doesn't link to the Stripe customer portal.", alias="canBillingPortal", json_schema_extra={"examples": [True]})
-    subscription_grace_days: StrictInt = Field(description="Days a subscription license stays valid after its period ends while its renewal is unpaid, as Stripe retries the payment. 7 by default.", alias="subscriptionGraceDays", json_schema_extra={"examples": [7]})
+    auto_refund: StrictBool = Field(description="Whether canceling a license bought through the integration refunds its payment. On by default, always off when `canRefund` is false.", alias="autoRefund", json_schema_extra={"examples": [True]})
+    can_refund: StrictBool = Field(description="Whether the API key has the optional refund permission (Stripe: Refunds: Write, Paddle: Adjustments: Write), checked when connecting and every day. Without it, canceled licenses aren't refunded: refund their payments from the provider.", alias="canRefund", json_schema_extra={"examples": [True]})
+    can_manage_subscriptions: StrictBool = Field(description="Whether the API key has the optional Subscriptions: Write permission, checked when connecting and every day. Without it, subscription licenses can't be canceled from the app: cancel their subscriptions from the provider.", alias="canManageSubscriptions", json_schema_extra={"examples": [True]})
+    can_billing_portal: StrictBool = Field(description="Whether the API key has the optional customer portal permission (Stripe: Customer portal: Write, Paddle: Customer portal sessions: Write), checked when connecting and every day. Without it, the license portal doesn't link to the provider's customer portal.", alias="canBillingPortal", json_schema_extra={"examples": [True]})
+    subscription_grace_days: StrictInt = Field(description="Days a subscription license stays valid after its period ends while its renewal is unpaid, as the provider retries the payment. 7 by default.", alias="subscriptionGraceDays", json_schema_extra={"examples": [7]})
     created_at: datetime = Field(alias="createdAt")
     additional_properties: Dict[str, Any] = {}
     __properties: ClassVar[List[str]] = ["id", "provider", "livemode", "accountName", "apiKeyHint", "webhookUrl", "status", "statusReason", "lastCheckedAt", "lastEventAt", "autoRefund", "canRefund", "canManageSubscriptions", "canBillingPortal", "subscriptionGraceDays", "createdAt"]
@@ -51,8 +51,8 @@ class Integration(BaseModel):
     @field_validator('provider')
     def provider_validate_enum(cls, value):
         """Validates the enum"""
-        if value not in set(['stripe', 'unknown_default_open_api']):
-            raise ValueError("must be one of enum values ('stripe', 'unknown_default_open_api')")
+        if value not in set(['stripe', 'paddle', 'unknown_default_open_api']):
+            raise ValueError("must be one of enum values ('stripe', 'paddle', 'unknown_default_open_api')")
         return value
 
     model_config = ConfigDict(

@@ -14,7 +14,7 @@
 """  # noqa: E501
 
 
-__version__ = "0.3.4"
+__version__ = "0.4.0"
 
 # Define package exports
 __all__ = [
@@ -42,11 +42,13 @@ __all__ = [
     "CancellationReason",
     "CancellationStats",
     "CancellationStatsByReasonInner",
+    "ConnectPaddle",
     "ConnectStripe",
     "CreateBillingPortalSession",
     "CreateCustomer",
     "CreateIntegrationMapping",
     "CreateLicense",
+    "CreatePaddleMapping",
     "CreatePolicy",
     "CreatePortalLink",
     "CreateProduct",
@@ -85,6 +87,7 @@ __all__ = [
     "LicenseStatus",
     "LicenseSubscription",
     "LicenseToken",
+    "ListPaddlePrices200Response",
     "ListPolicyEventsTypeParameter",
     "ListStripePrices200Response",
     "LockMaxVersion",
@@ -97,6 +100,9 @@ __all__ = [
     "Mrr",
     "MrrByIntervalInner",
     "MrrByPolicyInner",
+    "PaddleIntegration",
+    "PaddlePermission",
+    "PaddlePrice",
     "Pagination",
     "Policy",
     "PolicyDuration",
@@ -179,11 +185,13 @@ from licensemanager.models.cancel_license import CancelLicense as CancelLicense
 from licensemanager.models.cancellation_reason import CancellationReason as CancellationReason
 from licensemanager.models.cancellation_stats import CancellationStats as CancellationStats
 from licensemanager.models.cancellation_stats_by_reason_inner import CancellationStatsByReasonInner as CancellationStatsByReasonInner
+from licensemanager.models.connect_paddle import ConnectPaddle as ConnectPaddle
 from licensemanager.models.connect_stripe import ConnectStripe as ConnectStripe
 from licensemanager.models.create_billing_portal_session import CreateBillingPortalSession as CreateBillingPortalSession
 from licensemanager.models.create_customer import CreateCustomer as CreateCustomer
 from licensemanager.models.create_integration_mapping import CreateIntegrationMapping as CreateIntegrationMapping
 from licensemanager.models.create_license import CreateLicense as CreateLicense
+from licensemanager.models.create_paddle_mapping import CreatePaddleMapping as CreatePaddleMapping
 from licensemanager.models.create_policy import CreatePolicy as CreatePolicy
 from licensemanager.models.create_portal_link import CreatePortalLink as CreatePortalLink
 from licensemanager.models.create_product import CreateProduct as CreateProduct
@@ -222,6 +230,7 @@ from licensemanager.models.license_stats_activations_by_version_inner import Lic
 from licensemanager.models.license_status import LicenseStatus as LicenseStatus
 from licensemanager.models.license_subscription import LicenseSubscription as LicenseSubscription
 from licensemanager.models.license_token import LicenseToken as LicenseToken
+from licensemanager.models.list_paddle_prices200_response import ListPaddlePrices200Response as ListPaddlePrices200Response
 from licensemanager.models.list_policy_events_type_parameter import ListPolicyEventsTypeParameter as ListPolicyEventsTypeParameter
 from licensemanager.models.list_stripe_prices200_response import ListStripePrices200Response as ListStripePrices200Response
 from licensemanager.models.lock_max_version import LockMaxVersion as LockMaxVersion
@@ -234,6 +243,9 @@ from licensemanager.models.machine_list import MachineList as MachineList
 from licensemanager.models.mrr import Mrr as Mrr
 from licensemanager.models.mrr_by_interval_inner import MrrByIntervalInner as MrrByIntervalInner
 from licensemanager.models.mrr_by_policy_inner import MrrByPolicyInner as MrrByPolicyInner
+from licensemanager.models.paddle_integration import PaddleIntegration as PaddleIntegration
+from licensemanager.models.paddle_permission import PaddlePermission as PaddlePermission
+from licensemanager.models.paddle_price import PaddlePrice as PaddlePrice
 from licensemanager.models.pagination import Pagination as Pagination
 from licensemanager.models.policy import Policy as Policy
 from licensemanager.models.policy_duration import PolicyDuration as PolicyDuration

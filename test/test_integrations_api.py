@@ -40,10 +40,24 @@ class TestIntegrationsApi(unittest.TestCase):
         """
         pass
 
+    def test_connect_paddle(self) -> None:
+        """Test case for connect_paddle
+
+        Connect Paddle
+        """
+        pass
+
     def test_connect_stripe(self) -> None:
         """Test case for connect_stripe
 
         Connect Stripe
+        """
+        pass
+
+    def test_create_paddle_mapping(self) -> None:
+        """Test case for create_paddle_mapping
+
+        Map a Paddle price to a policy
         """
         pass
 
@@ -75,6 +89,13 @@ class TestIntegrationsApi(unittest.TestCase):
         """
         pass
 
+    def test_get_paddle_integration(self) -> None:
+        """Test case for get_paddle_integration
+
+        Get the Paddle integration of a product
+        """
+        pass
+
     def test_get_slack_integration(self) -> None:
         """Test case for get_slack_integration
 
@@ -86,6 +107,13 @@ class TestIntegrationsApi(unittest.TestCase):
         """Test case for get_stripe_integration
 
         Get the Stripe integration of a product
+        """
+        pass
+
+    def test_list_paddle_prices(self) -> None:
+        """Test case for list_paddle_prices
+
+        List the Paddle prices of an integration
         """
         pass
 

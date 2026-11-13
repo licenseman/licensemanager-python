@@ -34,7 +34,7 @@ class SlackConnection(BaseModel):
     channel_id: StrictStr = Field(alias="channelId", json_schema_extra={"examples": ["C0456EFGH"]})
     channel_name: Optional[StrictStr] = Field(description="Name of the channel when it was connected, with its `#`.", alias="channelName", json_schema_extra={"examples": ["#sales"]})
     configuration_url: Optional[StrictStr] = Field(description="Page of the installation in Slack.", alias="configurationUrl")
-    events: List[StrictStr] = Field(description="Notifications the channel gets: `purchased` (a license bought through Stripe), `renewed` (a subscription renewal paid), `payment_failed` (a subscription payment failed) and `canceled` (a license canceled, or its subscription ended).")
+    events: List[StrictStr] = Field(description="Notifications the channel gets: `purchased` (a license bought through Stripe or Paddle), `renewed` (a subscription renewal paid), `payment_failed` (a subscription payment failed) and `canceled` (a license canceled, or its subscription ended).")
     status: StrictStr = Field(description="`revoked` once Slack refuses the messages, like when the app was removed from the workspace or the channel deleted: remove it and add it again.")
     status_reason: Optional[StrictStr] = Field(alias="statusReason")
     last_sent_at: Optional[datetime] = Field(alias="lastSentAt")
