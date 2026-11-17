@@ -136,6 +136,11 @@ class TestProductStats(unittest.TestCase):
                     licensemanager.models.product_stats_active_machines_by_platform_inner.ProductStats_activeMachinesByPlatform_inner(
                         platform = 'macOS', 
                         count = 42, )
+                    ],
+                active_machines_by_country = [
+                    licensemanager.models.product_stats_active_machines_by_country_inner.ProductStats_activeMachinesByCountry_inner(
+                        country = 'FR', 
+                        count = 42, )
                     ]
             )
         else:
@@ -240,6 +245,11 @@ class TestProductStats(unittest.TestCase):
                 active_machines_by_platform = [
                     licensemanager.models.product_stats_active_machines_by_platform_inner.ProductStats_activeMachinesByPlatform_inner(
                         platform = 'macOS', 
+                        count = 42, )
+                    ],
+                active_machines_by_country = [
+                    licensemanager.models.product_stats_active_machines_by_country_inner.ProductStats_activeMachinesByCountry_inner(
+                        country = 'FR', 
                         count = 42, )
                     ],
         )

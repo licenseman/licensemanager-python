@@ -48,7 +48,10 @@ class TestEventList(unittest.TestCase):
                             id = 'm9Tq3VhD', 
                             name = 'Jane's MacBook', 
                             fingerprint = '4c:32:75:8f:9a:1e', ), 
-                        actor = null, )
+                        actor = null, 
+                        country = 'FR', 
+                        latitude = 48.8566, 
+                        longitude = 2.3522, )
                     ],
                 pagination = licensemanager.models.pagination.Pagination(
                     page = 1, 
@@ -71,7 +74,10 @@ class TestEventList(unittest.TestCase):
                             id = 'm9Tq3VhD', 
                             name = 'Jane's MacBook', 
                             fingerprint = '4c:32:75:8f:9a:1e', ), 
-                        actor = null, )
+                        actor = null, 
+                        country = 'FR', 
+                        latitude = 48.8566, 
+                        longitude = 2.3522, )
                     ],
                 pagination = licensemanager.models.pagination.Pagination(
                     page = 1, 

@@ -46,7 +46,10 @@ class TestEvent(unittest.TestCase):
                     id = 'm9Tq3VhD', 
                     name = 'Jane's MacBook', 
                     fingerprint = '4c:32:75:8f:9a:1e', ),
-                actor = None
+                actor = None,
+                country = 'FR',
+                latitude = 48.8566,
+                longitude = 2.3522
             )
         else:
             return Event(
@@ -62,6 +65,9 @@ class TestEvent(unittest.TestCase):
                     name = 'Jane's MacBook', 
                     fingerprint = '4c:32:75:8f:9a:1e', ),
                 actor = None,
+                country = 'FR',
+                latitude = 48.8566,
+                longitude = 2.3522,
         )
         """
 

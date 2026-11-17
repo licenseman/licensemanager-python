@@ -18,8 +18,8 @@ import re  # noqa: F401
 import json
 
 from datetime import datetime
-from pydantic import BaseModel, ConfigDict, Field, StrictStr, field_validator
-from typing import Any, ClassVar, Dict, List, Optional
+from pydantic import BaseModel, ConfigDict, Field, StrictFloat, StrictInt, StrictStr, field_validator
+from typing import Any, ClassVar, Dict, List, Optional, Union
 from typing import Optional, Set
 from typing_extensions import Self
 from pydantic_core import to_jsonable_python
@@ -37,10 +37,13 @@ class Machine(BaseModel):
     version: Optional[StrictStr] = Field(description="Version of the application last validated on the machine.", json_schema_extra={"examples": ["1.4.2"]})
     overridden_by_machine_id: Optional[StrictStr] = Field(description="For a machine deactivated or locked by automatic machine changes, the machine that took its place. Validating the key on a deactivated machine that has one takes its place back. `null` otherwise.", alias="overriddenByMachineId")
     last_validated_at: Optional[datetime] = Field(description="When the license was last validated on the machine.", alias="lastValidatedAt", json_schema_extra={"examples": ["2026-01-15T09:30:00.000Z"]})
+    country: Optional[StrictStr] = Field(description="ISO 3166-1 alpha-2 code of the country of the IP address the license was last successfully validated from on the machine. `null` until it's looked up, shortly after, or when it can't be.", json_schema_extra={"examples": ["FR"]})
+    latitude: Optional[Union[StrictFloat, StrictInt]] = Field(description="Approximate latitude of the IP address the license was last successfully validated from on the machine. `null` until it's looked up, shortly after, or when it can't be.", json_schema_extra={"examples": [48.8566]})
+    longitude: Optional[Union[StrictFloat, StrictInt]] = Field(description="Approximate longitude of the IP address the license was last successfully validated from on the machine. `null` until it's looked up, shortly after, or when it can't be.", json_schema_extra={"examples": [2.3522]})
     created_at: datetime = Field(alias="createdAt", json_schema_extra={"examples": ["2026-01-15T09:30:00.000Z"]})
     updated_at: datetime = Field(alias="updatedAt", json_schema_extra={"examples": ["2026-01-15T09:30:00.000Z"]})
     additional_properties: Dict[str, Any] = {}
-    __properties: ClassVar[List[str]] = ["id", "licenseId", "fingerprint", "platform", "name", "status", "version", "overriddenByMachineId", "lastValidatedAt", "createdAt", "updatedAt"]
+    __properties: ClassVar[List[str]] = ["id", "licenseId", "fingerprint", "platform", "name", "status", "version", "overriddenByMachineId", "lastValidatedAt", "country", "latitude", "longitude", "createdAt", "updatedAt"]
 
     @field_validator('status')
     def status_validate_enum(cls, value):
@@ -120,6 +123,21 @@ class Machine(BaseModel):
         if self.last_validated_at is None and "last_validated_at" in self.model_fields_set:
             _dict['lastValidatedAt'] = None
 
+        # set to None if country (nullable) is None
+        # and model_fields_set contains the field
+        if self.country is None and "country" in self.model_fields_set:
+            _dict['country'] = None
+
+        # set to None if latitude (nullable) is None
+        # and model_fields_set contains the field
+        if self.latitude is None and "latitude" in self.model_fields_set:
+            _dict['latitude'] = None
+
+        # set to None if longitude (nullable) is None
+        # and model_fields_set contains the field
+        if self.longitude is None and "longitude" in self.model_fields_set:
+            _dict['longitude'] = None
+
         return _dict
 
     @classmethod
@@ -141,6 +159,9 @@ class Machine(BaseModel):
             "version": obj.get("version"),
             "overriddenByMachineId": obj.get("overriddenByMachineId"),
             "lastValidatedAt": obj.get("lastValidatedAt"),
+            "country": obj.get("country"),
+            "latitude": obj.get("latitude"),
+            "longitude": obj.get("longitude"),
             "createdAt": obj.get("createdAt"),
             "updatedAt": obj.get("updatedAt")
         })

@@ -14,7 +14,7 @@
 """  # noqa: E501
 
 
-__version__ = "0.4.0"
+__version__ = "0.4.1"
 
 # Define package exports
 __all__ = [
@@ -72,6 +72,12 @@ __all__ = [
     "EventMachine",
     "EventType",
     "FixedMaxVersion",
+    "ImportLicense",
+    "ImportLicenseResult",
+    "ImportLicenseResultError",
+    "ImportLicenseSubscription",
+    "ImportLicenses",
+    "ImportLicensesResult",
     "Integration",
     "IntegrationMapping",
     "IntegrationMappingRecurring",
@@ -123,6 +129,7 @@ __all__ = [
     "ProductList",
     "ProductStats",
     "ProductStatsActivationsByVersionInner",
+    "ProductStatsActiveMachinesByCountryInner",
     "ProductStatsActiveMachinesByPlatformInner",
     "ProductStatsActiveMachinesByVersionInner",
     "ProductStatsNewLicensesByPolicyInner",
@@ -215,6 +222,12 @@ from licensemanager.models.event_list import EventList as EventList
 from licensemanager.models.event_machine import EventMachine as EventMachine
 from licensemanager.models.event_type import EventType as EventType
 from licensemanager.models.fixed_max_version import FixedMaxVersion as FixedMaxVersion
+from licensemanager.models.import_license import ImportLicense as ImportLicense
+from licensemanager.models.import_license_result import ImportLicenseResult as ImportLicenseResult
+from licensemanager.models.import_license_result_error import ImportLicenseResultError as ImportLicenseResultError
+from licensemanager.models.import_license_subscription import ImportLicenseSubscription as ImportLicenseSubscription
+from licensemanager.models.import_licenses import ImportLicenses as ImportLicenses
+from licensemanager.models.import_licenses_result import ImportLicensesResult as ImportLicensesResult
 from licensemanager.models.integration import Integration as Integration
 from licensemanager.models.integration_mapping import IntegrationMapping as IntegrationMapping
 from licensemanager.models.integration_mapping_recurring import IntegrationMappingRecurring as IntegrationMappingRecurring
@@ -266,6 +279,7 @@ from licensemanager.models.product import Product as Product
 from licensemanager.models.product_list import ProductList as ProductList
 from licensemanager.models.product_stats import ProductStats as ProductStats
 from licensemanager.models.product_stats_activations_by_version_inner import ProductStatsActivationsByVersionInner as ProductStatsActivationsByVersionInner
+from licensemanager.models.product_stats_active_machines_by_country_inner import ProductStatsActiveMachinesByCountryInner as ProductStatsActiveMachinesByCountryInner
 from licensemanager.models.product_stats_active_machines_by_platform_inner import ProductStatsActiveMachinesByPlatformInner as ProductStatsActiveMachinesByPlatformInner
 from licensemanager.models.product_stats_active_machines_by_version_inner import ProductStatsActiveMachinesByVersionInner as ProductStatsActiveMachinesByVersionInner
 from licensemanager.models.product_stats_new_licenses_by_policy_inner import ProductStatsNewLicensesByPolicyInner as ProductStatsNewLicensesByPolicyInner

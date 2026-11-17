@@ -41,6 +41,12 @@ docs/EventMachine.md
 docs/EventType.md
 docs/EventsApi.md
 docs/FixedMaxVersion.md
+docs/ImportLicense.md
+docs/ImportLicenseResult.md
+docs/ImportLicenseResultError.md
+docs/ImportLicenseSubscription.md
+docs/ImportLicenses.md
+docs/ImportLicensesResult.md
 docs/Integration.md
 docs/IntegrationMapping.md
 docs/IntegrationMappingRecurring.md
@@ -97,6 +103,7 @@ docs/Product.md
 docs/ProductList.md
 docs/ProductStats.md
 docs/ProductStatsActivationsByVersionInner.md
+docs/ProductStatsActiveMachinesByCountryInner.md
 docs/ProductStatsActiveMachinesByPlatformInner.md
 docs/ProductStatsActiveMachinesByVersionInner.md
 docs/ProductStatsNewLicensesByPolicyInner.md
@@ -184,6 +191,12 @@ licensemanager/models/event_list.py
 licensemanager/models/event_machine.py
 licensemanager/models/event_type.py
 licensemanager/models/fixed_max_version.py
+licensemanager/models/import_license.py
+licensemanager/models/import_license_result.py
+licensemanager/models/import_license_result_error.py
+licensemanager/models/import_license_subscription.py
+licensemanager/models/import_licenses.py
+licensemanager/models/import_licenses_result.py
 licensemanager/models/integration.py
 licensemanager/models/integration_mapping.py
 licensemanager/models/integration_mapping_recurring.py
@@ -235,6 +248,7 @@ licensemanager/models/product.py
 licensemanager/models/product_list.py
 licensemanager/models/product_stats.py
 licensemanager/models/product_stats_activations_by_version_inner.py
+licensemanager/models/product_stats_active_machines_by_country_inner.py
 licensemanager/models/product_stats_active_machines_by_platform_inner.py
 licensemanager/models/product_stats_active_machines_by_version_inner.py
 licensemanager/models/product_stats_new_licenses_by_policy_inner.py
@@ -311,6 +325,12 @@ test/test_event_machine.py
 test/test_event_type.py
 test/test_events_api.py
 test/test_fixed_max_version.py
+test/test_import_license.py
+test/test_import_license_result.py
+test/test_import_license_result_error.py
+test/test_import_license_subscription.py
+test/test_import_licenses.py
+test/test_import_licenses_result.py
 test/test_integration.py
 test/test_integration_mapping.py
 test/test_integration_mapping_recurring.py
@@ -367,6 +387,7 @@ test/test_product.py
 test/test_product_list.py
 test/test_product_stats.py
 test/test_product_stats_activations_by_version_inner.py
+test/test_product_stats_active_machines_by_country_inner.py
 test/test_product_stats_active_machines_by_platform_inner.py
 test/test_product_stats_active_machines_by_version_inner.py
 test/test_product_stats_new_licenses_by_policy_inner.py

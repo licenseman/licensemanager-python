@@ -23,6 +23,7 @@ from typing import Any, ClassVar, Dict, List, Optional
 from typing_extensions import Annotated
 from licensemanager.models.cancellation_stats import CancellationStats
 from licensemanager.models.product_stats_activations_by_version_inner import ProductStatsActivationsByVersionInner
+from licensemanager.models.product_stats_active_machines_by_country_inner import ProductStatsActiveMachinesByCountryInner
 from licensemanager.models.product_stats_active_machines_by_platform_inner import ProductStatsActiveMachinesByPlatformInner
 from licensemanager.models.product_stats_active_machines_by_version_inner import ProductStatsActiveMachinesByVersionInner
 from licensemanager.models.product_stats_new_licenses_by_policy_inner import ProductStatsNewLicensesByPolicyInner
@@ -57,8 +58,9 @@ class ProductStats(BaseModel):
     activations_by_version: List[ProductStatsActivationsByVersionInner] = Field(description="Successful activations of the licenses of the product each day, per version of the application, from the most recent one.", alias="activationsByVersion")
     active_machines_by_version: List[ProductStatsActiveMachinesByVersionInner] = Field(description="Number of active machines running each version of the application, from the most recent one.", alias="activeMachinesByVersion")
     active_machines_by_platform: List[ProductStatsActiveMachinesByPlatformInner] = Field(description="Number of active machines on each platform, from the one with the most machines.", alias="activeMachinesByPlatform")
+    active_machines_by_country: List[ProductStatsActiveMachinesByCountryInner] = Field(description="Number of active machines in each country, from the one with the most machines.", alias="activeMachinesByCountry")
     additional_properties: Dict[str, Any] = {}
-    __properties: ClassVar[List[str]] = ["licenseCount", "activeLicenseCount", "newLicenseCount", "expiringLicenseCount", "expiredLicenseCount", "activeMachineCount", "inUseLicenseCount", "seatCount", "usedSeatCount", "fullLicenseCount", "days", "months", "newLicensesByDay", "newLicensesByMonth", "newLicensesByPolicy", "cancellation", "subscriptions", "revenue", "activationsByVersion", "activeMachinesByVersion", "activeMachinesByPlatform"]
+    __properties: ClassVar[List[str]] = ["licenseCount", "activeLicenseCount", "newLicenseCount", "expiringLicenseCount", "expiredLicenseCount", "activeMachineCount", "inUseLicenseCount", "seatCount", "usedSeatCount", "fullLicenseCount", "days", "months", "newLicensesByDay", "newLicensesByMonth", "newLicensesByPolicy", "cancellation", "subscriptions", "revenue", "activationsByVersion", "activeMachinesByVersion", "activeMachinesByPlatform", "activeMachinesByCountry"]
 
     model_config = ConfigDict(
         validate_by_name=True,
@@ -137,6 +139,12 @@ class ProductStats(BaseModel):
             for _item_active_machines_by_platform in self.active_machines_by_platform:
                 _items.append(_item_active_machines_by_platform.to_dict() if _item_active_machines_by_platform is not None else None)
             _dict['activeMachinesByPlatform'] = _items
+        # override the default output from pydantic by calling `to_dict()` of each item in active_machines_by_country (list)
+        _items = []
+        if self.active_machines_by_country:
+            for _item_active_machines_by_country in self.active_machines_by_country:
+                _items.append(_item_active_machines_by_country.to_dict() if _item_active_machines_by_country is not None else None)
+            _dict['activeMachinesByCountry'] = _items
         # puts key-value pairs in additional_properties in the top level
         if self.additional_properties is not None:
             for _key, _value in self.additional_properties.items():
@@ -184,7 +192,8 @@ class ProductStats(BaseModel):
             "revenue": [Revenue.from_dict(_item) for _item in obj["revenue"]] if obj.get("revenue") is not None else None,
             "activationsByVersion": [ProductStatsActivationsByVersionInner.from_dict(_item) for _item in obj["activationsByVersion"]] if obj.get("activationsByVersion") is not None else None,
             "activeMachinesByVersion": [ProductStatsActiveMachinesByVersionInner.from_dict(_item) for _item in obj["activeMachinesByVersion"]] if obj.get("activeMachinesByVersion") is not None else None,
-            "activeMachinesByPlatform": [ProductStatsActiveMachinesByPlatformInner.from_dict(_item) for _item in obj["activeMachinesByPlatform"]] if obj.get("activeMachinesByPlatform") is not None else None
+            "activeMachinesByPlatform": [ProductStatsActiveMachinesByPlatformInner.from_dict(_item) for _item in obj["activeMachinesByPlatform"]] if obj.get("activeMachinesByPlatform") is not None else None,
+            "activeMachinesByCountry": [ProductStatsActiveMachinesByCountryInner.from_dict(_item) for _item in obj["activeMachinesByCountry"]] if obj.get("activeMachinesByCountry") is not None else None
         })
         # store additional fields in additional_properties
         for _key in obj.keys():

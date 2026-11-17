@@ -10,6 +10,7 @@ Method | HTTP request | Description
 [**get_license**](LicensesApi.md#get_license) | **GET** /v1/licenses/{id} | Get a license
 [**get_license_stats**](LicensesApi.md#get_license_stats) | **GET** /v1/licenses/{id}/stats | Get the stats of a license
 [**get_signing_key**](LicensesApi.md#get_signing_key) | **GET** /v1/signing-key | Get the organization&#39;s signing key
+[**import_licenses**](LicensesApi.md#import_licenses) | **POST** /v1/products/{productId}/licenses/import | Import licenses
 [**list_customer_licenses**](LicensesApi.md#list_customer_licenses) | **GET** /v1/customers/{customerId}/licenses | List the licenses of a customer
 [**list_licenses**](LicensesApi.md#list_licenses) | **GET** /v1/products/{productId}/licenses | List the licenses of a product
 [**send_license_keys**](LicensesApi.md#send_license_keys) | **POST** /v1/licenses/send-keys | Email license keys to their customers
@@ -567,6 +568,100 @@ This endpoint does not need any parameter.
 **401** | &#x60;unauthorized&#x60;: no credentials. &#x60;invalid_api_key&#x60;: the API key doesn&#39;t exist, was revoked or has expired. &#x60;invalid_token&#x60;: the token&#39;s signature is invalid, it has expired, or the resource it&#39;s scoped to was deleted |  -  |
 **402** | &#x60;plan_limit_exceeded&#x60;: the organization stayed over its plan&#39;s limits after the grace period, its API is blocked until it upgrades. &#x60;plan_limit_reached&#x60;: creating the resource would go over the plan&#39;s limit |  -  |
 **403** | &#x60;token_not_allowed&#x60;: the endpoint doesn&#39;t accept tokens, or not of this type. &#x60;insufficient_scope&#x60;: the token lacks the permission. &#x60;no_active_organization&#x60; or &#x60;forbidden&#x60;: the session has no organization, or isn&#39;t a member of the one requested |  -  |
+**422** | &#x60;validation_error&#x60;: invalid path, query or body, with the &#x60;issues&#x60; |  -  |
+**429** | &#x60;rate_limited&#x60;: the API key made more than 10 requests in the last second. Wait for the &#x60;Retry-After&#x60; seconds |  -  |
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+# **import_licenses**
+> ImportLicensesResult import_licenses(product_id, import_licenses)
+
+Import licenses
+
+Creates up to 500 licenses with their current keys, like when moving from another license manager or Lemon Squeezy, in one request. Each license is created like with `createLicense`, which describes the defaults, and never emails its key. The licenses are imported one by one: one that fails doesn't stop the others, and the response tells the result of each.
+
+A key already used by a license of the product is skipped, so an interrupted import can be sent again.
+
+With a `subscription`, the license is kept valid by the Stripe or Paddle subscription, rather than one created by its next payment.
+
+**Required role permission**: `license:create` when called with a session, granted by the member's role. API keys aren't limited by roles.
+
+### Example
+
+* Api Key Authentication (apiKey):
+
+```python
+import licensemanager
+from licensemanager.models.import_licenses import ImportLicenses
+from licensemanager.models.import_licenses_result import ImportLicensesResult
+from licensemanager.rest import ApiException
+from pprint import pprint
+
+# Defining the host is optional and defaults to https://api.licensemanager.dev
+# See configuration.py for a list of all supported configuration parameters.
+configuration = licensemanager.Configuration(
+    host = "https://api.licensemanager.dev"
+)
+
+# The client must configure the authentication and authorization parameters
+# in accordance with the API server security policy.
+# Examples for each auth method are provided below, use the example that
+# satisfies your auth use case.
+
+# Configure API key authorization: apiKey
+configuration.api_key['apiKey'] = os.environ["API_KEY"]
+
+# Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
+# configuration.api_key_prefix['apiKey'] = 'Bearer'
+
+# Enter a context with an instance of the API client
+with licensemanager.ApiClient(configuration) as api_client:
+    # Create an instance of the API class
+    api_instance = licensemanager.LicensesApi(api_client)
+    product_id = 'x7Kp2QaZ' # str | 
+    import_licenses = licensemanager.ImportLicenses() # ImportLicenses | 
+
+    try:
+        # Import licenses
+        api_response = api_instance.import_licenses(product_id, import_licenses)
+        print("The response of LicensesApi->import_licenses:\n")
+        pprint(api_response)
+    except Exception as e:
+        print("Exception when calling LicensesApi->import_licenses: %s\n" % e)
+```
+
+
+
+### Parameters
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **product_id** | **str**|  | 
+ **import_licenses** | [**ImportLicenses**](ImportLicenses.md)|  | 
+
+### Return type
+
+[**ImportLicensesResult**](ImportLicensesResult.md)
+
+### Authorization
+
+[apiKey](../README.md#apiKey)
+
+### HTTP request headers
+
+ - **Content-Type**: application/json
+ - **Accept**: application/json
+
+### HTTP response details
+
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+**200** | Result of each license |  -  |
+**401** | &#x60;unauthorized&#x60;: no credentials. &#x60;invalid_api_key&#x60;: the API key doesn&#39;t exist, was revoked or has expired. &#x60;invalid_token&#x60;: the token&#39;s signature is invalid, it has expired, or the resource it&#39;s scoped to was deleted |  -  |
+**402** | &#x60;plan_limit_exceeded&#x60;: the organization stayed over its plan&#39;s limits after the grace period, its API is blocked until it upgrades. &#x60;plan_limit_reached&#x60;: creating the resource would go over the plan&#39;s limit |  -  |
+**403** | &#x60;token_not_allowed&#x60;: the endpoint doesn&#39;t accept tokens, or not of this type. &#x60;insufficient_scope&#x60;: the token lacks the permission. &#x60;no_active_organization&#x60; or &#x60;forbidden&#x60;: the session has no organization, or isn&#39;t a member of the one requested |  -  |
+**404** | Product not found |  -  |
 **422** | &#x60;validation_error&#x60;: invalid path, query or body, with the &#x60;issues&#x60; |  -  |
 **429** | &#x60;rate_limited&#x60;: the API key made more than 10 requests in the last second. Wait for the &#x60;Retry-After&#x60; seconds |  -  |
 

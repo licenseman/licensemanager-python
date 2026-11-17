@@ -68,6 +68,13 @@ class TestLicensesApi(unittest.TestCase):
         """
         pass
 
+    def test_import_licenses(self) -> None:
+        """Test case for import_licenses
+
+        Import licenses
+        """
+        pass
+
     def test_list_customer_licenses(self) -> None:
         """Test case for list_customer_licenses
 

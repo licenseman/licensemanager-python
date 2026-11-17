@@ -18,8 +18,8 @@ import re  # noqa: F401
 import json
 
 from datetime import datetime
-from pydantic import BaseModel, ConfigDict, Field, StrictStr
-from typing import Any, ClassVar, Dict, List, Optional
+from pydantic import BaseModel, ConfigDict, Field, StrictFloat, StrictInt, StrictStr
+from typing import Any, ClassVar, Dict, List, Optional, Union
 from licensemanager.models.event_actor import EventActor
 from licensemanager.models.event_machine import EventMachine
 from licensemanager.models.event_type import EventType
@@ -40,8 +40,11 @@ class Event(BaseModel):
     machine_id: Optional[StrictStr] = Field(alias="machineId", json_schema_extra={"examples": ["m9Tq3VhD"]})
     machine: Optional[EventMachine]
     actor: Optional[EventActor]
+    country: Optional[StrictStr] = Field(description="ISO 3166-1 alpha-2 code of the country of the IP address the request came from, for `license.validated` and `license.validation_failed` events. `null` until it's looked up, shortly after, or when it can't be.", json_schema_extra={"examples": ["FR"]})
+    latitude: Optional[Union[StrictFloat, StrictInt]] = Field(description="Approximate latitude of the IP address the request came from, for `license.validated` and `license.validation_failed` events. `null` until it's looked up, shortly after, or when it can't be.", json_schema_extra={"examples": [48.8566]})
+    longitude: Optional[Union[StrictFloat, StrictInt]] = Field(description="Approximate longitude of the IP address the request came from, for `license.validated` and `license.validation_failed` events. `null` until it's looked up, shortly after, or when it can't be.", json_schema_extra={"examples": [2.3522]})
     additional_properties: Dict[str, Any] = {}
-    __properties: ClassVar[List[str]] = ["id", "type", "createdAt", "payload", "policyId", "licenseId", "machineId", "machine", "actor"]
+    __properties: ClassVar[List[str]] = ["id", "type", "createdAt", "payload", "policyId", "licenseId", "machineId", "machine", "actor", "country", "latitude", "longitude"]
 
     model_config = ConfigDict(
         validate_by_name=True,
@@ -120,6 +123,21 @@ class Event(BaseModel):
         if self.actor is None and "actor" in self.model_fields_set:
             _dict['actor'] = None
 
+        # set to None if country (nullable) is None
+        # and model_fields_set contains the field
+        if self.country is None and "country" in self.model_fields_set:
+            _dict['country'] = None
+
+        # set to None if latitude (nullable) is None
+        # and model_fields_set contains the field
+        if self.latitude is None and "latitude" in self.model_fields_set:
+            _dict['latitude'] = None
+
+        # set to None if longitude (nullable) is None
+        # and model_fields_set contains the field
+        if self.longitude is None and "longitude" in self.model_fields_set:
+            _dict['longitude'] = None
+
         return _dict
 
     @classmethod
@@ -140,7 +158,10 @@ class Event(BaseModel):
             "licenseId": obj.get("licenseId"),
             "machineId": obj.get("machineId"),
             "machine": EventMachine.from_dict(obj["machine"]) if obj.get("machine") is not None else None,
-            "actor": EventActor.from_dict(obj["actor"]) if obj.get("actor") is not None else None
+            "actor": EventActor.from_dict(obj["actor"]) if obj.get("actor") is not None else None,
+            "country": obj.get("country"),
+            "latitude": obj.get("latitude"),
+            "longitude": obj.get("longitude")
         })
         # store additional fields in additional_properties
         for _key in obj.keys():
