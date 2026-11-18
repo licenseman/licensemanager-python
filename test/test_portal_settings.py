@@ -38,7 +38,6 @@ class TestPortalSettings(unittest.TestCase):
                 enabled = True,
                 brand_color = '#1e3a8a',
                 accent_color = '#2563eb',
-                return_url = 'https://example.com/account',
                 return_domains = [example.com]
             )
         else:
@@ -46,7 +45,6 @@ class TestPortalSettings(unittest.TestCase):
                 enabled = True,
                 brand_color = '#1e3a8a',
                 accent_color = '#2563eb',
-                return_url = 'https://example.com/account',
                 return_domains = [example.com],
         )
         """

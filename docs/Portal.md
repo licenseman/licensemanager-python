@@ -11,7 +11,7 @@ Name | Type | Description | Notes
 **logo_url** | **str** | Public URL of the product&#39;s logo. &#x60;null&#x60; without a logo. | 
 **brand_color** | **str** | Background of the side panel, as &#x60;#rrggbb&#x60;. &#x60;null&#x60; for the default color. | 
 **accent_color** | **str** | Color of the inputs and buttons, as &#x60;#rrggbb&#x60;. &#x60;null&#x60; for the default color. | 
-**return_url** | **str** | Link back to the product&#39;s website: the requested &#x60;returnUrl&#x60; when its domain is allowed, the product&#39;s default return link otherwise. &#x60;null&#x60; for no link. | 
+**return_url** | **str** | Link back to the product&#39;s website: the requested &#x60;returnUrl&#x60; when its domain is allowed, the product&#39;s website otherwise. &#x60;null&#x60; for no link. | 
 
 ## Example
 

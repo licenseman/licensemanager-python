@@ -31,10 +31,12 @@ class UpdateProduct(BaseModel):
     """ # noqa: E501
     name: Optional[Annotated[str, Field(min_length=1, strict=True, max_length=200)]] = Field(default=None, json_schema_extra={"examples": ["Acme Pro"]})
     slug: Optional[Annotated[str, Field(min_length=1, strict=True, max_length=100)]] = Field(default=None, description="Unique within the organization. Defaults to the name, lower cased, without accents and special characters. Starts with `test_` in test products, which is added when missing, and removed in live products.", json_schema_extra={"examples": ["acme-pro"]})
+    website_url: Optional[Annotated[str, Field(strict=True, max_length=2000)]] = Field(default=None, description="The product's website, linked from the customer portal, when its URL has no allowed `return_url`, and from the emails sent to customers. `null` for no link.", alias="websiteUrl", json_schema_extra={"examples": ["https://example.com"]})
+    download_url: Optional[Annotated[str, Field(strict=True, max_length=2000)]] = Field(default=None, description="Where customers download the product, linked from the email sending their license keys. `null` for no link.", alias="downloadUrl", json_schema_extra={"examples": ["https://example.com/download"]})
     portal: Optional[UpdateProductPortal] = None
     auto_machine_change: Optional[StrictBool] = Field(default=None, description="Whether a new machine validating a license already on its max machines takes the place of the license's machine validated the longest ago, rather than being refused with `machine_limit_reached`. When the replaced machine is validated again, it takes its place back and the machine that replaced it is locked. See `validateKey`.", alias="autoMachineChange", json_schema_extra={"examples": [True]})
     additional_properties: Dict[str, Any] = {}
-    __properties: ClassVar[List[str]] = ["name", "slug", "portal", "autoMachineChange"]
+    __properties: ClassVar[List[str]] = ["name", "slug", "websiteUrl", "downloadUrl", "portal", "autoMachineChange"]
 
     @field_validator('slug', mode="before")
     def slug_validate_regular_expression(cls, value):
@@ -95,6 +97,16 @@ class UpdateProduct(BaseModel):
             for _key, _value in self.additional_properties.items():
                 _dict[_key] = _value
 
+        # set to None if website_url (nullable) is None
+        # and model_fields_set contains the field
+        if self.website_url is None and "website_url" in self.model_fields_set:
+            _dict['websiteUrl'] = None
+
+        # set to None if download_url (nullable) is None
+        # and model_fields_set contains the field
+        if self.download_url is None and "download_url" in self.model_fields_set:
+            _dict['downloadUrl'] = None
+
         return _dict
 
     @classmethod
@@ -109,6 +121,8 @@ class UpdateProduct(BaseModel):
         _obj = cls.model_validate({
             "name": obj.get("name"),
             "slug": obj.get("slug"),
+            "websiteUrl": obj.get("websiteUrl"),
+            "downloadUrl": obj.get("downloadUrl"),
             "portal": UpdateProductPortal.from_dict(obj["portal"]) if obj.get("portal") is not None else None,
             "autoMachineChange": obj.get("autoMachineChange")
         })

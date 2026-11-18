@@ -33,7 +33,7 @@ class Portal(BaseModel):
     logo_url: Optional[StrictStr] = Field(description="Public URL of the product's logo. `null` without a logo.", alias="logoUrl", json_schema_extra={"examples": ["https://cdn.example.com/logos/x7Kp2QaZ/k3f9a2LpQ7xw.webp"]})
     brand_color: Optional[StrictStr] = Field(description="Background of the side panel, as `#rrggbb`. `null` for the default color.", alias="brandColor", json_schema_extra={"examples": ["#1e3a8a"]})
     accent_color: Optional[StrictStr] = Field(description="Color of the inputs and buttons, as `#rrggbb`. `null` for the default color.", alias="accentColor", json_schema_extra={"examples": ["#2563eb"]})
-    return_url: Optional[StrictStr] = Field(description="Link back to the product's website: the requested `returnUrl` when its domain is allowed, the product's default return link otherwise. `null` for no link.", alias="returnUrl", json_schema_extra={"examples": ["https://example.com/account"]})
+    return_url: Optional[StrictStr] = Field(description="Link back to the product's website: the requested `returnUrl` when its domain is allowed, the product's website otherwise. `null` for no link.", alias="returnUrl", json_schema_extra={"examples": ["https://example.com/account"]})
     additional_properties: Dict[str, Any] = {}
     __properties: ClassVar[List[str]] = ["productId", "productName", "organizationName", "logoUrl", "brandColor", "accentColor", "returnUrl"]
 

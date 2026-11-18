@@ -31,10 +31,9 @@ class PortalSettings(BaseModel):
     enabled: StrictBool = Field(description="Whether customers can use the customer portal. When disabled, it answers `404`.", json_schema_extra={"examples": [True]})
     brand_color: Optional[Annotated[str, Field(strict=True)]] = Field(description="Background of the portal's side panel, as `#rrggbb`, stored lower cased. `null` for the default color.", alias="brandColor", json_schema_extra={"examples": ["#1e3a8a"]})
     accent_color: Optional[Annotated[str, Field(strict=True)]] = Field(description="Color of the portal's inputs and buttons, as `#rrggbb`, stored lower cased. `null` for the default color.", alias="accentColor", json_schema_extra={"examples": ["#2563eb"]})
-    return_url: Optional[Annotated[str, Field(strict=True, max_length=2000)]] = Field(description="Link back to your website shown in the portal, when the portal's URL has no allowed `return_url`. `null` for no link.", alias="returnUrl", json_schema_extra={"examples": ["https://example.com/account"]})
-    return_domains: Annotated[List[Annotated[str, Field(strict=True, max_length=253)]], Field(max_length=20)] = Field(description="Domains the portal's `return_url` query parameter may point to, their subdomains included. Other return URLs are ignored, in favor of `returnUrl`.", alias="returnDomains", json_schema_extra={"examples": [["example.com"]]})
+    return_domains: Annotated[List[Annotated[str, Field(strict=True, max_length=253)]], Field(max_length=20)] = Field(description="Domains the portal's `return_url` query parameter may point to, their subdomains included. Other return URLs are ignored, in favor of the product's `websiteUrl`.", alias="returnDomains", json_schema_extra={"examples": [["example.com"]]})
     additional_properties: Dict[str, Any] = {}
-    __properties: ClassVar[List[str]] = ["enabled", "brandColor", "accentColor", "returnUrl", "returnDomains"]
+    __properties: ClassVar[List[str]] = ["enabled", "brandColor", "accentColor", "returnDomains"]
 
     @field_validator('brand_color', mode="before")
     def brand_color_validate_regular_expression(cls, value):
@@ -112,11 +111,6 @@ class PortalSettings(BaseModel):
         if self.accent_color is None and "accent_color" in self.model_fields_set:
             _dict['accentColor'] = None
 
-        # set to None if return_url (nullable) is None
-        # and model_fields_set contains the field
-        if self.return_url is None and "return_url" in self.model_fields_set:
-            _dict['returnUrl'] = None
-
         return _dict
 
     @classmethod
@@ -132,7 +126,6 @@ class PortalSettings(BaseModel):
             "enabled": obj.get("enabled"),
             "brandColor": obj.get("brandColor"),
             "accentColor": obj.get("accentColor"),
-            "returnUrl": obj.get("returnUrl"),
             "returnDomains": obj.get("returnDomains")
         })
         # store additional fields in additional_properties
